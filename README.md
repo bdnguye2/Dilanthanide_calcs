@@ -1,4 +1,4 @@
-# Dilanthanide Calculations for 1-Y, 1-Tb, 1-Ga, and 1-Dy
+## Dilanthanide Calculations for 1-Y, 1-Tb, 1-Ga, and 1-Dy
 
 We report the synthesis and characterization of the trinuclear 4d–4f compounds
  [Co(C5Me5)2][(C5Me5)2Ln(μ-S)2Mo(μ-S)2Ln(C5Me5)2], 1-Ln (Ln = Y, Gd, Tb, Dy),
