@@ -1,0 +1,572 @@
+
+   OpenMP run-time library returned nthreads = 20
+
+ escf (hpc3-14-19) : TURBOMOLE rev. V7.5.0 compiled 17 Jun 2020 at 09:15:30
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-08-21 14:15:18.685 
+
+
+
+
+                                e s c f
+
+                             TURBOMOLE GmbH
+
+
+          integral direct evaluation of 
+
+                    * excitation energies and transition moments 
+                    * dynamic response properties 
+                    * stabilities
+
+
+
+          OpenMP Shared-Memory Parallelization: 20 CPUs.
+
+            By: Erik P. Almaraz and Filipp Furche
+            Copyright 2009-2011 by UCI and TURBOMOLE GmbH.
+
+            Revised by: Christof Holzer and Yannick J. Franzke
+
+
+
+          references (see also programs dscf and ridft) 
+
+          implementation and benchmarks (review) 
+          F. Furche and D. Rappoport,  
+          "Density functional methods for excited states: 
+          equilibrium structure and electronic spectra",
+          ch. III of "Computational Photochemistry", ed. by 
+          M. Olivucci, vol. 16 of "Theoretical and Computational 
+          Chemistry", Elsevier, Amsterdam, 2005.
+
+          Bethe-Salpeter equation
+          K. Krause and W. Klopper,
+          J. Comput. Chem. 38 (2017) 383.
+
+          2c BSE, GW and hybrid TD-DFT
+          C. Holzer and W. Klopper
+          J. Chem. Phys. 150, 204116 (2019)
+
+          nonorthonormal Krylov space methods 
+          F. Furche, B. T. Krull, B. D. Nguyen, and J. Kwon, 
+          J. Chem. Phys. 144 (2016), 174105.
+
+          two-component GW quasi particle energies 
+          M. Kuehn and F. Weigend, 
+          J. Chem. Theory Comput. 11 (2015), 969.
+
+          two-component TDDFT with spin-orbit coupling 
+          M. Kuehn and F. Weigend, 
+          J. Chem. Theory Comput. 9 (2013), 5341.
+          M. Kuehn and F. Weigend, 
+          J. Chem. Phys. 142 (2015), 034116.
+
+          GW quasi particle energies
+          M. J. van Setten, F. Weigend, and F. Evers,
+          J. Chem. Theory Comput. 9 (2013), 232.
+
+          Fast GW methods: RIGW, contour deformation
+          J. Chem. Phys. 150, 204116 (2019)
+
+          current-density dependent meta-GGA Linear Response
+          J. E. Bates and F. Furche, 
+          J. Chem. Phys. 137 (2012), 164105.
+
+          spin-flip method 
+          M. Kuehn and F. Weigend, 
+          Chem. Phys. Chem. 12 (2011), 3331.
+
+          RI-J method 
+          R. Bauernschmitt, M. Haeser, O. Treutler, and R. Ahlrichs,
+          Chem. Phys. Lett. 264 (1997), 573.
+
+          density functional implementation               
+          R. Bauernschmitt and R. Ahlrichs,
+          Chem. Phys. Lett. 256 (1996), 454.
+          R. Bauernschmitt and R. Ahlrichs,
+          J. Chem. Phys. 104 (1996), 9047.
+
+          UHF extension (RPA and CIS)
+          C. Ochsenfeld, J. Gauss, and R. Ahlrichs, 
+          J. Chem. Phys. 103 (1995), 7401.
+
+          integral direct algorithm                 
+          H. Weiss, R. Ahlrichs, and M. Haeser, 
+          J. Chem. Phys. 99 (1993), 1262.
+
+          Seminumerical and pseudospectral algorithms
+          C. Holzer, in preparation (2020)
+
+          Two-component static/dynamic polarizabilities,
+          and relativistic damped-response approach,
+          polarizabilities and damped response at GW-BSE level
+          M. Kehry, Y. J. Franzke, C. Holzer, and W. Klopper,
+          Mol. Phys. (2020)
+                                     
+
+
+
+ UHF mode switched on !
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.32223334    y     39.000     0
+          0.00000000    0.00000000    6.32223334    y     39.000     0
+          2.43124401    2.43124401   -2.42568759    s     16.000     0
+         -2.43124401   -2.43124401   -2.42568759    s     16.000     0
+          2.43124401   -2.43124401    2.42568759    s     16.000     0
+         -2.43124401    2.43124401    2.42568759    s     16.000     0
+          4.58746125   -1.51720420   -7.53735509    c      6.000     0
+          3.52729453   -3.52729453   -6.10884725    c      6.000     0
+          1.51720420   -4.58746125   -7.53735509    c      6.000     0
+          1.33839634   -3.23972958   -9.85329654    c      6.000     0
+          3.23972958   -1.33839634   -9.85329654    c      6.000     0
+         -1.51720420    4.58746125   -7.53735509    c      6.000     0
+         -3.52729453    3.52729453   -6.10884725    c      6.000     0
+         -4.58746125    1.51720420   -7.53735509    c      6.000     0
+         -3.23972958    1.33839634   -9.85329654    c      6.000     0
+         -1.33839634    3.23972958   -9.85329654    c      6.000     0
+          1.51720420    4.58746125    7.53735509    c      6.000     0
+          1.33839634    3.23972958    9.85329654    c      6.000     0
+          3.23972958    1.33839634    9.85329654    c      6.000     0
+          4.58746125    1.51720420    7.53735509    c      6.000     0
+          3.52729453    3.52729453    6.10884725    c      6.000     0
+         -4.58746125   -1.51720420    7.53735509    c      6.000     0
+         -3.23972958   -1.33839634    9.85329654    c      6.000     0
+         -1.33839634   -3.23972958    9.85329654    c      6.000     0
+         -1.51720420   -4.58746125    7.53735509    c      6.000     0
+         -3.52729453   -3.52729453    6.10884725    c      6.000     0
+          0.31738606   -6.15628408   -6.95105948    h      1.000     0
+         -0.00384009   -3.60991771  -11.37159623    h      1.000     0
+          4.10903117   -4.10903117   -4.22060246    h      1.000     0
+          3.60991771    0.00384009  -11.37159623    h      1.000     0
+          6.15628408   -0.31738606   -6.95105948    h      1.000     0
+          0.00384009    3.60991771  -11.37159623    h      1.000     0
+         -0.31738606    6.15628408   -6.95105948    h      1.000     0
+         -4.10903117    4.10903117   -4.22060246    h      1.000     0
+         -6.15628408    0.31738606   -6.95105948    h      1.000     0
+         -3.60991771   -0.00384009  -11.37159623    h      1.000     0
+         -0.31738606   -6.15628408    6.95105948    h      1.000     0
+         -4.10903117   -4.10903117    4.22060246    h      1.000     0
+         -6.15628408   -0.31738606    6.95105948    h      1.000     0
+         -3.60991771    0.00384009   11.37159623    h      1.000     0
+          0.00384009   -3.60991771   11.37159623    h      1.000     0
+         -0.00384009    3.60991771   11.37159623    h      1.000     0
+          0.31738606    6.15628408    6.95105948    h      1.000     0
+          4.10903117    4.10903117    4.22060246    h      1.000     0
+          3.60991771   -0.00384009   11.37159623    h      1.000     0
+          6.15628408    0.31738606    6.95105948    h      1.000     0
+ 
+       center of nuclear mass  :    0.00000000    0.00000000   -0.00000000
+       center of nuclear charge:   -0.00000000    0.00000000    0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     60     34   def2-SVPD   [5s4p2d1f|7s7p5d1f]
+    y        2     60     34   def2-SVPD   [5s4p2d1f|7s7p5d1f]
+    s        4     45     27   def2-SVPD   [5s4p2d|11s8p2d]
+    c       20     24     14   def2-SVP   [3s2p1d|7s4p1d]
+    h       20      7      5   def2-SVP   [2s1p|4s1p]
+   ---------------------------------------------------------------------------
+   total:   47    980    590
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :   78
+   total number of contracted shells         :  260
+   total number of cartesian basis functions :  633
+   total number of SCF-basis functions       :  590
+
+ number of unique ecp types :                     2
+
+ residuum convergence criterium   :  0.10E-04
+
+ COSMO is enabled, use tighter integral                screening thresholds 
+                     7
+
+ integral neglect threshold       :  0.53E-13
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ 
+             FOUND RI-J FLAG !
+ 
+  
+ AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     99     89   universal-ecp-   [8s5p5d2f3g|11s5p5d3f3g]
+    y        2     99     89   universal-ecp-2   [8s5p5d2f3g|11s5p5d3f3g]
+    s        4     77     51   universal   [8s4p3d1f1g|14s5p5d2f1g]
+    c       20     70     49   def2-SVP   [6s4p3d1f1g|12s5p4d2f1g]
+    h       20     16     11   def2-SVP   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   47   2325   1671
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  113
+   total number of contracted shells         :  537
+   total number of cartesian basis functions : 2066
+   total number of SCF-basis functions       : 1671
+
+ RPA UHF-EXCITATION-CALCULATION (spin-conserved)
+ 
+             FOUND DFT-FLAG !
+ 
+
+ symmetry group of the molecule :   c1 
+
+ the group has the following generators :
+   c1(z)
+
+    1 symmetry operations found
+
+ there are 1 real representations :   a   
+
+ maximum number of shells which are related by symmetry :  1
+
+ IRREPs of excited states :   a   
+
+    mo occupation :
+   irrep   mo's   occupied
+    a      590      121
+ 
+ number of basis functions   :   590
+ number of occupied orbitals :   121
+ 
+ ALPHA-Occupation:                   121
+ BETA-Occupation :                   120
+ COSMO: symmetry in response calc. w/out guarantee
+ ==============================================================================
+                      COSMO switched on
+ ==============================================================================
+ COSMO stati: segments per atom: H   32 other atoms   92
+ COSMO statistics: nps   1519 npspher:    647
+ COSMO surface:
+   number of segments: 1519
+   area (bohr**2):     1479.089854
+   volume (bohr**3):   3824.163414
+ COSMO: check number of disjunct cavities:
+
+       ... OK contiguous cavity found
+ Using refractive index n                   =    1.30000000000000     
+ Screening function (n**2-1)/(n**2+0.5)     =   0.315068493150685     
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                    47
+ partition function    : becke
+ partition sharpness   :                     3
+  
+ 
+ Derivatives of quadrature weights will be included
+ 
+
+ The current-density response will be included
+ for meta-GGA functionals in TDDFT.
+
+  
+           ----------------------
+               RI - INFORMATION
+           ----------------------
+
+ biggest AO integral is expected to be     9.765798878
+
+ Threshold for integral neglect (rithr2):   0.53E-13
+ Threshold for integral neglect (rithr1):   0.53E-13
+
+ Contributions to RI integral batches: 
+  neglected integral batches:                  9474
+  direct contribution:                            0
+  memory contribution:                 24456
+ Core memory available (ricore)            55000 MiB
+ Core memory needed for (P|Q) and Cholesky 22 MiB
+ Core memory used for integrals            2333 MiB
+  
+ ****************************************
+ Memory allocated for RIDFT 2355 MiB
+ ****************************************
+                                            
+  MOs are in ASCII format !
+
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : scfconv=7
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : scfconv=7
+ preparing DFT   numerical integration ....
+          Overall gridpoints after grid construction =        477754
+ Ordering of quadrature gridpoints disabled.
+
+ Calculating ground state density on molecular grid
+
+ Integral of ground state total density: Na =   241.0012172232624    
+
+ Integral of ground state spin density:  Nb =   1.000006965145808    
+
+
+ all orbitals will be included in the transformation
+
+ number of non-frozen orbitals          :   590
+ number of non-frozen occupied orbitals :   121
+ all orbitals will be included in the transformation
+
+ number of non-frozen orbitals          :   590
+ number of non-frozen occupied orbitals :   120
+
+ dimension of super-tensorspace: 2
+
+          IRREP   tensor space dimension   number of roots
+
+           a            113149                 100
+
+ maximum number of Davidson iterations set to   35
+
+
+ machine precision: 2.22D-16
+
+
+ logfile unrs_a    will be constructed
+
+
+                       Nonorthonormal Krylov Space Iteration
+
+
+ total number of roots to be determined: 100
+
+
+ maximum core memory set to        60000 MB,
+ corresponding to     4892 vectors in CAO basis
+
+
+ maximum number of simultaneously treated vectors (including degeneracy):      108
+
+
+ Iteration IRREP Converged      Max. Euclidean
+                 roots          residual norm
+
+    1       a        0        1.273182022567262D-01
+ 
+    2       a        0        5.402577959734541D-02
+ 
+    3       a        0        1.164409912922292D-02
+ 
+    4       a        0        1.871383175284276D-02
+ 
+    5       a        2        3.738239558439276D-03
+ 
+    6       a       62        3.365078941804645D-03
+ 
+    7       a       73        4.883075443077675D-04
+ 
+    8       a       79        6.399233339224185D-05
+ 
+    9       a       80        5.072699170352012D-05
+ 
+   10       a       80        5.072697848664985D-05
+ 
+   11       a       80        5.072697825789558D-05
+ 
+   12       a       80        5.072697825696367D-05
+ 
+   13       a       80        5.072697825536532D-05
+ 
+   14       a       80        5.072697825376830D-05
+ 
+   15       a       80        5.072697825454108D-05
+ 
+   16       a       80        5.072697825401129D-05
+ 
+   17       a       80        5.072697825372987D-05
+ 
+   18       a       80        5.072697825387683D-05
+ 
+   19       a       80        5.072697825307504D-05
+ 
+   20       a       80        5.072697825316881D-05
+ 
+   21       a       80        5.072697825190954D-05
+ 
+   22       a       80        5.072697825146392D-05
+ 
+   23       a       80        5.072697825040295D-05
+ 
+   24       a       80        5.072697824985027D-05
+ 
+   25       a       80        5.072697825023489D-05
+ 
+   26       a       80        5.072697824998752D-05
+ 
+   27       a       80        5.072697825140328D-05
+ 
+   28       a       80        5.072697825111185D-05
+ 
+   29       a       80        5.072697825017113D-05
+ 
+   30       a       80        5.072697825231980D-05
+ 
+   31       a       80        5.072697825132261D-05
+ 
+   32       a       80        5.072697825004693D-05
+ 
+   33       a       80        5.072697824993862D-05
+ 
+   34       a       80        5.072697825267651D-05
+ 
+   35       a       80        5.072697825119742D-05
+ 
+
+
+ Warning! No convergence within  35 iterations.
+ Unless you have specified a very low $escfiterlimit/$forceiterlimit, 
+ this is a reason to worry!
+
+
+
+ IRREP   Vector     Eigenvalue           Euclidean residual norm
+
+  a         1    2.045520650638996D-02    1.403349278765215D-06
+            2    3.337882003734286D-02    1.929932257878823D-05
+            3    5.772648054179440D-02    4.225123275393529D-06
+            4    5.773950606921078D-02    3.579933135026093D-06
+            5    7.922284054902914D-02    1.528497585675610D-05
+            6    8.926797541132575D-02    9.766030179625789D-06
+            7    8.997431358885365D-02    1.315809560610652D-06
+            8    9.092400907047475D-02    3.861856213443509D-06
+            9    9.096218967669246D-02    5.241937651169463D-06
+           10    9.682542782167868D-02    6.415015954822137D-06
+           11    9.685268446135162D-02    6.063541222926710D-06
+           12    9.846254175515728D-02    3.809957132314050D-06
+           13    9.848750253293913D-02    3.674963419877254D-06
+           14    1.006183936270299D-01    9.811862343080496D-06
+           15    1.033212355114990D-01    3.728927203286663D-05
+           16    1.042891363108379D-01    3.031015946756078D-06
+           17    1.043130588379248D-01    3.450835815169225D-06
+           18    1.079782866670089D-01    4.020329855236475D-06
+           19    1.080029315727861D-01    3.946329562096751D-06
+           20    1.120269114607181D-01    4.692266995133783D-06
+           21    1.140547318233342D-01    4.169815616429959D-06
+           22    1.140573750759794D-01    4.398064163636909D-06
+           23    1.159599288742634D-01    7.194204566462465D-06
+           24    1.159629341708891D-01    7.170606410495397D-06
+           25    1.175386197958907D-01    4.819946009929838D-06
+           26    1.175408275717972D-01    4.943586587586622D-06
+           27    1.181691786985218D-01    5.004794687925419D-06
+           28    1.181736281590212D-01    4.905058711947547D-06
+           29    1.188817786961937D-01    4.124622559368815D-06
+           30    1.221079600297172D-01    5.005718488276465D-06
+           31    1.221093411956971D-01    4.175265773862302D-06
+           32    1.226595252509584D-01    4.510656300720293D-06
+           33    1.226617807097572D-01    4.066603447698013D-06
+           34    1.231226151150558D-01    2.885631073733748D-06
+           35    1.244606116947555D-01    2.884393130332777D-06
+           36    1.254826812233454D-01    3.137502513087807D-06
+           37    1.258923616894479D-01    3.422968197111253D-06
+           38    1.260620443669780D-01    4.908111223256493D-06
+           39    1.260651725687171D-01    5.336452476472089D-06
+           40    1.263465908992834D-01    7.735821219856829D-06
+           41    1.263493808300026D-01    7.038264191249161D-06
+           42    1.278052678178634D-01    3.934137788362701D-06
+           43    1.278401685893590D-01    1.510051405952886D-05
+           44    1.280609923825842D-01    5.945135164784692D-06
+           45    1.280640105076886D-01    5.914178669717793D-06
+           46    1.283983774061718D-01    1.546987749866950D-05
+           47    1.289593761664781D-01    4.666741922691009D-06
+           48    1.299392964978694D-01    4.757436815178589D-06
+           49    1.299534241981671D-01    2.862071979298425D-06
+           50    1.300971860904817D-01    1.393924918356780D-05
+           51    1.301155003638943D-01    3.789511739824829D-06
+           52    1.301290214697615D-01    3.196657843349492D-06
+           53    1.301337417316784D-01    3.267237994398085D-06
+           54    1.306864175489790D-01    9.947516563804601D-06
+           55    1.306868149100321D-01    3.503242132880665D-06
+           56    1.310598646478175D-01    3.664832681087431D-06
+           57    1.318147191518705D-01    8.307275191491018D-06
+           58    1.318170601180212D-01    6.286449567487224D-06
+           59    1.318459777317479D-01    3.162486811725666D-06
+           60    1.318895661093779D-01    8.649858700068769D-06
+           61    1.327292126169786D-01    2.619513148606778D-06
+           62    1.330247200825218D-01    7.147462208481638D-06
+           63    1.358806332188728D-01    5.241320186925204D-06
+           64    1.364510771985507D-01    5.771655379475598D-06
+           65    1.365048471934850D-01    9.076146767170117D-06
+           66    1.365216487874708D-01    8.931106971037722D-06
+           67    1.366600404190012D-01    4.156550219727840D-06
+           68    1.373640494369473D-01    3.844673404940333D-06
+           69    1.373809854135964D-01    4.127123944768921D-06
+           70    1.376976708253199D-01    3.176784787387928D-06
+           71    1.396671251624644D-01    2.161072140185799D-05
+           72    1.396806993793518D-01    3.860925637870900D-05
+           73    1.401249852955606D-01    5.072697825119742D-05
+           74    1.401498372472559D-01    4.650497503107513D-05
+           75    1.408924892268197D-01    2.129271890031883D-05
+           76    1.408952345315071D-01    7.416272667918227D-06
+           77    1.426894413657059D-01    4.960130201129590D-05
+           78    1.427686034952432D-01    5.469019831747634D-06
+           79    1.446128543900943D-01    3.121239193963337D-06
+           80    1.454744380544853D-01    1.617411426144331D-05
+           81    1.454866117383902D-01    1.660101277148198D-05
+           82    1.488251509042305D-01    4.007042616090474D-05
+           83    1.502324626781690D-01    7.994752303972734D-06
+           84    1.502346030506901D-01    9.632692815219454D-06
+           85    1.507122049213595D-01    2.213343432169806D-05
+           86    1.518289461415808D-01    2.820517852229922D-06
+           87    1.523788567219957D-01    9.750706269112878D-06
+           88    1.532171813310980D-01    2.382596816755063D-06
+           89    1.537880103836310D-01    6.383777773651836D-06
+           90    1.538974545734398D-01    1.062361974113468D-05
+           91    1.540497542947545D-01    1.715904463059963D-06
+           92    1.543734232990635D-01    3.339082839559437D-06
+           93    1.543780951911737D-01    2.528422840243909D-05
+           94    1.557909435945816D-01    4.439462772652776D-05
+           95    1.557989460534554D-01    4.365135102726739D-05
+           96    1.570155323209409D-01    6.092232183015722D-06
+           97    1.571312850799542D-01    7.882579383228921D-06
+           98    1.574822584226706D-01    7.265357567501571D-06
+           99    1.576703932371103D-01    9.247906541628481D-06
+          100    1.578839532889067D-01    9.000878694165651D-06
+ 
+ 
+ twoint has not been removed
+
+
+    ------------------------------------------------------------------------
+         total  cpu-time :   3 days  6 hours 19 minutes and 38 seconds
+         total wall-time :  4 hours 19 minutes and 25 seconds
+    ------------------------------------------------------------------------
+
+   ****  escf : all done  ****
+
+
+    2020-08-21 18:34:43.122 
+
