@@ -1,0 +1,1661 @@
+           SMPCPUS    set: Shared-memory Parallelization with  20 CPUs.
+
+           SMP Parallelization Reference:
+           C. van Wullen, J. Comput. Chem. 32 (2011) 1195--1201
+ operating system is UNIX !
+
+ ridft (hpc3-15-08) : TURBOMOLE rev. V7.5.0 compiled 13 Jun 2020 at 23:29:25
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-07-23 23:20:43.690 
+
+
+
+                                  r i d f t
+
+                        DFT program with RI approximation 
+                                for coulomb part 
+
+
+
+
+                                                 
+                                 References:     
+                                                 
+          TURBOMOLE:                             
+              R. Ahlrichs, M. Baer, M. Haeser, H. Horn, and
+              C. Koelmel
+              Electronic structure calculations on workstation
+              computers: the program system TURBOMOLE
+              Chem. Phys. Lett. 162: 165 (1989)
+          Density Functional:                              
+              O. Treutler and R. Ahlrichs                      
+              Efficient Molecular Numerical Integration Schemes
+              J. Chem. Phys. 102: 346 (1995)                   
+          Parallel Version:                                
+              Performance of parallel TURBOMOLE for Density    
+              Functional Calculations                          
+              M. v. Arnim and R. Ahlrichs                      
+              J. Comp. Chem. 19: 1746 (1998)                   
+          RI-J Method:                                     
+              Auxiliary Basis Sets to approximate Coulomb      
+              Potentials                                       
+              Chem. Phys. Lett. 240: 283 (1995)                
+              K. Eichkorn, O. Treutler, H. Oehm, M. Haeser     
+              and R. Ahlrichs                                  
+              Chem. Phys. Lett. 242: 652 (1995)                
+                                                           
+              Auxiliary Basis Sets for Main Row Atoms and their
+              Use to approximate Coulomb Potentials            
+              K. Eichkorn, F. Weigend, O. Treutler and         
+              R. Ahlrichs                                      
+              Theo. Chem. Acc. 97: 119 (1997)                   
+                                                           
+              Accurate Coulomb-fitting basis sets for H to Rn 
+              F. Weigend                                        
+              Phys. Chem. Chem. Phys. 8: 1057 (2006)            
+                                                           
+          Multipole accelerated RI-J (MARI-J):             
+              Fast evaluation of the Coulomb potential for     
+              electron densities using multipole accelerated   
+              resolution of identity approximation             
+              M. Sierka, A. Hogekamp and R. Ahlrichs           
+              J. Chem. Phys. 118: 9136 (2003)                  
+          RI-JK Method:                                     
+              A fully direct RI-HF algorithm: Implementation,
+              optimised auxiliary basis sets, demonstration of
+              accuracy and efficiency                         
+              F. Weigend                                      
+              Phys. Chem. Chem. Phys. 4: 4285 (2002)           
+          Two-component HF and DFT with spin-orbit coupling:  
+              Self-consistent treatment of spin-orbit         
+              interactions with efficient Hartree-Fock and    
+              density functional methods                      
+              M. K. Armbruster, F. Weigend, C. van Wüllen and 
+              W. Klopper                                      
+              Phys. Chem. Chem. Phys. 10: 1748 (2008)         
+          Two-component difference density and DIIS algorithm 
+              Efficient two-component self-consistent field   
+              procedures and gradients: implementation in     
+              TURBOMOLE and application to Au20-              
+              A. Baldes, F. Weigend                           
+              Mol. Phys. 111: 2617 (2013)                     
+          Relativistic all-electron 2c calculations           
+              An efficient implementation of two-component    
+              relativistic exact-decoupling methods for large 
+              molecules                                       
+              D. Peng, N. Middendorf, F. Weigend, M. Reiher   
+              J. Chem. Phys. 138: 184105 (2013)               
+          Finite nucleus model and SNSO approximation         
+              Efficient implementation of one- and two-       
+              component analytical energy gradients in exact  
+              two-component theory                            
+              Y. J. Franzke, N. Middendorf, F. Weigend        
+              J. Chem. Phys. 148: 104110 (2018)               
+          Grids for all-electron relativistic methods         
+              Error-consistent segmented contracted all-      
+              electron relativistic basis sets of double-     
+              and triple-zeta quality for NMR shielding       
+              constants                                       
+              Y. J. Franzke, R. Tress, T. M. Pazdera,         
+              F. Weigend                                      
+              Phys. Chem. Chem. Phys. 21: 166658 (2019)       
+          Seminumerical exchange algorithms                   
+              Seminumerical calculation of the Hartree-Fock   
+              exchange matirx: Application to two-component   
+              procedures and efficient evaluation of local    
+              hybrid functionsl                               
+              P. Plessow, F. Weigend,                         
+              J. Comput. Chem. 33: 810 (2012)                 
+          Improved seminumerical algorithms                   
+              C. Holzer, in preparation (2020)                
+                                         
+
+
+
+
+              +--------------------------------------------------+
+              |      general information about current run       |
+              +--------------------------------------------------+
+
+ 
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+ A Hybrid-DFT calculation using the RI-J approximation will be carried out.
+ Allocatable memory for RI due to $ricore (MB):                 55000
+ Multipole approximation for Coulomb integrals is used
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.63239196    gd    64.000     0
+          0.00000000    0.00000000    6.63239196    gd    64.000     0
+          2.34885147    2.34885147   -2.50460851    s     16.000     0
+         -2.34885147   -2.34885147   -2.50460851    s     16.000     0
+          2.34885147   -2.34885147    2.50460851    s     16.000     0
+         -2.34885147    2.34885147    2.50460851    s     16.000     0
+          4.69930010   -1.63331684   -7.89865783    c      6.000     0
+          3.63544987   -3.63544987   -6.46805650    c      6.000     0
+          1.63331684   -4.69930010   -7.89865783    c      6.000     0
+          1.45507818   -3.35405112  -10.21625927    c      6.000     0
+          3.35405112   -1.45507818  -10.21625927    c      6.000     0
+         -1.63331684    4.69930010   -7.89865783    c      6.000     0
+         -3.63544987    3.63544987   -6.46805650    c      6.000     0
+         -4.69930010    1.63331684   -7.89865783    c      6.000     0
+         -3.35405112    1.45507818  -10.21625927    c      6.000     0
+         -1.45507818    3.35405112  -10.21625927    c      6.000     0
+          1.63331684    4.69930010    7.89865783    c      6.000     0
+          1.45507818    3.35405112   10.21625927    c      6.000     0
+          3.35405112    1.45507818   10.21625927    c      6.000     0
+          4.69930010    1.63331684    7.89865783    c      6.000     0
+          3.63544987    3.63544987    6.46805650    c      6.000     0
+         -4.69930010   -1.63331684    7.89865783    c      6.000     0
+         -3.35405112   -1.45507818   10.21625927    c      6.000     0
+         -1.45507818   -3.35405112   10.21625927    c      6.000     0
+         -1.63331684   -4.69930010    7.89865783    c      6.000     0
+         -3.63544987   -3.63544987    6.46805650    c      6.000     0
+          0.42859291   -6.26600573   -7.30394266    h      1.000     0
+          0.11155719   -3.72462517  -11.73879462    h      1.000     0
+          4.20631398   -4.20631398   -4.56996105    h      1.000     0
+          3.72462517   -0.11155719  -11.73879462    h      1.000     0
+          6.26600573   -0.42859291   -7.30394266    h      1.000     0
+         -0.11155719    3.72462517  -11.73879462    h      1.000     0
+         -0.42859291    6.26600573   -7.30394266    h      1.000     0
+         -4.20631398    4.20631398   -4.56996105    h      1.000     0
+         -6.26600573    0.42859291   -7.30394266    h      1.000     0
+         -3.72462517    0.11155719  -11.73879462    h      1.000     0
+         -0.42859291   -6.26600573    7.30394266    h      1.000     0
+         -4.20631398   -4.20631398    4.56996105    h      1.000     0
+         -6.26600573   -0.42859291    7.30394266    h      1.000     0
+         -3.72462517   -0.11155719   11.73879462    h      1.000     0
+         -0.11155719   -3.72462517   11.73879462    h      1.000     0
+          0.11155719    3.72462517   11.73879462    h      1.000     0
+          0.42859291    6.26600573    7.30394266    h      1.000     0
+          4.20631398    4.20631398    4.56996105    h      1.000     0
+          3.72462517    0.11155719   11.73879462    h      1.000     0
+          6.26600573    0.42859291    7.30394266    h      1.000     0
+ 
+       center of nuclear mass  :    0.00000000   -0.00000000    0.00000000
+       center of nuclear charge:   -0.00000000    0.00000000    0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     50     24   def2-SV(P)   [5s3p2d|7s6p5d]
+    gd       2    144     69   def2-SV(P)   [10s6p4d3f|14s12p9d7f]
+    s        4     36     18   def2-SV(P)   [4s3p1d|10s7p1d]
+    c       20     24     14   def2-SV(P)   [3s2p1d|7s4p1d]
+    h       20      4      2   def2-SV(P)   [2s|4s]
+   ---------------------------------------------------------------------------
+   total:   47   1042    554
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :   94
+   total number of contracted shells         :  248
+   total number of cartesian basis functions :  606
+   total number of SCF-basis functions       :  554
+
+ number of unique ecp types :                     2
+
+ integral neglect threshold       :  0.55E-10
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ RI-J AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     99     89   def2-SV(P)   [8s5p5d2f3g|11s5p5d3f3g]
+    gd       2    263    200   def2-SV(P)   [14s7p6d6f5g2h2i|18s7p6d6f6g3h5i]
+    s        4     77     51   def2-SV(P)   [8s4p3d1f1g|14s5p5d2f1g]
+    c       20     70     49   def2-SV(P)   [6s4p3d1f1g|12s5p4d2f1g]
+    h       20     16     11   def2-SV(P)   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   47   2653   1893
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  137
+   total number of contracted shells         :  575
+   total number of cartesian basis functions : 2438
+   total number of SCF-basis functions       : 1893
+
+
+ symmetry group of the molecule :   d2d
+
+ the group has the following generators :
+   s4(z)
+   c2(x)
+
+    8 symmetry operations found
+
+ there are 5 real representations :   a1   a2   b1   b2   e   
+
+ maximum number of shells which are related by symmetry :  8
+
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ iterations will be done with small grid
+  
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                     9
+ partition function    : becke
+ partition sharpness   :                     3
+  
+
+ biggest AO integral is expected to be    24.152908834
+
+          ------------------------
+          nuclear repulsion energy  :   4891.38443030    
+          ------------------------
+
+  _________________________________
+ |                                 |
+ |         DFTD3 V3.1 Rev 0        |
+ | S.Grimme, University Bonn       |
+ |            June  2014           |
+ |   see standalone version        |
+ |       dftd3 -h for options      |
+ |_________________________________|
+ 
+ Please cite DFT-D3 work done with this code as:
+ S. Grimme, J. Antony, S. Ehrlich and H. Krieg,
+ J. Chem. Phys, 132 (2010), 154104.
+ If used with BJ-damping cite also
+ S. Grimme, S. Ehrlich and L. Goerigk,
+ J. Comput. Chem. 32 (2011), 1456-1465
+ For DFT-D2 the reference is
+ S. Grimme, J. Comput. Chem., 27 (2006), 1787-1799
+ 
+C6 coefficients used:
+                     2  C6 for element                      1
+Z=  1 CN= 0.912     C6(AA)=    3.03
+Z=  1 CN= 0.000     C6(AA)=    7.59
+                     5  C6 for element                      6
+Z=  6 CN= 0.000     C6(AA)=   49.11
+Z=  6 CN= 0.987     C6(AA)=   43.25
+Z=  6 CN= 1.998     C6(AA)=   29.36
+Z=  6 CN= 2.999     C6(AA)=   25.78
+Z=  6 CN= 3.984     C6(AA)=   18.21
+                     3  C6 for element                     16
+Z= 16 CN= 0.000     C6(AA)=  134.01
+Z= 16 CN= 0.995     C6(AA)=  131.00
+Z= 16 CN= 1.990     C6(AA)=  125.81
+                     3  C6 for element                     42
+Z= 42 CN= 0.000     C6(AA)=  845.90
+Z= 42 CN= 1.942     C6(AA)=  502.01
+Z= 42 CN=11.056     C6(AA)=  337.11
+                     2  C6 for element                     64
+Z= 64 CN= 0.000     C6(AA)= 1891.67
+Z= 64 CN= 2.873     C6(AA)=  595.36
+
+#           XYZ [au]              R0(AA) [Ang.]  CN          C6(AA)     C8(AA)   C10(AA) [au]
+  1   0.00000   0.00000   0.00000   mo  1.286  5.375       502.0     57804.9   8153712.7
+  2   0.00000   0.00000  -6.63239   gd  1.640 11.393       595.4    111461.2  25562415.3
+  3   0.00000   0.00000   6.63239   gd  1.640 11.393       595.4    111461.2  25562415.3
+  4   2.34885   2.34885  -2.50461   s   0.839  2.041       125.9      6166.8    370094.0
+  5  -2.34885  -2.34885  -2.50461   s   0.839  2.041       125.9      6166.8    370094.0
+  6   2.34885  -2.34885   2.50461   s   0.839  2.041       125.9      6166.8    370094.0
+  7  -2.34885   2.34885   2.50461   s   0.839  2.041       125.9      6166.8    370094.0
+  8   4.69930  -1.63332  -7.89866   c   0.644  4.087        18.3       528.3     18718.0
+  9   3.63545  -3.63545  -6.46806   c   0.644  4.081        18.3       528.4     18720.7
+ 10   1.63332  -4.69930  -7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 11   1.45508  -3.35405 -10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 12   3.35405  -1.45508 -10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 13  -1.63332   4.69930  -7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 14  -3.63545   3.63545  -6.46806   c   0.644  4.081        18.3       528.4     18720.7
+ 15  -4.69930   1.63332  -7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 16  -3.35405   1.45508 -10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 17  -1.45508   3.35405 -10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 18   1.63332   4.69930   7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 19   1.45508   3.35405  10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 20   3.35405   1.45508  10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 21   4.69930   1.63332   7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 22   3.63545   3.63545   6.46806   c   0.644  4.081        18.3       528.4     18720.7
+ 23  -4.69930  -1.63332   7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 24  -3.35405  -1.45508  10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 25  -1.45508  -3.35405  10.21626   c   0.644  4.088        18.3       528.3     18717.5
+ 26  -1.63332  -4.69930   7.89866   c   0.644  4.087        18.3       528.3     18718.0
+ 27  -3.63545  -3.63545   6.46806   c   0.644  4.081        18.3       528.4     18720.7
+ 28   0.42859  -6.26601  -7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 29   0.11156  -3.72463 -11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 30   4.20631  -4.20631  -4.56996   h   0.417  1.015         3.1        37.3       552.1
+ 31   3.72463  -0.11156 -11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 32   6.26601  -0.42859  -7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 33  -0.11156   3.72463 -11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 34  -0.42859   6.26601  -7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 35  -4.20631   4.20631  -4.56996   h   0.417  1.015         3.1        37.3       552.1
+ 36  -6.26601   0.42859  -7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 37  -3.72463   0.11156 -11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 38  -0.42859  -6.26601   7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 39  -4.20631  -4.20631   4.56996   h   0.417  1.015         3.1        37.3       552.1
+ 40  -6.26601  -0.42859   7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 41  -3.72463  -0.11156  11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 42  -0.11156  -3.72463  11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 43   0.11156   3.72463  11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 44   0.42859   6.26601   7.30394   h   0.417  1.013         3.1        37.3       552.2
+ 45   4.20631   4.20631   4.56996   h   0.417  1.015         3.1        37.3       552.1
+ 46   3.72463   0.11156  11.73879   h   0.417  1.013         3.1        37.3       552.2
+ 47   6.26601   0.42859   7.30394   h   0.417  1.013         3.1        37.3       552.2
+
+molecular C6(AA) [au] =     54858.39
+
+           DFT-D V3(BJ)
+ DF tpssh                                             
+ parameters
+ s6       :    1.0000
+ s8       :    2.2382
+ a1       :    0.4529
+ a2       :    4.6550
+ k1-k3    :   16.0000    1.3333   -4.0000
+ 
+ Edisp /kcal,au:   -69.1006 -0.11011873
+
+ E6    /kcal :   -26.9790
+ E8    /kcal :   -42.1216
+ % E8        : 60.96
+ nuclear repulsion energy                  =    4891.384430298
+ empirical dispersive energy correction    =      -0.110118725
+ nuclear repulsion + dispersion correction =    4891.274311573
+
+
+         -----------------
+         -S,T+V- integrals
+         -----------------
+
+ 1e-integrals will be neglected if expon. factor < 0.551479E-11
+
+
+          ----------------
+          -ecp-  integrals
+          ----------------
+ 
+   Difference densities algorithm switched on.
+   The maximal number of linear combinations of
+   difference densities is                    20 .
+
+ DIIS switched on: error vector is FDS-SDF
+ Max. Iterations for DIIS is     :   4
+ DIIS matrix (see manual) 
+    Scaling factor of diagonals  :  1.200
+    threshold for scaling factor :  0.000
+
+ scf convergence criterion : increment of total energy < .1000000D-05
+                  and increment of one-electron energy < .1000000D-02
+
+
+   ----> a dscf RESTART run will be tried ! <----
+
+ $restart flag 'dscf' will be switched off !
+
+ MOs are in ASCII format !
+
+
+    mo occupation :
+   irrep   mo's   occupied
+    a1      94       28
+    a2      48       11
+    b1      50       11
+    b2      92       27
+    e      135       38
+ 
+ number of basis functions   :   554
+ number of occupied orbitals :   153
+ 
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : scfdump=410
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : scfdump=410
+ mo-orthogonalization by Cholesky decomposition
+ mo-orthogonalization by Cholesky decomposition
+
+ UHF mode switched on !
+
+ closed shell shift switched on 
+ all occupied orbitals are shifted by    1.00000
+
+  
+           ------------------------
+               RI-J - INFORMATION
+           ------------------------
+ 
+    +---------------- Multipole Accelerated RI-J ---------------+
+    -------------------------------------------------------------
+      Number of bins for density partition        :  8
+      Maximum multipole moment used               : 14
+      Multipole precision parameter               :  1.0000E-08
+      Threshold for moment summation              :  1.0000E-24
+      Minimum separation between boxes            :  0.0000E+00
+      Maximum allowed extent                      :  2.0000E+01
+    +-----------------------------------------------------------+
+ 
+ Extensions and centers of shell-pairs:
+  number of shells with a single center:     3046
+  number of shells with double centers:       135
+ Contributions to RI integral batches: 
+  neglected integral batches:                     27695
+  multipole/direct contribution:                      0
+  multipole/memory contribution:                   3181
+ Memory core needed for (P|Q) and Cholesky      1 MByte
+ Memory core minimum needed except of (P|Q)     1 MByte
+ Total minimum memory core needed (sum)         2 MByte
+  
+ ****************************************
+ Memory allocated for RI-J   404 MByte
+ ****************************************
+                                            
+
+ DSCF restart information will be dumped onto file alpha
+
+
+ complete restart information read in from $restartd
+ iterations from earlier run will be continued
+    Fermi smearing switched on
+      Initial electron temperature:  1000.00
+        Final electron temperature:    20.00
+                  Annealing factor:    0.950
+       Annealing if HOMO-LUMO gap <  0.1E+00
+      Smearing switched off if DE <  0.1E-02
+
+ Starting SCF iterations
+
+          Overall gridpoints after grid construction =         19050
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 411  -3963.6571006851    -15906.849150     7051.9177373    0.431D+01 0.127D-10
+                            Exc = -292.288257630      Eck =  7344.20599492    
+                         Ntotal = 291.00776320      Nspin =-7.0009903228    
+                             Na = 142.00338644         Nb = 149.00437676    
+                            current damping = 0.400
+ 
+          max. resid. norm for Fia-block=  9.393D-01 for orbital     26a1   beta 
+          max. resid. fock norm         =  4.090D+00 for orbital     72a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.09201
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =      1000.00000
+                         Current HOMO-LUMO gap =     0.25861E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 412  -3951.0760240952    -15624.473296     6782.1229606    0.160D+02 0.125D-10
+                            Exc = -276.895436082      Eck =  7059.01839673    
+                         Ntotal = 291.02058081      Nspin = 1.0253059688    
+                             Na = 146.02294339         Nb = 144.99763742    
+                            current damping = 0.450
+ 
+          Norm of current diis error:  8.5761    
+          max. resid. norm for Fia-block=  1.797D-01 for orbital     37e    beta 
+          max. resid. fock norm         =  2.839D-01 for orbital     32b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.02596
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       950.00000
+                         Current HOMO-LUMO gap =     0.21480E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 413  -3963.0486583982    -15887.425735     7033.1027646    0.874D+01 0.122D-10
+                            Exc = -286.930380823      Eck =  7320.03314539    
+                         Ntotal = 291.01277544      Nspin =-3.7028002504    
+                             Na = 143.65498760         Nb = 147.35778785    
+                            current damping = 0.500
+ 
+          Norm of current diis error:  2.2124    
+          max. resid. norm for Fia-block=  1.185D-01 for orbital     12b2   beta 
+          max. resid. fock norm         =  1.447D+00 for orbital     88a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.07770
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       902.50000
+                         Current HOMO-LUMO gap =     0.48766E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 414  -3964.3090810866    -15855.517719     6999.9343261    0.180D+01 0.120D-10
+                            Exc = -285.517115221      Eck =  7285.45144132    
+                         Ntotal = 291.01277184      Nspin =-1.0038683640    
+                             Na = 145.00445174         Nb = 146.00832010    
+                            current damping = 0.550
+ 
+          Norm of current diis error:  1.0658    
+          max. resid. norm for Fia-block=  1.472D-01 for orbital     13a1   alpha
+          max. resid. fock norm         =  1.074D+00 for orbital     85b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.03669
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       857.37500
+                         Current HOMO-LUMO gap =     0.83654E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 415  -3964.5607993082    -15863.838512     7008.0034008    0.180D+01 0.550D-10
+                            Exc = -285.552946186     Coul =  7323.66335758    
+                            exK = -30.1070105949    
+                         Ntotal = 291.00802826      Nspin =0.49372643626E-01
+                             Na = 145.52870045         Nb = 145.47932781    
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.94693    
+          max. resid. norm for Fia-block=  1.892D-01 for orbital     12b2   beta 
+          max. resid. fock norm         =  9.246D-01 for orbital     83b2   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.02626
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       814.50625
+                         Current HOMO-LUMO gap =     0.85178E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 416  -3960.4577129191    -15907.878564     7056.1465395    0.446D+01 0.355D-10
+                            Exc = -299.789088515      Eck =  7355.93562805    
+                         Ntotal = 291.00796804      Nspin =-1.0061092119    
+                             Na = 145.00092941         Nb = 146.00703862    
+                            current damping = 0.650
+ 
+          Norm of current diis error:  6.1854    
+          max. resid. norm for Fia-block=  1.027D-01 for orbital      9b1   alpha
+          max. resid. fock norm         =  1.036D-01 for orbital      9b1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.03001
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       773.78094
+                         Current HOMO-LUMO gap =     0.43112E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 417  -3961.1663720408    -15881.536130     7029.0954462    0.136D+01 0.303D-10
+                            Exc = -298.736772664      Eck =  7327.83221890    
+                         Ntotal = 291.00804225      Nspin =-3.0002027344    
+                             Na = 144.00391976         Nb = 147.00412249    
+                            current damping = 0.700
+ 
+          Norm of current diis error:  5.6466    
+          max. resid. norm for Fia-block=  7.973D-02 for orbital      9b1   alpha
+          max. resid. fock norm         =  8.407D-02 for orbital     12b1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.02702
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       735.09189
+                         Current HOMO-LUMO gap =     0.38820E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 418  -3961.1824313927    -15879.462263     7027.0055198    0.194D+00 0.274D-10
+                            Exc = -298.591782290      Eck =  7325.59730207    
+                         Ntotal = 291.00802708      Nspin =-3.0001946149    
+                             Na = 144.00391623         Nb = 147.00411085    
+                            current damping = 0.600
+ 
+          Norm of current diis error:  5.6374    
+          max. resid. norm for Fia-block=  9.016D-02 for orbital      9b1   alpha
+          max. resid. fock norm         =  1.717D-01 for orbital     43a1   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.04353
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       698.33730
+                         Current HOMO-LUMO gap =     0.37950E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 419  -3961.0519997002    -15878.821513     7026.4952017    0.186D+00 0.228D-10
+                            Exc = -298.557313407      Eck =  7325.05251508    
+                         Ntotal = 291.00808358      Nspin =-3.0001675934    
+                             Na = 144.00395799         Nb = 147.00412559    
+                            current damping = 0.650
+ 
+          Norm of current diis error:  5.6837    
+          max. resid. norm for Fia-block=  1.744D+00 for orbital     26b2   beta 
+          max. resid. fock norm         =  7.109D+00 for orbital     78a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.06900
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       663.42043
+                         Current HOMO-LUMO gap =     0.75236E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 420  -3937.6047361982    -15629.084552     6800.2055047    0.880D+01 0.175D-10
+                            Exc = -275.592372305      Eck =  7075.79787696    
+                         Ntotal = 291.00899433      Nspin = 1.0181504301    
+                             Na = 146.01357238         Nb = 144.99542195    
+                            current damping = 0.700
+ 
+          Norm of current diis error:  9.6188    
+          max. resid. norm for Fia-block=  3.992D-01 for orbital     26a1   beta 
+          max. resid. fock norm         =  6.492D-01 for orbital     35a1   beta 
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.13885
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       630.24941
+                         Current HOMO-LUMO gap =     0.22877E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 421  -3951.2496881912    -16019.595815     7177.0718151    0.448D+01 0.137D-10
+                            Exc = -292.601570386      Eck =  7469.67338549    
+                         Ntotal = 291.00754964      Nspin =-.61990219765    
+                             Na = 145.19382372         Nb = 145.81372592    
+                            current damping = 0.750
+ 
+          Norm of current diis error:  7.1859    
+          max. resid. norm for Fia-block=  1.520D-01 for orbital     26b2   alpha
+          max. resid. fock norm         =  1.137D+00 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.12716
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       598.73694
+                         Current HOMO-LUMO gap =     0.13470E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 422  -3950.5639003968    -16016.003749     7174.1655372    0.174D+01 0.130D-10
+                            Exc = -292.503407411      Eck =  7466.66894457    
+                         Ntotal = 291.00783668      Nspin =-2.7184254375    
+                             Na = 144.14470562         Nb = 146.86313106    
+                            current damping = 0.800
+ 
+          Norm of current diis error:  7.4628    
+          max. resid. norm for Fia-block=  1.041D-01 for orbital      9b1   beta 
+          max. resid. fock norm         =  7.471D-01 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.06788
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       568.80009
+                         Current HOMO-LUMO gap =     0.86715E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 423  -3943.7269702180    -16050.569470     7215.5681880    0.209D+01 0.129D-10
+                            Exc = -294.012301125      Eck =  7509.58048915    
+                         Ntotal = 291.00787812      Nspin =0.99825007701    
+                             Na = 146.00306410         Nb = 145.00481402    
+                            current damping = 0.850
+ 
+          Norm of current diis error:  9.7566    
+          max. resid. norm for Fia-block=  3.225D-01 for orbital     10b1   beta 
+          max. resid. fock norm         =  3.713D+00 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.01549
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       540.36009
+                         Current HOMO-LUMO gap =     0.18310E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 424  -3955.2286703805    -15976.781086     7130.2781036    0.321D+01 0.136D-10
+                            Exc = -290.968438577      Eck =  7421.24654222    
+                         Ntotal = 291.00721171      Nspin =-1.4827671854    
+                             Na = 144.76222226         Nb = 146.24498945    
+                            current damping = 0.900
+ 
+          Norm of current diis error:  6.4162    
+          max. resid. norm for Fia-block=  9.181D-01 for orbital     10a2   beta 
+          max. resid. fock norm         =  1.390D+00 for orbital     85a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.12047
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       513.34208
+                         Current HOMO-LUMO gap =     0.30193E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 425  -3943.1349622328    -15544.043349     6709.6340752    0.762D+02 0.140D-10
+                            Exc = -273.354679896      Eck =  6982.98875510    
+                         Ntotal = 291.01555041      Nspin =-2.7563482918    
+                             Na = 144.12960106         Nb = 146.88594935    
+                            current damping = 0.950
+ 
+          Norm of current diis error:  10.893    
+          max. resid. norm for Fia-block=  5.657D-01 for orbital     10b1   beta 
+          max. resid. fock norm         =  7.845D-01 for orbital     83b2   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.02097
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       487.67498
+                         Current HOMO-LUMO gap =     0.49426E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 426  -3934.6457217188    -15506.471737     6680.5517033    0.553D+01 0.117D-10
+                            Exc = -272.149552359      Eck =  6952.70125570    
+                         Ntotal = 291.01550008      Nspin =-3.0026249548    
+                             Na = 144.00643756         Nb = 147.00906252    
+                            current damping = 1.000
+ 
+          Norm of current diis error:  12.218    
+          max. resid. norm for Fia-block=  3.431D-01 for orbital     25b2   alpha
+          max. resid. fock norm         =  5.169D-01 for orbital     82b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.10391
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       463.29123
+                         Current HOMO-LUMO gap =     0.69111E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 427  -3928.5779458452    -15533.217312     6713.3650549    0.737D+01 0.115D-10
+                            Exc = -272.790600994      Eck =  6986.15565593    
+                         Ntotal = 291.01507043      Nspin =-.55789488249    
+                             Na = 145.22858778         Nb = 145.78648266    
+                            current damping = 1.050
+ 
+          Norm of current diis error:  12.939    
+          max. resid. norm for Fia-block=  3.365D-01 for orbital     16b2   alpha
+          max. resid. fock norm         =  4.176D-01 for orbital     18e    alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.11381
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       440.12667
+                         Current HOMO-LUMO gap =     0.35289E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 428  -3921.2367971997    -15564.639256     6752.1281476    0.580D+01 0.108D-10
+                            Exc = -273.645435807      Eck =  7025.77358338    
+                         Ntotal = 291.01284717      Nspin = 2.9611254634    
+                             Na = 146.98698631         Nb = 144.02586085    
+                            current damping = 1.100
+ 
+          Norm of current diis error:  13.323    
+          max. resid. norm for Fia-block=  1.899D+00 for orbital      7a2   alpha
+          max. resid. fock norm         =  3.230D+00 for orbital     72b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.44601
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       418.12034
+                         Current HOMO-LUMO gap =     0.17729E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 429  -3671.5382474054    -16859.797359     8296.9847996    0.106D+02 0.115D-10
+                            Exc = -344.407188119      Eck =  8641.39198768    
+                         Ntotal = 291.00948583      Nspin =-1.2570208223    
+                             Na = 144.87623250         Nb = 146.13325332    
+                            current damping = 1.150
+ 
+          Norm of current diis error:  53.298    
+          max. resid. norm for Fia-block=  1.545D+00 for orbital      5b1   beta 
+          max. resid. fock norm         =  1.576D+00 for orbital      5b1   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.33102
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       397.21432
+                         Current HOMO-LUMO gap =     0.89264E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 430  -3641.1328238246    -16861.910953     8329.5038179    0.850D+01 0.107D-10
+                            Exc = -348.536823661      Eck =  8678.04064160    
+                         Ntotal = 291.00944970      Nspin =-1.0014133597    
+                             Na = 145.00401817         Nb = 146.00543153    
+                            current damping = 1.200
+ 
+          Norm of current diis error:  45.692    
+          max. resid. norm for Fia-block=  8.259D-01 for orbital      9b1   beta 
+          max. resid. fock norm         =  1.006D+00 for orbital      9b1   beta 
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.23446
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       377.35360
+                         Current HOMO-LUMO gap =     0.92248E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 431  -3613.0536776577    -16850.905175     8346.5771855    0.152D+02 0.899D-11
+                            Exc = -349.309608842      Eck =  8695.88679432    
+                         Ntotal = 291.01187128      Nspin = 1.0001146139    
+                             Na = 146.00599295         Nb = 145.00587833    
+                            current damping = 1.250
+ 
+          Norm of current diis error:  46.500    
+          max. resid. norm for Fia-block=  1.126D+00 for orbital     28a1   alpha
+          max. resid. fock norm         =  1.408D+00 for orbital     10b1   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.21959
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       358.48592
+                         Current HOMO-LUMO gap =     0.47464E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 432  -3558.2392293805    -16719.655028     8270.1414866    0.243D+02 0.886D-11
+                            Exc = -351.579264076      Eck =  8621.72075066    
+                         Ntotal = 291.01121714      Nspin =-4.9810968463    
+                             Na = 143.01506015         Nb = 147.99615700    
+                            current damping = 1.300
+ 
+          Norm of current diis error:  46.436    
+          max. resid. norm for Fia-block=  1.086D+01 for orbital     16b2   alpha
+          max. resid. fock norm         =  1.988D+01 for orbital     16a1   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.38738
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       340.56163
+                         Current HOMO-LUMO gap =     0.35688E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 433  -3288.1346034491    -13865.230516     5685.8216011    0.298D+03 0.873D-11
+                            Exc = -240.263708909      Eck =  5926.08531006    
+                         Ntotal = 291.05648043      Nspin =0.82347418006    
+                             Na = 145.93997731         Nb = 145.11650313    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  44.352    
+          max. resid. norm for Fia-block=  2.153D+00 for orbital     24a1   beta 
+          max. resid. fock norm         =  3.082D+00 for orbital     21a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.05626
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       323.53354
+                         Current HOMO-LUMO gap =     0.36782E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 434  -3816.0504571805    -14984.672310     6277.3475410    0.847D+02 0.860D-11
+                            Exc = -262.082795186      Eck =  6539.43033615    
+                         Ntotal = 291.03702666      Nspin =-3.3391896775    
+                             Na = 143.84891849         Nb = 147.18810817    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  20.995    
+          max. resid. norm for Fia-block=  2.394D+00 for orbital      4a2   alpha
+          max. resid. fock norm         =  2.917D+00 for orbital     80a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.62459
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       307.35687
+                         Current HOMO-LUMO gap =     0.82476E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 435  -3931.0049296675    -15969.269506     7146.9902649    0.684D+02 0.129D-10
+                            Exc = -286.203785191      Eck =  7433.19405011    
+                         Ntotal = 291.02295935      Nspin =-7.0808477126    
+                             Na = 141.97105582         Nb = 149.05190353    
+                            current damping = 1.300
+ 
+          Norm of current diis error:  6.4858    
+          max. resid. norm for Fia-block=  4.203D-01 for orbital     12b2   beta 
+          max. resid. fock norm         =  3.790D+00 for orbital     88b2   beta 
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.40855
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       291.98902
+                         Current HOMO-LUMO gap =     0.20677E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 436  -3943.9060892443    -15764.070200     6928.8897990    0.684D+02 0.550D-10
+                            Exc = -282.755099050     Coul =  7241.08389776    
+                            exK = -29.4389996783    
+                         Ntotal = 291.02033160      Nspin =-7.0024646610    
+                             Na = 142.00893347         Nb = 149.01139813    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  3.6188    
+          max. resid. norm for Fia-block=  3.480D-01 for orbital     29e    beta 
+          max. resid. fock norm         =  2.256D+00 for orbital     88a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.21847
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       277.38957
+                         Current HOMO-LUMO gap =     0.83883E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 437  -3943.0069148125    -15660.953840     6826.6726133    0.308D+02 0.353D-10
+                            Exc = -278.117947064      Eck =  7104.79056033    
+                         Ntotal = 291.01944722      Nspin =-2.8805976164    
+                             Na = 144.06942480         Nb = 146.95002242    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  5.1437    
+          max. resid. norm for Fia-block=  2.859D-01 for orbital     13a1   alpha
+          max. resid. fock norm         =  1.168D+00 for orbital     83b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.21471
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       263.52009
+                         Current HOMO-LUMO gap =     0.11750E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 438  -3934.0111395327    -15664.202126     6838.9166744    0.308D+02 0.339D-10
+                            Exc = -278.048781509      Eck =  7116.96545593    
+                         Ntotal = 291.01565008      Nspin = 7.0017987162    
+                             Na = 149.00872440         Nb = 142.00692568    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  8.5351    
+          max. resid. norm for Fia-block=  2.949D-01 for orbital     34e    alpha
+          max. resid. fock norm         =  8.092D-01 for orbital     82b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.19165
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       250.34409
+                         Current HOMO-LUMO gap =     0.80675E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 439  -3940.4724571930    -15709.892567     6878.1457986    0.196D+02 0.319D-10
+                            Exc = -280.190757699      Eck =  7158.33655627    
+                         Ntotal = 291.01507192      Nspin = 3.8449099005    
+                             Na = 147.42999091         Nb = 143.58508101    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  7.2095    
+          max. resid. norm for Fia-block=  3.275D-01 for orbital     36e    alpha
+          max. resid. fock norm         =  9.182D-01 for orbital     77a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.26017
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       237.82689
+                         Current HOMO-LUMO gap =     0.15018E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 440  -3946.4964145487    -15959.544048     7121.7733217    0.259D+02 0.493D-10
+                            Exc = -288.817784625      Eck =  7410.59110632    
+                         Ntotal = 291.01008028      Nspin =-6.9539830283    
+                             Na = 142.02804863         Nb = 148.98203165    
+                            current damping = 1.250
+ 
+          Norm of current diis error:  6.0995    
+          max. resid. norm for Fia-block=  4.292D-01 for orbital     25a1   alpha
+          max. resid. fock norm         =  7.104D-01 for orbital     57a1   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.19564
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       225.93554
+                         Current HOMO-LUMO gap =     0.14474E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 441  -3934.2662453383    -16116.523192     7290.9826346    0.730D+01 0.345D-10
+                            Exc = -298.154430904      Eck =  7589.13706553    
+                         Ntotal = 291.00954555      Nspin =0.99721592534    
+                             Na = 146.00338074         Nb = 145.00616481    
+                            current damping = 1.300
+ 
+          Norm of current diis error:  13.795    
+          max. resid. norm for Fia-block=  8.248D-01 for orbital     10b1   beta 
+          max. resid. fock norm         =  8.758D-01 for orbital     10b1   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.07092
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       214.63876
+                         Current HOMO-LUMO gap =     0.30454E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 442  -3903.5342317474    -16109.164194     7314.3556505    0.148D+02 0.340D-10
+                            Exc = -305.210207047      Eck =  7619.56585758    
+                         Ntotal = 291.01143788      Nspin =-4.9987342624    
+                             Na = 143.00635181         Nb = 148.00508607    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  21.639    
+          max. resid. norm for Fia-block=  6.500D-01 for orbital     36e    alpha
+          max. resid. fock norm         =  7.066D-01 for orbital     23b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.04465
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       203.90683
+                         Current HOMO-LUMO gap =     0.43856E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 443  -3890.3493985034    -16038.155784     7256.5320735    0.670D+01 0.306D-10
+                            Exc = -303.788165650      Eck =  7560.32023915    
+                         Ntotal = 291.01324281      Nspin =-4.7691125293    
+                             Na = 143.12206514         Nb = 147.89117767    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  21.035    
+          max. resid. norm for Fia-block=  7.642D-01 for orbital     26a1   alpha
+          max. resid. fock norm         =  8.107D-01 for orbital     38b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.08068
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       193.71148
+                         Current HOMO-LUMO gap =     0.61381E-03
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 444  -3858.8658038641    -15402.688881     6652.5487657    0.700D+02 0.192D-10
+                            Exc = -281.589104436      Eck =  6934.13787015    
+                         Ntotal = 291.02269499      Nspin =-1.0051386703    
+                             Na = 145.00877816         Nb = 146.01391683    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  15.327    
+          max. resid. norm for Fia-block=  1.226D+00 for orbital     35e    alpha
+          max. resid. fock norm         =  2.397D+00 for orbital     26b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.09950
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       184.02591
+                         Current HOMO-LUMO gap =     0.14378E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 445  -3920.7336029245    -15398.364059     6586.3561445    0.350D+02 0.285D-10
+                            Exc = -272.147476652      Eck =  6858.50362120    
+                         Ntotal = 291.01571211      Nspin =-4.9964068538    
+                             Na = 143.00965263         Nb = 148.00605948    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  13.314    
+          max. resid. norm for Fia-block=  1.133D+00 for orbital     36e    beta 
+          max. resid. fock norm         =  1.542D+00 for orbital     71b2   beta 
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.30016
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       174.82461
+                         Current HOMO-LUMO gap =     0.13318E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 446  -3858.6852194274    -16285.175836     7535.2163046    0.439D+02 0.352D-10
+                            Exc = -295.956323973      Eck =  7831.17262861    
+                         Ntotal = 291.02003309      Nspin = 2.3882067507    
+                             Na = 146.70411992         Nb = 144.31591317    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  18.333    
+          max. resid. norm for Fia-block=  5.583D-01 for orbital     24e    alpha
+          max. resid. fock norm         =  7.207D-01 for orbital     33b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.33831
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       166.08338
+                         Current HOMO-LUMO gap =     0.15912E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 447  -3847.2059901253    -16387.819160     7649.3388581    0.112D+02 0.319D-10
+                            Exc = -306.344148671      Eck =  7955.68300676    
+                         Ntotal = 291.01725250      Nspin =-.99745408302    
+                             Na = 145.00989921         Nb = 146.00735329    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  22.303    
+          max. resid. norm for Fia-block=  8.554D-01 for orbital     23b2   beta 
+          max. resid. fock norm         =  1.030D+00 for orbital     28b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.41463
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       157.77921
+                         Current HOMO-LUMO gap =     0.16874E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 448  -3823.2682894087    -16533.548725     7819.0061243    0.195D+02 0.352D-10
+                            Exc = -315.377720315      Eck =  8134.38384460    
+                         Ntotal = 291.01556382      Nspin =-6.9974789837    
+                             Na = 142.00904242         Nb = 149.00652140    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  29.082    
+          max. resid. norm for Fia-block=  1.092D+00 for orbital     19a1   beta 
+          max. resid. fock norm         =  1.430D+00 for orbital     22e    beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.25679
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       149.89025
+                         Current HOMO-LUMO gap =     0.31844E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 449  -3822.7193730010    -16565.627625     7851.6339401    0.163D+02 0.363D-10
+                            Exc = -321.469547901      Eck =  8173.10348804    
+                         Ntotal = 291.01199570      Nspin =-7.1035667678    
+                             Na = 141.95421447         Nb = 149.05778123    
+                            current damping = 1.550
+ 
+          Norm of current diis error:  31.952    
+          max. resid. norm for Fia-block=  2.225D+00 for orbital     29a1   beta 
+          max. resid. fock norm         =  3.974D+00 for orbital     39b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.01750
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       142.39574
+                         Current HOMO-LUMO gap =     0.32882E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 450  -3858.8539814811    -15452.594238     6702.4659454    0.684D+02 0.227D-10
+                            Exc = -282.068220408      Eck =  6984.53416577    
+                         Ntotal = 291.03125149      Nspin = 1.2910962185    
+                             Na = 146.16117385         Nb = 144.87007763    
+                            current damping = 1.600
+ 
+          Norm of current diis error:  19.990    
+          max. resid. norm for Fia-block=  1.367D+00 for orbital     25b2   beta 
+          max. resid. fock norm         =  2.201D+00 for orbital     36a1   beta 
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.09455
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       135.27595
+                         Current HOMO-LUMO gap =     0.10346E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 451  -3886.6096992623    -15262.912052     6485.0280415    0.316D+02 0.228D-10
+                            Exc = -270.793389048      Eck =  6755.82143057    
+                         Ntotal = 291.03267215      Nspin =-2.9966181057    
+                             Na = 144.01802702         Nb = 147.01464513    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  18.556    
+          max. resid. norm for Fia-block=  9.747D-01 for orbital     19e    beta 
+          max. resid. fock norm         =  1.539D+00 for orbital     19e    beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.22920
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       128.51216
+                         Current HOMO-LUMO gap =     0.76297E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 452  -3914.2071708208    -15408.957489     6603.4760071    0.240D+02 0.235D-10
+                            Exc = -272.612503502      Eck =  6876.08851057    
+                         Ntotal = 291.02999989      Nspin =-4.9982413524    
+                             Na = 143.01587927         Nb = 148.01412062    
+                            current damping = 1.550
+ 
+          Norm of current diis error:  14.130    
+          max. resid. norm for Fia-block=  7.476D-01 for orbital     25a1   beta 
+          max. resid. fock norm         =  1.237D+00 for orbital     71a1   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.26658
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       122.08655
+                         Current HOMO-LUMO gap =     0.15239E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 453  -3942.7670079483    -15998.310291     7164.2689715    0.301D+02 0.277D-10
+                            Exc = -290.411781076      Eck =  7454.68075260    
+                         Ntotal = 291.01567462      Nspin =-.99519997880    
+                             Na = 145.01023732         Nb = 146.00543730    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  7.0945    
+          max. resid. norm for Fia-block=  2.785D-01 for orbital     15e    beta 
+          max. resid. fock norm         =  1.084D+00 for orbital     84a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.17437
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       115.98222
+                         Current HOMO-LUMO gap =     0.11130E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 454  -3950.9243156517    -15903.612340     7061.4137130    0.175D+02 0.263D-10
+                            Exc = -287.439700345      Eck =  7348.85341335    
+                         Ntotal = 291.01519356      Nspin =-4.9988681661    
+                             Na = 143.00816270         Nb = 148.00703086    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  3.7787    
+          max. resid. norm for Fia-block=  3.341D-01 for orbital     15e    beta 
+          max. resid. fock norm         =  6.394D-01 for orbital     83b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.13667
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       110.18311
+                         Current HOMO-LUMO gap =     0.40037E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 455  -3955.0713339159    -15781.786502     6935.4408565    0.193D+02 0.373D-10
+                            Exc = -283.431698459      Eck =  7218.87255496    
+                         Ntotal = 291.01227910      Nspin =-8.9991383513    
+                             Na = 141.00657037         Nb = 150.00570872    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  3.5681    
+          max. resid. norm for Fia-block=  2.350D-01 for orbital     10b1   beta 
+          max. resid. fock norm         =  5.955D-01 for orbital     44a1   beta 
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.11039
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =       104.67395
+                         Current HOMO-LUMO gap =     0.98497E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 456  -3953.0788001115    -15882.355668     7038.0025562    0.145D+02 0.392D-10
+                            Exc = -300.121921707      Eck =  7338.12447788    
+                         Ntotal = 291.01022447      Nspin =-8.9999711360    
+                             Na = 141.00512667         Nb = 150.00509780    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  6.2296    
+          max. resid. norm for Fia-block=  2.403D-01 for orbital     10b1   beta 
+          max. resid. fock norm         =  5.499D-01 for orbital     77a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.09701
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        99.44026
+                         Current HOMO-LUMO gap =     0.65292E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 457  -3953.0309995964    -15921.747326     7077.4420152    0.145D+02 0.550D-10
+                            Exc = -301.711848113     Coul =  7410.77381546    
+                            exK = -31.6199521878    
+                         Ntotal = 291.01004384      Nspin =-4.9996866290    
+                             Na = 143.00517860         Nb = 148.00486523    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  7.1890    
+          max. resid. norm for Fia-block=  2.181D-01 for orbital     10b1   beta 
+          max. resid. fock norm         =  3.987D-01 for orbital     81a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.11030
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        94.46824
+                         Current HOMO-LUMO gap =     0.73150E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 458  -3954.0229956532    -15926.539344     7081.2420368    0.633D+01 0.387D-10
+                            Exc = -301.892348616      Eck =  7383.13438543    
+                         Ntotal = 291.00980414      Nspin = 1.0005234214    
+                             Na = 146.00516378         Nb = 145.00464036    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  7.3977    
+          max. resid. norm for Fia-block=  2.951D-01 for orbital     27b2   beta 
+          max. resid. fock norm         =  1.037D+00 for orbital     82b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.14857
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        89.74483
+                         Current HOMO-LUMO gap =     0.19662E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 459  -3940.7228446729    -16113.690007     7281.6928504    0.849D+01 0.379D-10
+                            Exc = -296.530073428      Eck =  7578.22292380    
+                         Ntotal = 291.00868983      Nspin =-4.9997471564    
+                             Na = 143.00447134         Nb = 148.00421850    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  12.927    
+          max. resid. norm for Fia-block=  1.408D+00 for orbital     12b2   beta 
+          max. resid. fock norm         =  4.926D+00 for orbital     84a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.02052
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        85.25759
+                         Current HOMO-LUMO gap =     0.11613E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 460  -3934.8476390782    -15576.207481     6750.0855301    0.141D+02 0.347D-10
+                            Exc = -274.816645173      Eck =  7024.90217524    
+                         Ntotal = 291.00883618      Nspin =0.98944528407    
+                             Na = 145.99914073         Nb = 145.00969545    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  11.830    
+          max. resid. norm for Fia-block=  2.057D-01 for orbital     26a1   alpha
+          max. resid. fock norm         =  8.766D-01 for orbital     88b2   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.03086
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        80.99471
+                         Current HOMO-LUMO gap =     0.60349E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 461  -3947.3103507301    -15675.031919     6836.4472566    0.659D+01 0.336D-10
+                            Exc = -277.829700649      Eck =  7114.27695728    
+                         Ntotal = 291.00864631      Nspin =-4.9990619035    
+                             Na = 143.00479221         Nb = 148.00385411    
+                            current damping = 1.550
+ 
+          Norm of current diis error:  9.2083    
+          max. resid. norm for Fia-block=  1.579D-01 for orbital     26a1   beta 
+          max. resid. fock norm         =  2.978D-01 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.09167
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        76.94498
+                         Current HOMO-LUMO gap =     0.25191E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 462  -3956.8572661850    -15755.841806     6907.7102282    0.212D+01 0.297D-10
+                            Exc = -280.733037314      Eck =  7188.44326556    
+                         Ntotal = 291.00844006      Nspin =-2.9994581230    
+                             Na = 144.00449097         Nb = 147.00394909    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  6.1218    
+          max. resid. norm for Fia-block=  3.239D-01 for orbital      2a1   alpha
+          max. resid. fock norm         =  3.806D+00 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.05887
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        73.09773
+                         Current HOMO-LUMO gap =     0.10497E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 463  -3962.4113388314    -15825.158431     6971.4727809    0.240D+01 0.270D-10
+                            Exc = -283.857379314      Eck =  7255.33016021    
+                         Ntotal = 291.00817948      Nspin =-2.9995804692    
+                             Na = 144.00429950         Nb = 147.00387997    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  2.3009    
+          max. resid. norm for Fia-block=  2.677D-01 for orbital     12b2   alpha
+          max. resid. fock norm         =  2.391D+00 for orbital     88a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.07144
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        69.44284
+                         Current HOMO-LUMO gap =     0.11779E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 464  -3963.1172234557    -15875.654319     7021.2627844    0.172D+01 0.253D-10
+                            Exc = -286.280854715      Eck =  7307.54363913    
+                         Ntotal = 291.00793981      Nspin =-.99950245679    
+                             Na = 145.00421868         Nb = 146.00372113    
+                            current damping = 1.250
+ 
+          Norm of current diis error:  1.2006    
+          max. resid. norm for Fia-block=  2.133D-01 for orbital     12b2   alpha
+          max. resid. fock norm         =  1.154D+00 for orbital     84a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.03657
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        65.97070
+                         Current HOMO-LUMO gap =     0.34506E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 465  -3963.6359833976    -15887.124864     7032.2145694    0.365D+01 0.253D-10
+                            Exc = -286.507550080      Eck =  7318.72211951    
+                         Ntotal = 291.00780419      Nspin = 1.0005278586    
+                             Na = 146.00416603         Nb = 145.00363817    
+                            current damping = 1.150
+ 
+          Norm of current diis error:  1.0331    
+          max. resid. norm for Fia-block=  1.680D-01 for orbital     12b2   alpha
+          max. resid. fock norm         =  7.363D-01 for orbital     81a1   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.00774
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        62.67216
+                         Current HOMO-LUMO gap =     0.27669E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 466  -3963.7593524858    -15859.706295     7004.6726309    0.383D+01 0.246D-10
+                            Exc = -286.115791629      Eck =  7290.78842258    
+                         Ntotal = 291.00831009      Nspin =-.99960804770    
+                             Na = 145.00435102         Nb = 146.00395907    
+                            current damping = 1.200
+ 
+          Norm of current diis error:  1.5319    
+          max. resid. norm for Fia-block=  1.280D-01 for orbital     13a1   beta 
+          max. resid. fock norm         =  4.590D-01 for orbital     72b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.02380
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        59.53856
+                         Current HOMO-LUMO gap =     0.45828E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 467  -3960.3066834007    -15895.084455     7043.5034600    0.367D+01 0.227D-10
+                            Exc = -298.620903654      Eck =  7342.12436366    
+                         Ntotal = 291.00802098      Nspin =-2.9997149222    
+                             Na = 144.00415303         Nb = 147.00386795    
+                            current damping = 1.250
+ 
+          Norm of current diis error:  6.3489    
+          max. resid. norm for Fia-block=  1.097D-01 for orbital     27a1   beta 
+          max. resid. fock norm         =  2.474D-01 for orbital     71b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.02153
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        56.56163
+                         Current HOMO-LUMO gap =     0.24149E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 468  -3959.1460978321    -15784.158063     6933.7376539    0.285D+01 0.237D-10
+                            Exc = -294.019275806      Eck =  7227.75692967    
+                         Ntotal = 291.00819354      Nspin =-4.9998617133    
+                             Na = 143.00416591         Nb = 148.00402762    
+                            current damping = 1.300
+ 
+          Norm of current diis error:  5.1966    
+          max. resid. norm for Fia-block=  1.029D-01 for orbital     26b2   beta 
+          max. resid. fock norm         =  1.528D-01 for orbital     57a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.01662
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        53.73355
+                         Current HOMO-LUMO gap =     0.18673E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 469  -3960.7207883869    -15807.643366     6955.6482659    0.182D+01 0.228D-10
+                            Exc = -294.972232658      Eck =  7250.62049852    
+                         Ntotal = 291.00820587      Nspin =-6.9999895374    
+                             Na = 142.00410816         Nb = 149.00409770    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  4.9866    
+          max. resid. norm for Fia-block=  1.910D-01 for orbital     23b2   alpha
+          max. resid. fock norm         =  2.870D-01 for orbital     71b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.09662
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        51.04687
+                         Current HOMO-LUMO gap =     0.12534E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 470  -3959.0250762547    -15825.932088     6975.6327005    0.205D+01 0.225D-10
+                            Exc = -295.384791289      Eck =  7271.01749176    
+                         Ntotal = 291.00803405      Nspin =-1.3480363144    
+                             Na = 144.82999887         Nb = 146.17803518    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  5.1832    
+          max. resid. norm for Fia-block=  1.979D+00 for orbital     26a1   beta 
+          max. resid. fock norm         =  6.919D+00 for orbital     71b2   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.13287
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        48.49453
+                         Current HOMO-LUMO gap =     0.38926E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 471  -3939.9958279780    -16125.414926     7294.1447861    0.989D+01 0.219D-10
+                            Exc = -297.200170107      Eck =  7591.34495616    
+                         Ntotal = 291.00804859      Nspin =-.47256897395    
+                             Na = 145.26773981         Nb = 145.74030878    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  12.091    
+          max. resid. norm for Fia-block=  7.303D-01 for orbital     27a1   beta 
+          max. resid. fock norm         =  3.225D+00 for orbital     88a1   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.12941
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        46.06980
+                         Current HOMO-LUMO gap =     0.31331E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 472  -3939.5342460508    -16102.132315     7271.3237578    0.216D+01 0.215D-10
+                            Exc = -295.739040025      Eck =  7567.06279782    
+                         Ntotal = 291.00850864      Nspin =0.99964927050    
+                             Na = 146.00407895         Nb = 145.00442968    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  11.342    
+          max. resid. norm for Fia-block=  7.829D-01 for orbital     26b2   beta 
+          max. resid. fock norm         =  1.485D+00 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.08387
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        43.76631
+                         Current HOMO-LUMO gap =     0.52938E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 473  -3942.2550291625    -16084.994130     7251.4647895    0.589D+01 0.227D-10
+                            Exc = -294.766686801      Eck =  7546.23147625    
+                         Ntotal = 291.00843682      Nspin = 2.9998730812    
+                             Na = 147.00415495         Nb = 144.00428187    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  10.332    
+          max. resid. norm for Fia-block=  4.866D-01 for orbital     18a1   beta 
+          max. resid. fock norm         =  5.710D-01 for orbital     83b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.03854
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        41.57799
+                         Current HOMO-LUMO gap =     0.74072E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 474  -3947.3208493599    -16045.891343     7207.2961818    0.137D+01 0.225D-10
+                            Exc = -292.938710728      Eck =  7500.23489249    
+                         Ntotal = 291.00866141      Nspin =0.99969038783    
+                             Na = 146.00417590         Nb = 145.00448551    
+                            current damping = 1.300
+ 
+          Norm of current diis error:  8.5757    
+          max. resid. norm for Fia-block=  1.267D+00 for orbital     16b2   beta 
+          max. resid. fock norm         =  3.694D+00 for orbital     88b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.11407
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        39.49909
+                         Current HOMO-LUMO gap =     0.51132E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 475  -3941.3757392362    -15585.489702     6752.8396507    0.557D+02 0.188D-10
+                            Exc = -273.922176379      Eck =  7026.76182709    
+                         Ntotal = 291.01568231      Nspin =-.99970156038    
+                             Na = 145.00799037         Nb = 146.00769193    
+                            current damping = 1.350
+ 
+          Norm of current diis error:  11.384    
+          max. resid. norm for Fia-block=  3.506D-01 for orbital     35e    alpha
+          max. resid. fock norm         =  3.296D+00 for orbital     88a1   alpha
+          mo-orthogonalization: Cholesky decomposition
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.09874
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        37.52414
+                         Current HOMO-LUMO gap =     0.91644E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 476  -3935.7329760595    -15550.164953     6723.1576653    0.286D+02 0.178D-10
+                            Exc = -273.083847187      Eck =  6996.24151253    
+                         Ntotal = 291.01559844      Nspin =-2.9997038707    
+                             Na = 144.00794728         Nb = 147.00765115    
+                            current damping = 1.400
+ 
+          Norm of current diis error:  12.029    
+          max. resid. norm for Fia-block=  2.506D-01 for orbital     34e    beta 
+          max. resid. fock norm         =  1.390D+00 for orbital     85b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =         0.03618
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        35.64793
+                         Current HOMO-LUMO gap =     0.18642E-01
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 477  -3933.5958270263    -15578.323705     6753.4535663    0.269D+02 0.222D-10
+                            Exc = -274.174259822      Eck =  7027.62782612    
+                         Ntotal = 291.01373641      Nspin =-.99769217433    
+                             Na = 145.00802212         Nb = 146.00571429    
+                            current damping = 1.450
+ 
+          Norm of current diis error:  12.184    
+          max. resid. norm for Fia-block=  2.394D-01 for orbital     22e    alpha
+          max. resid. fock norm         =  7.760D-01 for orbital     83b2   alpha
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.06238
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        33.86554
+                         Current HOMO-LUMO gap =     0.23214E-02
+         ----------------------------------------------------------
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     NORM[dD(SAO)]  TOL
+ 478  -3926.7091988020    -15564.983451     6746.9999410    0.269D+02 0.550D-10
+                            Exc = -273.889782850     Coul =  7049.77149377    
+                            exK = -28.8817699028    
+                         Ntotal = 291.01274524      Nspin = 3.0029742025    
+                             Na = 147.00785972         Nb = 144.00488552    
+                            current damping = 1.500
+ 
+          Norm of current diis error:  12.934    
+          max. resid. norm for Fia-block=  2.084D+00 for orbital     35e    beta 
+          max. resid. fock norm         =  3.262D+00 for orbital     62b2   beta 
+         -------------------- FON Calculation ---------------------
+                                 Fermi level F =        -0.30208
+                   Total number of electrons N =       291.00000
+           Occupation numbers calculated for T =        32.17226
+                         Current HOMO-LUMO gap =     0.15957E-01
+         ----------------------------------------------------------

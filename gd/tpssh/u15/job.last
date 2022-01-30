@@ -1,0 +1,1193 @@
+           SMPCPUS    set: Shared-memory Parallelization with  20 CPUs.
+
+           SMP Parallelization Reference:
+           C. van Wullen, J. Comput. Chem. 32 (2011) 1195--1201
+
+ ridft (hpc3-14-14) : TURBOMOLE rev. V7.5.0 compiled 13 Jun 2020 at 23:29:25
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-08-17 10:43:50.618 
+
+
+
+                                  r i d f t
+
+                        DFT program with RI approximation 
+                                for coulomb part 
+
+
+
+
+                                                 
+                                 References:     
+                                                 
+          TURBOMOLE:                             
+              R. Ahlrichs, M. Baer, M. Haeser, H. Horn, and
+              C. Koelmel
+              Electronic structure calculations on workstation
+              computers: the program system TURBOMOLE
+              Chem. Phys. Lett. 162: 165 (1989)
+          Density Functional:                              
+              O. Treutler and R. Ahlrichs                      
+              Efficient Molecular Numerical Integration Schemes
+              J. Chem. Phys. 102: 346 (1995)                   
+          Parallel Version:                                
+              Performance of parallel TURBOMOLE for Density    
+              Functional Calculations                          
+              M. v. Arnim and R. Ahlrichs                      
+              J. Comp. Chem. 19: 1746 (1998)                   
+          RI-J Method:                                     
+              Auxiliary Basis Sets to approximate Coulomb      
+              Potentials                                       
+              Chem. Phys. Lett. 240: 283 (1995)                
+              K. Eichkorn, O. Treutler, H. Oehm, M. Haeser     
+              and R. Ahlrichs                                  
+              Chem. Phys. Lett. 242: 652 (1995)                
+                                                           
+              Auxiliary Basis Sets for Main Row Atoms and their
+              Use to approximate Coulomb Potentials            
+              K. Eichkorn, F. Weigend, O. Treutler and         
+              R. Ahlrichs                                      
+              Theo. Chem. Acc. 97: 119 (1997)                   
+                                                           
+              Accurate Coulomb-fitting basis sets for H to Rn 
+              F. Weigend                                        
+              Phys. Chem. Chem. Phys. 8: 1057 (2006)            
+                                                           
+          Multipole accelerated RI-J (MARI-J):             
+              Fast evaluation of the Coulomb potential for     
+              electron densities using multipole accelerated   
+              resolution of identity approximation             
+              M. Sierka, A. Hogekamp and R. Ahlrichs           
+              J. Chem. Phys. 118: 9136 (2003)                  
+          RI-JK Method:                                     
+              A fully direct RI-HF algorithm: Implementation,
+              optimised auxiliary basis sets, demonstration of
+              accuracy and efficiency                         
+              F. Weigend                                      
+              Phys. Chem. Chem. Phys. 4: 4285 (2002)           
+          Two-component HF and DFT with spin-orbit coupling:  
+              Self-consistent treatment of spin-orbit         
+              interactions with efficient Hartree-Fock and    
+              density functional methods                      
+              M. K. Armbruster, F. Weigend, C. van Wüllen and 
+              W. Klopper                                      
+              Phys. Chem. Chem. Phys. 10: 1748 (2008)         
+          Two-component difference density and DIIS algorithm 
+              Efficient two-component self-consistent field   
+              procedures and gradients: implementation in     
+              TURBOMOLE and application to Au20-              
+              A. Baldes, F. Weigend                           
+              Mol. Phys. 111: 2617 (2013)                     
+          Relativistic all-electron 2c calculations           
+              An efficient implementation of two-component    
+              relativistic exact-decoupling methods for large 
+              molecules                                       
+              D. Peng, N. Middendorf, F. Weigend, M. Reiher   
+              J. Chem. Phys. 138: 184105 (2013)               
+          Finite nucleus model and SNSO approximation         
+              Efficient implementation of one- and two-       
+              component analytical energy gradients in exact  
+              two-component theory                            
+              Y. J. Franzke, N. Middendorf, F. Weigend        
+              J. Chem. Phys. 148: 104110 (2018)               
+          Grids for all-electron relativistic methods         
+              Error-consistent segmented contracted all-      
+              electron relativistic basis sets of double-     
+              and triple-zeta quality for NMR shielding       
+              constants                                       
+              Y. J. Franzke, R. Tress, T. M. Pazdera,         
+              F. Weigend                                      
+              Phys. Chem. Chem. Phys. 21: 166658 (2019)       
+          Seminumerical exchange algorithms                   
+              Seminumerical calculation of the Hartree-Fock   
+              exchange matirx: Application to two-component   
+              procedures and efficient evaluation of local    
+              hybrid functionsl                               
+              P. Plessow, F. Weigend,                         
+              J. Comput. Chem. 33: 810 (2012)                 
+          Improved seminumerical algorithms                   
+              C. Holzer, in preparation (2020)                
+                                         
+
+
+
+
+              +--------------------------------------------------+
+              |      general information about current run       |
+              +--------------------------------------------------+
+
+ 
+
+ DENSITY CONVERGENCE CHECK SWITCHED ON !
+ SCF CONVERGENCE IF RMS(delta[D]) <     0.1000000000E-06
+
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+ A Hybrid-DFT calculation using the RI-J approximation will be carried out.
+ Allocatable memory for RI due to $ricore (MB):                  1000
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.63411892    gd    64.000     0
+          0.00000000    0.00000000    6.63411892    gd    64.000     0
+          2.34855753    2.34855753   -2.50437179    s     16.000     0
+         -2.34855753   -2.34855753   -2.50437179    s     16.000     0
+          2.34855753   -2.34855753    2.50437179    s     16.000     0
+         -2.34855753    2.34855753    2.50437179    s     16.000     0
+          4.71305967   -1.65939879   -7.89386604    c      6.000     0
+          3.65065584   -3.65065584   -6.46754056    c      6.000     0
+          1.65939879   -4.71305967   -7.89386604    c      6.000     0
+          1.48638646   -3.37814790  -10.20549801    c      6.000     0
+          3.37814790   -1.48638646  -10.20549801    c      6.000     0
+         -1.65939879    4.71305967   -7.89386604    c      6.000     0
+         -3.65065584    3.65065584   -6.46754056    c      6.000     0
+         -4.71305967    1.65939879   -7.89386604    c      6.000     0
+         -3.37814790    1.48638646  -10.20549801    c      6.000     0
+         -1.48638646    3.37814790  -10.20549801    c      6.000     0
+          1.65939879    4.71305967    7.89386604    c      6.000     0
+          1.48638646    3.37814790   10.20549801    c      6.000     0
+          3.37814790    1.48638646   10.20549801    c      6.000     0
+          4.71305967    1.65939879    7.89386604    c      6.000     0
+          3.65065584    3.65065584    6.46754056    c      6.000     0
+         -4.71305967   -1.65939879    7.89386604    c      6.000     0
+         -3.37814790   -1.48638646   10.20549801    c      6.000     0
+         -1.48638646   -3.37814790   10.20549801    c      6.000     0
+         -1.65939879   -4.71305967    7.89386604    c      6.000     0
+         -3.65065584   -3.65065584    6.46754056    c      6.000     0
+          0.46160366   -6.25879012   -7.30195412    h      1.000     0
+          0.15625059   -3.74516683  -11.71259673    h      1.000     0
+          4.20833828   -4.20833828   -4.58419754    h      1.000     0
+          3.74516683   -0.15625059  -11.71259673    h      1.000     0
+          6.25879012   -0.46160366   -7.30195412    h      1.000     0
+         -0.15625059    3.74516683  -11.71259673    h      1.000     0
+         -0.46160366    6.25879012   -7.30195412    h      1.000     0
+         -4.20833828    4.20833828   -4.58419754    h      1.000     0
+         -6.25879012    0.46160366   -7.30195412    h      1.000     0
+         -3.74516683    0.15625059  -11.71259673    h      1.000     0
+         -0.46160366   -6.25879012    7.30195412    h      1.000     0
+         -4.20833828   -4.20833828    4.58419754    h      1.000     0
+         -6.25879012   -0.46160366    7.30195412    h      1.000     0
+         -3.74516683   -0.15625059   11.71259673    h      1.000     0
+         -0.15625059   -3.74516683   11.71259673    h      1.000     0
+          0.15625059    3.74516683   11.71259673    h      1.000     0
+          0.46160366    6.25879012    7.30195412    h      1.000     0
+          4.20833828    4.20833828    4.58419754    h      1.000     0
+          3.74516683    0.15625059   11.71259673    h      1.000     0
+          6.25879012    0.46160366    7.30195412    h      1.000     0
+ 
+       center of nuclear mass  :   -0.00000000   -0.00000000   -0.00000000
+       center of nuclear charge:   -0.00000000    0.00000000    0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     60     40   def2-TZVP   [6s4p3d1f|7s7p5d1f]
+    gd       2    171     93   def2-TZVP   [10s7p5d4f1g|14s14p10d8f1g]
+    s        4     63     37   def2-TZVP   [5s5p2d1f|14s9p3d1f]
+    c       20     46     31   def2-TZVP   [5s3p2d1f|11s6p2d1f]
+    h       20      8      6   def2-TZVP   [3s1p|5s1p]
+   ---------------------------------------------------------------------------
+   total:   47   1734   1114
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  120
+   total number of contracted shells         :  420
+   total number of cartesian basis functions : 1286
+   total number of SCF-basis functions       : 1114
+
+ number of unique ecp types :                     2
+
+ integral neglect threshold       :  0.10E-14
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ RI-J AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     99     89   def2-TZVP   [8s5p5d2f3g|11s5p5d3f3g]
+    gd       2    263    200   def2-TZVP   [14s7p6d6f5g2h2i|18s7p6d6f6g3h5i]
+    s        4     77     51   def2-TZVP   [8s4p3d1f1g|14s5p5d2f1g]
+    c       20     70     49   def2-TZVP   [6s4p3d1f1g|12s5p4d2f1g]
+    h       20     16     11   def2-TZVP   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   47   2653   1893
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  137
+   total number of contracted shells         :  575
+   total number of cartesian basis functions : 2438
+   total number of SCF-basis functions       : 1893
+
+
+ symmetry group of the molecule :   d2d
+
+ the group has the following generators :
+   s4(z)
+   c2(x)
+
+    8 symmetry operations found
+
+ there are 5 real representations :   a1   a2   b1   b2   e   
+
+ maximum number of shells which are related by symmetry :  8
+
+ ==============================================================================
+                      COSMO switched on
+ ==============================================================================
+ COSMO stati: segments per atom: H   32 other atoms   92
+ COSMO statistics: nps   1612 npspher:    660
+ COSMO surface:
+   number of segments: 1612
+   area (bohr**2):     1525.177949
+   volume (bohr**3):   3934.738839
+ COSMO: check number of disjunct cavities:
+
+       ... OK contiguous cavity found
+   sym. distinct segments:  314
+   sym. dist. seg. on spheres:  112
+   min. distance between points:      0.232157
+   max. symmetrization distance error:      0.001568
+
+ Surface grid was constructed by projection of gridpoints of symmetry distict atoms.
+ This may lead to differences compared to C1 results.
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                     9
+ partition function    : becke
+ partition sharpness   :                     3
+  
+ 
+ Derivatives of quadrature weights will be included
+ 
+
+ biggest AO integral is expected to be    24.126004431
+
+          ------------------------
+          nuclear repulsion energy  :   4888.78059794    
+          ------------------------
+
+  _________________________________
+ |                                 |
+ |         DFTD3 V3.1 Rev 0        |
+ | S.Grimme, University Bonn       |
+ |            June  2014           |
+ |   see standalone version        |
+ |       dftd3 -h for options      |
+ |_________________________________|
+ 
+ Please cite DFT-D3 work done with this code as:
+ S. Grimme, J. Antony, S. Ehrlich and H. Krieg,
+ J. Chem. Phys, 132 (2010), 154104.
+ If used with BJ-damping cite also
+ S. Grimme, S. Ehrlich and L. Goerigk,
+ J. Comput. Chem. 32 (2011), 1456-1465
+ For DFT-D2 the reference is
+ S. Grimme, J. Comput. Chem., 27 (2006), 1787-1799
+ 
+C6 coefficients used:
+                     2  C6 for element                      1
+Z=  1 CN= 0.912     C6(AA)=    3.03
+Z=  1 CN= 0.000     C6(AA)=    7.59
+                     5  C6 for element                      6
+Z=  6 CN= 0.000     C6(AA)=   49.11
+Z=  6 CN= 0.987     C6(AA)=   43.25
+Z=  6 CN= 1.998     C6(AA)=   29.36
+Z=  6 CN= 2.999     C6(AA)=   25.78
+Z=  6 CN= 3.984     C6(AA)=   18.21
+                     3  C6 for element                     16
+Z= 16 CN= 0.000     C6(AA)=  134.01
+Z= 16 CN= 0.995     C6(AA)=  131.00
+Z= 16 CN= 1.990     C6(AA)=  125.81
+                     3  C6 for element                     42
+Z= 42 CN= 0.000     C6(AA)=  845.90
+Z= 42 CN= 1.942     C6(AA)=  502.01
+Z= 42 CN=11.056     C6(AA)=  337.11
+                     2  C6 for element                     64
+Z= 64 CN= 0.000     C6(AA)= 1891.67
+Z= 64 CN= 2.873     C6(AA)=  595.36
+
+#           XYZ [au]              R0(AA) [Ang.]  CN          C6(AA)     C8(AA)   C10(AA) [au]
+  1   0.00000   0.00000   0.00000   mo  1.286  5.373       502.0     57804.9   8153712.7
+  2   0.00000   0.00000  -6.63412   gd  1.640 11.316       595.4    111461.2  25562415.3
+  3   0.00000   0.00000   6.63412   gd  1.640 11.316       595.4    111461.2  25562415.3
+  4   2.34856   2.34856  -2.50437   s   0.839  2.041       125.9      6166.8    370094.5
+  5  -2.34856  -2.34856  -2.50437   s   0.839  2.041       125.9      6166.8    370094.5
+  6   2.34856  -2.34856   2.50437   s   0.839  2.041       125.9      6166.8    370094.5
+  7  -2.34856   2.34856   2.50437   s   0.839  2.041       125.9      6166.8    370094.5
+  8   4.71306  -1.65940  -7.89387   c   0.644  4.092        18.3       528.3     18715.5
+  9   3.65066  -3.65066  -6.46754   c   0.644  4.085        18.3       528.3     18718.8
+ 10   1.65940  -4.71306  -7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 11   1.48639  -3.37815 -10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 12   3.37815  -1.48639 -10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 13  -1.65940   4.71306  -7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 14  -3.65066   3.65066  -6.46754   c   0.644  4.085        18.3       528.3     18718.8
+ 15  -4.71306   1.65940  -7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 16  -3.37815   1.48639 -10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 17  -1.48639   3.37815 -10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 18   1.65940   4.71306   7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 19   1.48639   3.37815  10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 20   3.37815   1.48639  10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 21   4.71306   1.65940   7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 22   3.65066   3.65066   6.46754   c   0.644  4.085        18.3       528.3     18718.8
+ 23  -4.71306  -1.65940   7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 24  -3.37815  -1.48639  10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 25  -1.48639  -3.37815  10.20550   c   0.644  4.094        18.3       528.2     18714.4
+ 26  -1.65940  -4.71306   7.89387   c   0.644  4.092        18.3       528.3     18715.5
+ 27  -3.65066  -3.65066   6.46754   c   0.644  4.085        18.3       528.3     18718.8
+ 28   0.46160  -6.25879  -7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 29   0.15625  -3.74517 -11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 30   4.20834  -4.20834  -4.58420   h   0.417  1.016         3.1        37.3       552.0
+ 31   3.74517  -0.15625 -11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 32   6.25879  -0.46160  -7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 33  -0.15625   3.74517 -11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 34  -0.46160   6.25879  -7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 35  -4.20834   4.20834  -4.58420   h   0.417  1.016         3.1        37.3       552.0
+ 36  -6.25879   0.46160  -7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 37  -3.74517   0.15625 -11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 38  -0.46160  -6.25879   7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 39  -4.20834  -4.20834   4.58420   h   0.417  1.016         3.1        37.3       552.0
+ 40  -6.25879  -0.46160   7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 41  -3.74517  -0.15625  11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 42  -0.15625  -3.74517  11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 43   0.15625   3.74517  11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 44   0.46160   6.25879   7.30195   h   0.417  1.015         3.1        37.3       552.0
+ 45   4.20834   4.20834   4.58420   h   0.417  1.016         3.1        37.3       552.0
+ 46   3.74517   0.15625  11.71260   h   0.417  1.015         3.1        37.3       552.1
+ 47   6.25879   0.46160   7.30195   h   0.417  1.015         3.1        37.3       552.0
+
+molecular C6(AA) [au] =     54854.30
+
+           DFT-D V3(BJ)
+ DF tpssh                                             
+ parameters
+ s6       :    1.0000
+ s8       :    2.2382
+ a1       :    0.4529
+ a2       :    4.6550
+ k1-k3    :   16.0000    1.3333   -4.0000
+ 
+ Edisp /kcal,au:   -68.9842 -0.10993338
+
+ E6    /kcal :   -26.9369
+ E8    /kcal :   -42.0474
+ % E8        : 60.95
+ nuclear repulsion energy                  =    4888.780597940
+ empirical dispersive energy correction    =      -0.109933385
+ nuclear repulsion + dispersion correction =    4888.670664556
+
+
+         -----------------
+         -S,T+V- integrals
+         -----------------
+
+ 1e-integrals will be neglected if expon. factor < 0.100259E-15
+
+
+          ----------------
+          -ecp-  integrals
+          ----------------
+ 
+   Difference densities algorithm switched on.
+   The maximal number of linear combinations of
+   difference densities is                    20 .
+
+ DIIS switched on: error vector is FDS-SDF
+ Max. Iterations for DIIS is     :   4
+ DIIS matrix (see manual) 
+    Scaling factor of diagonals  :  1.200
+    threshold for scaling factor :  0.000
+
+ scf convergence criterion : increment of total energy < .1000000D-06
+                  and increment of one-electron energy < .1000000D-03
+
+ MOs are in ASCII format !
+
+
+    mo occupation :
+   irrep   mo's   occupied
+    a1     173       28
+    a2     109       11
+    b1     111       11
+    b2     171       27
+    e      275       38
+ 
+ number of basis functions   :  1114
+ number of occupied orbitals :   153
+ 
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : expanded
+  occupied mo                     28 a1   missing ! 
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : expanded
+  mo                    28  could not be found ! 
+  mo                    29  could not be found ! 
+  mo                    30  could not be found ! 
+  mo                    31  could not be found ! 
+  mo                    32  could not be found ! 
+  mo                    33  could not be found ! 
+  mo                    34  could not be found ! 
+  mo                    35  could not be found ! 
+  mo                    36  could not be found ! 
+  mo                    37  could not be found ! 
+  mo                    38  could not be found ! 
+  mo                    39  could not be found ! 
+  mo                    40  could not be found ! 
+  mo                    41  could not be found ! 
+  mo                    42  could not be found ! 
+  mo                    43  could not be found ! 
+  mo                    44  could not be found ! 
+  mo                    45  could not be found ! 
+  mo                    46  could not be found ! 
+  mo                    47  could not be found ! 
+  mo                    48  could not be found ! 
+  mo                    49  could not be found ! 
+  mo                    50  could not be found ! 
+  mo                    51  could not be found ! 
+  mo                    52  could not be found ! 
+  mo                    53  could not be found ! 
+  mo                    54  could not be found ! 
+  mo                    55  could not be found ! 
+  mo                    56  could not be found ! 
+  mo                    57  could not be found ! 
+  mo                    58  could not be found ! 
+  mo                    59  could not be found ! 
+  mo                    60  could not be found ! 
+  mo                    61  could not be found ! 
+  mo                    62  could not be found ! 
+  mo                    63  could not be found ! 
+  mo                    64  could not be found ! 
+  mo                    65  could not be found ! 
+  mo                    66  could not be found ! 
+  mo                    67  could not be found ! 
+  mo                    68  could not be found ! 
+  mo                    69  could not be found ! 
+  mo                    70  could not be found ! 
+  mo                    71  could not be found ! 
+  mo                    72  could not be found ! 
+  mo                    73  could not be found ! 
+  mo                    74  could not be found ! 
+  mo                    75  could not be found ! 
+  mo                    76  could not be found ! 
+  mo                    77  could not be found ! 
+  mo                    78  could not be found ! 
+  mo                    79  could not be found ! 
+  mo                    80  could not be found ! 
+  mo                    81  could not be found ! 
+  mo                    82  could not be found ! 
+  mo                    83  could not be found ! 
+  mo                    84  could not be found ! 
+  mo                    85  could not be found ! 
+  mo                    86  could not be found ! 
+  mo                    87  could not be found ! 
+  mo                    88  could not be found ! 
+  mo                    89  could not be found ! 
+  mo                    90  could not be found ! 
+  mo                    91  could not be found ! 
+  mo                    92  could not be found ! 
+  mo                    93  could not be found ! 
+  mo                    94  could not be found ! 
+  mo                    95  could not be found ! 
+  mo                    96  could not be found ! 
+  mo                    97  could not be found ! 
+  mo                    98  could not be found ! 
+  mo                    99  could not be found ! 
+  mo                   100  could not be found ! 
+  mo                   101  could not be found ! 
+  mo                   102  could not be found ! 
+  mo                   103  could not be found ! 
+  mo                   104  could not be found ! 
+  mo                   105  could not be found ! 
+  mo                   106  could not be found ! 
+  mo                   107  could not be found ! 
+  mo                   108  could not be found ! 
+  mo                   109  could not be found ! 
+  mo                   110  could not be found ! 
+  mo                   111  could not be found ! 
+  mo                   112  could not be found ! 
+  mo                   113  could not be found ! 
+  mo                   114  could not be found ! 
+  mo                   115  could not be found ! 
+  mo                   116  could not be found ! 
+  mo                   117  could not be found ! 
+  mo                   118  could not be found ! 
+  mo                   119  could not be found ! 
+  mo                   120  could not be found ! 
+  mo                   121  could not be found ! 
+  mo                   122  could not be found ! 
+  mo                   123  could not be found ! 
+  mo                   124  could not be found ! 
+  mo                   125  could not be found ! 
+  mo                   126  could not be found ! 
+  mo                   127  could not be found ! 
+  mo                   128  could not be found ! 
+  mo                   129  could not be found ! 
+  mo                   130  could not be found ! 
+  mo                   131  could not be found ! 
+  mo                   132  could not be found ! 
+  mo                   133  could not be found ! 
+  mo                   134  could not be found ! 
+  mo                   135  could not be found ! 
+  mo                   136  could not be found ! 
+  mo                   137  could not be found ! 
+  mo                   138  could not be found ! 
+  mo                   139  could not be found ! 
+  mo                   140  could not be found ! 
+  mo                   141  could not be found ! 
+  mo                   142  could not be found ! 
+  mo                   143  could not be found ! 
+  mo                   144  could not be found ! 
+  mo                   145  could not be found ! 
+  mo                   146  could not be found ! 
+  mo                   147  could not be found ! 
+  mo                   148  could not be found ! 
+  mo                   149  could not be found ! 
+  mo                   150  could not be found ! 
+  mo                   151  could not be found ! 
+  mo                   152  could not be found ! 
+  mo                   153  could not be found ! 
+  mo                   154  could not be found ! 
+  mo                   155  could not be found ! 
+  mo                   156  could not be found ! 
+  mo                   157  could not be found ! 
+  mo                   158  could not be found ! 
+  mo                   159  could not be found ! 
+  mo                   160  could not be found ! 
+  mo                   161  could not be found ! 
+  mo                   162  could not be found ! 
+  mo                   163  could not be found ! 
+  mo                   164  could not be found ! 
+  mo                   165  could not be found ! 
+  mo                   166  could not be found ! 
+  mo                   167  could not be found ! 
+  mo                   168  could not be found ! 
+  mo                   169  could not be found ! 
+  mo                   170  could not be found ! 
+  mo                   171  could not be found ! 
+  mo                   172  could not be found ! 
+  mo                   173  could not be found ! 
+  mo                   185  could not be found ! 
+  mo                   186  could not be found ! 
+  mo                   187  could not be found ! 
+  mo                   188  could not be found ! 
+  mo                   189  could not be found ! 
+  mo                   190  could not be found ! 
+  mo                   191  could not be found ! 
+  mo                   192  could not be found ! 
+  mo                   193  could not be found ! 
+  mo                   194  could not be found ! 
+  mo                   195  could not be found ! 
+  mo                   196  could not be found ! 
+  mo                   197  could not be found ! 
+  mo                   198  could not be found ! 
+  mo                   199  could not be found ! 
+  mo                   200  could not be found ! 
+  mo                   201  could not be found ! 
+  mo                   202  could not be found ! 
+  mo                   203  could not be found ! 
+  mo                   204  could not be found ! 
+  mo                   205  could not be found ! 
+  mo                   206  could not be found ! 
+  mo                   207  could not be found ! 
+  mo                   208  could not be found ! 
+  mo                   209  could not be found ! 
+  mo                   210  could not be found ! 
+  mo                   211  could not be found ! 
+  mo                   212  could not be found ! 
+  mo                   213  could not be found ! 
+  mo                   214  could not be found ! 
+  mo                   215  could not be found ! 
+  mo                   216  could not be found ! 
+  mo                   217  could not be found ! 
+  mo                   218  could not be found ! 
+  mo                   219  could not be found ! 
+  mo                   220  could not be found ! 
+  mo                   221  could not be found ! 
+  mo                   222  could not be found ! 
+  mo                   223  could not be found ! 
+  mo                   224  could not be found ! 
+  mo                   225  could not be found ! 
+  mo                   226  could not be found ! 
+  mo                   227  could not be found ! 
+  mo                   228  could not be found ! 
+  mo                   229  could not be found ! 
+  mo                   230  could not be found ! 
+  mo                   231  could not be found ! 
+  mo                   232  could not be found ! 
+  mo                   233  could not be found ! 
+  mo                   234  could not be found ! 
+  mo                   235  could not be found ! 
+  mo                   236  could not be found ! 
+  mo                   237  could not be found ! 
+  mo                   238  could not be found ! 
+  mo                   239  could not be found ! 
+  mo                   240  could not be found ! 
+  mo                   241  could not be found ! 
+  mo                   242  could not be found ! 
+  mo                   243  could not be found ! 
+  mo                   244  could not be found ! 
+  mo                   245  could not be found ! 
+  mo                   246  could not be found ! 
+  mo                   247  could not be found ! 
+  mo                   248  could not be found ! 
+  mo                   249  could not be found ! 
+  mo                   250  could not be found ! 
+  mo                   251  could not be found ! 
+  mo                   252  could not be found ! 
+  mo                   253  could not be found ! 
+  mo                   254  could not be found ! 
+  mo                   255  could not be found ! 
+  mo                   256  could not be found ! 
+  mo                   257  could not be found ! 
+  mo                   258  could not be found ! 
+  mo                   259  could not be found ! 
+  mo                   260  could not be found ! 
+  mo                   261  could not be found ! 
+  mo                   262  could not be found ! 
+  mo                   263  could not be found ! 
+  mo                   264  could not be found ! 
+  mo                   265  could not be found ! 
+  mo                   266  could not be found ! 
+  mo                   267  could not be found ! 
+  mo                   268  could not be found ! 
+  mo                   269  could not be found ! 
+  mo                   270  could not be found ! 
+  mo                   271  could not be found ! 
+  mo                   272  could not be found ! 
+  mo                   273  could not be found ! 
+  mo                   274  could not be found ! 
+  mo                   275  could not be found ! 
+  mo                   276  could not be found ! 
+  mo                   277  could not be found ! 
+  mo                   278  could not be found ! 
+  mo                   279  could not be found ! 
+  mo                   280  could not be found ! 
+  mo                   281  could not be found ! 
+  mo                   282  could not be found ! 
+  mo                   295  could not be found ! 
+  mo                   296  could not be found ! 
+  mo                   297  could not be found ! 
+  mo                   298  could not be found ! 
+  mo                   299  could not be found ! 
+  mo                   300  could not be found ! 
+  mo                   301  could not be found ! 
+  mo                   302  could not be found ! 
+  mo                   303  could not be found ! 
+  mo                   304  could not be found ! 
+  mo                   305  could not be found ! 
+  mo                   306  could not be found ! 
+  mo                   307  could not be found ! 
+  mo                   308  could not be found ! 
+  mo                   309  could not be found ! 
+  mo                   310  could not be found ! 
+  mo                   311  could not be found ! 
+  mo                   312  could not be found ! 
+  mo                   313  could not be found ! 
+  mo                   314  could not be found ! 
+  mo                   315  could not be found ! 
+  mo                   316  could not be found ! 
+  mo                   317  could not be found ! 
+  mo                   318  could not be found ! 
+  mo                   319  could not be found ! 
+  mo                   320  could not be found ! 
+  mo                   321  could not be found ! 
+  mo                   322  could not be found ! 
+  mo                   323  could not be found ! 
+  mo                   324  could not be found ! 
+  mo                   325  could not be found ! 
+  mo                   326  could not be found ! 
+  mo                   327  could not be found ! 
+  mo                   328  could not be found ! 
+  mo                   329  could not be found ! 
+  mo                   330  could not be found ! 
+  mo                   331  could not be found ! 
+  mo                   332  could not be found ! 
+  mo                   333  could not be found ! 
+  mo                   334  could not be found ! 
+  mo                   335  could not be found ! 
+  mo                   336  could not be found ! 
+  mo                   337  could not be found ! 
+  mo                   338  could not be found ! 
+  mo                   339  could not be found ! 
+  mo                   340  could not be found ! 
+  mo                   341  could not be found ! 
+  mo                   342  could not be found ! 
+  mo                   343  could not be found ! 
+  mo                   344  could not be found ! 
+  mo                   345  could not be found ! 
+  mo                   346  could not be found ! 
+  mo                   347  could not be found ! 
+  mo                   348  could not be found ! 
+  mo                   349  could not be found ! 
+  mo                   350  could not be found ! 
+  mo                   351  could not be found ! 
+  mo                   352  could not be found ! 
+  mo                   353  could not be found ! 
+  mo                   354  could not be found ! 
+  mo                   355  could not be found ! 
+  mo                   356  could not be found ! 
+  mo                   357  could not be found ! 
+  mo                   358  could not be found ! 
+  mo                   359  could not be found ! 
+  mo                   360  could not be found ! 
+  mo                   361  could not be found ! 
+  mo                   362  could not be found ! 
+  mo                   363  could not be found ! 
+  mo                   364  could not be found ! 
+  mo                   365  could not be found ! 
+  mo                   366  could not be found ! 
+  mo                   367  could not be found ! 
+  mo                   368  could not be found ! 
+  mo                   369  could not be found ! 
+  mo                   370  could not be found ! 
+  mo                   371  could not be found ! 
+  mo                   372  could not be found ! 
+  mo                   373  could not be found ! 
+  mo                   374  could not be found ! 
+  mo                   375  could not be found ! 
+  mo                   376  could not be found ! 
+  mo                   377  could not be found ! 
+  mo                   378  could not be found ! 
+  mo                   379  could not be found ! 
+  mo                   380  could not be found ! 
+  mo                   381  could not be found ! 
+  mo                   382  could not be found ! 
+  mo                   383  could not be found ! 
+  mo                   384  could not be found ! 
+  mo                   385  could not be found ! 
+  mo                   386  could not be found ! 
+  mo                   387  could not be found ! 
+  mo                   388  could not be found ! 
+  mo                   389  could not be found ! 
+  mo                   390  could not be found ! 
+  mo                   391  could not be found ! 
+  mo                   392  could not be found ! 
+  mo                   393  could not be found ! 
+  mo                   421  could not be found ! 
+  mo                   422  could not be found ! 
+  mo                   423  could not be found ! 
+  mo                   424  could not be found ! 
+  mo                   425  could not be found ! 
+  mo                   426  could not be found ! 
+  mo                   427  could not be found ! 
+  mo                   428  could not be found ! 
+  mo                   429  could not be found ! 
+  mo                   430  could not be found ! 
+  mo                   431  could not be found ! 
+  mo                   432  could not be found ! 
+  mo                   433  could not be found ! 
+  mo                   434  could not be found ! 
+  mo                   435  could not be found ! 
+  mo                   436  could not be found ! 
+  mo                   437  could not be found ! 
+  mo                   438  could not be found ! 
+  mo                   439  could not be found ! 
+  mo                   440  could not be found ! 
+  mo                   441  could not be found ! 
+  mo                   442  could not be found ! 
+  mo                   443  could not be found ! 
+  mo                   444  could not be found ! 
+  mo                   445  could not be found ! 
+  mo                   446  could not be found ! 
+  mo                   447  could not be found ! 
+  mo                   448  could not be found ! 
+  mo                   449  could not be found ! 
+  mo                   450  could not be found ! 
+  mo                   451  could not be found ! 
+  mo                   452  could not be found ! 
+  mo                   453  could not be found ! 
+  mo                   454  could not be found ! 
+  mo                   455  could not be found ! 
+  mo                   456  could not be found ! 
+  mo                   457  could not be found ! 
+  mo                   458  could not be found ! 
+  mo                   459  could not be found ! 
+  mo                   460  could not be found ! 
+  mo                   461  could not be found ! 
+  mo                   462  could not be found ! 
+  mo                   463  could not be found ! 
+  mo                   464  could not be found ! 
+  mo                   465  could not be found ! 
+  mo                   466  could not be found ! 
+  mo                   467  could not be found ! 
+  mo                   468  could not be found ! 
+  mo                   469  could not be found ! 
+  mo                   470  could not be found ! 
+  mo                   471  could not be found ! 
+  mo                   472  could not be found ! 
+  mo                   473  could not be found ! 
+  mo                   474  could not be found ! 
+  mo                   475  could not be found ! 
+  mo                   476  could not be found ! 
+  mo                   477  could not be found ! 
+  mo                   478  could not be found ! 
+  mo                   479  could not be found ! 
+  mo                   480  could not be found ! 
+  mo                   481  could not be found ! 
+  mo                   482  could not be found ! 
+  mo                   483  could not be found ! 
+  mo                   484  could not be found ! 
+  mo                   485  could not be found ! 
+  mo                   486  could not be found ! 
+  mo                   487  could not be found ! 
+  mo                   488  could not be found ! 
+  mo                   489  could not be found ! 
+  mo                   490  could not be found ! 
+  mo                   491  could not be found ! 
+  mo                   492  could not be found ! 
+  mo                   493  could not be found ! 
+  mo                   494  could not be found ! 
+  mo                   495  could not be found ! 
+  mo                   496  could not be found ! 
+  mo                   497  could not be found ! 
+  mo                   498  could not be found ! 
+  mo                   499  could not be found ! 
+  mo                   500  could not be found ! 
+  mo                   501  could not be found ! 
+  mo                   502  could not be found ! 
+  mo                   503  could not be found ! 
+  mo                   504  could not be found ! 
+  mo                   505  could not be found ! 
+  mo                   506  could not be found ! 
+  mo                   507  could not be found ! 
+  mo                   508  could not be found ! 
+  mo                   509  could not be found ! 
+  mo                   510  could not be found ! 
+  mo                   511  could not be found ! 
+  mo                   512  could not be found ! 
+  mo                   513  could not be found ! 
+  mo                   514  could not be found ! 
+  mo                   515  could not be found ! 
+  mo                   516  could not be found ! 
+  mo                   517  could not be found ! 
+  mo                   518  could not be found ! 
+  mo                   519  could not be found ! 
+  mo                   520  could not be found ! 
+  mo                   521  could not be found ! 
+  mo                   522  could not be found ! 
+  mo                   523  could not be found ! 
+  mo                   524  could not be found ! 
+  mo                   525  could not be found ! 
+  mo                   526  could not be found ! 
+  mo                   527  could not be found ! 
+  mo                   528  could not be found ! 
+  mo                   529  could not be found ! 
+  mo                   530  could not be found ! 
+  mo                   531  could not be found ! 
+  mo                   532  could not be found ! 
+  mo                   533  could not be found ! 
+  mo                   534  could not be found ! 
+  mo                   535  could not be found ! 
+  mo                   536  could not be found ! 
+  mo                   537  could not be found ! 
+  mo                   538  could not be found ! 
+  mo                   539  could not be found ! 
+  mo                   540  could not be found ! 
+  mo                   541  could not be found ! 
+  mo                   542  could not be found ! 
+  mo                   543  could not be found ! 
+  mo                   544  could not be found ! 
+  mo                   545  could not be found ! 
+  mo                   546  could not be found ! 
+  mo                   547  could not be found ! 
+  mo                   548  could not be found ! 
+  mo                   549  could not be found ! 
+  mo                   550  could not be found ! 
+  mo                   551  could not be found ! 
+  mo                   552  could not be found ! 
+  mo                   553  could not be found ! 
+  mo                   554  could not be found ! 
+  mo                   555  could not be found ! 
+  mo                   556  could not be found ! 
+  mo                   557  could not be found ! 
+  mo                   558  could not be found ! 
+  mo                   559  could not be found ! 
+  mo                   560  could not be found ! 
+  mo                   561  could not be found ! 
+  mo                   562  could not be found ! 
+  mo                   563  could not be found ! 
+  mo                   564  could not be found ! 
+  mo                   603  could not be found ! 
+  mo                   604  could not be found ! 
+  mo                   605  could not be found ! 
+  mo                   606  could not be found ! 
+  mo                   607  could not be found ! 
+  mo                   608  could not be found ! 
+  mo                   609  could not be found ! 
+  mo                   610  could not be found ! 
+  mo                   611  could not be found ! 
+  mo                   612  could not be found ! 
+  mo                   613  could not be found ! 
+  mo                   614  could not be found ! 
+  mo                   615  could not be found ! 
+  mo                   616  could not be found ! 
+  mo                   617  could not be found ! 
+  mo                   618  could not be found ! 
+  mo                   619  could not be found ! 
+  mo                   620  could not be found ! 
+  mo                   621  could not be found ! 
+  mo                   622  could not be found ! 
+  mo                   623  could not be found ! 
+  mo                   624  could not be found ! 
+  mo                   625  could not be found ! 
+  mo                   626  could not be found ! 
+  mo                   627  could not be found ! 
+  mo                   628  could not be found ! 
+  mo                   629  could not be found ! 
+  mo                   630  could not be found ! 
+  mo                   631  could not be found ! 
+  mo                   632  could not be found ! 
+  mo                   633  could not be found ! 
+  mo                   634  could not be found ! 
+  mo                   635  could not be found ! 
+  mo                   636  could not be found ! 
+  mo                   637  could not be found ! 
+  mo                   638  could not be found ! 
+  mo                   639  could not be found ! 
+  mo                   640  could not be found ! 
+  mo                   641  could not be found ! 
+  mo                   642  could not be found ! 
+  mo                   643  could not be found ! 
+  mo                   644  could not be found ! 
+  mo                   645  could not be found ! 
+  mo                   646  could not be found ! 
+  mo                   647  could not be found ! 
+  mo                   648  could not be found ! 
+  mo                   649  could not be found ! 
+  mo                   650  could not be found ! 
+  mo                   651  could not be found ! 
+  mo                   652  could not be found ! 
+  mo                   653  could not be found ! 
+  mo                   654  could not be found ! 
+  mo                   655  could not be found ! 
+  mo                   656  could not be found ! 
+  mo                   657  could not be found ! 
+  mo                   658  could not be found ! 
+  mo                   659  could not be found ! 
+  mo                   660  could not be found ! 
+  mo                   661  could not be found ! 
+  mo                   662  could not be found ! 
+  mo                   663  could not be found ! 
+  mo                   664  could not be found ! 
+  mo                   665  could not be found ! 
+  mo                   666  could not be found ! 
+  mo                   667  could not be found ! 
+  mo                   668  could not be found ! 
+  mo                   669  could not be found ! 
+  mo                   670  could not be found ! 
+  mo                   671  could not be found ! 
+  mo                   672  could not be found ! 
+  mo                   673  could not be found ! 
+  mo                   674  could not be found ! 
+  mo                   675  could not be found ! 
+  mo                   676  could not be found ! 
+  mo                   677  could not be found ! 
+  mo                   678  could not be found ! 
+  mo                   679  could not be found ! 
+  mo                   680  could not be found ! 
+  mo                   681  could not be found ! 
+  mo                   682  could not be found ! 
+  mo                   683  could not be found ! 
+  mo                   684  could not be found ! 
+  mo                   685  could not be found ! 
+  mo                   686  could not be found ! 
+  mo                   687  could not be found ! 
+  mo                   688  could not be found ! 
+  mo                   689  could not be found ! 
+  mo                   690  could not be found ! 
+  mo                   691  could not be found ! 
+  mo                   692  could not be found ! 
+  mo                   693  could not be found ! 
+  mo                   694  could not be found ! 
+  mo                   695  could not be found ! 
+  mo                   696  could not be found ! 
+  mo                   697  could not be found ! 
+  mo                   698  could not be found ! 
+  mo                   699  could not be found ! 
+  mo                   700  could not be found ! 
+  mo                   701  could not be found ! 
+  mo                   702  could not be found ! 
+  mo                   703  could not be found ! 
+  mo                   704  could not be found ! 
+  mo                   705  could not be found ! 
+  mo                   706  could not be found ! 
+  mo                   707  could not be found ! 
+  mo                   708  could not be found ! 
+  mo                   709  could not be found ! 
+  mo                   710  could not be found ! 
+  mo                   711  could not be found ! 
+  mo                   712  could not be found ! 
+  mo                   713  could not be found ! 
+  mo                   714  could not be found ! 
+  mo                   715  could not be found ! 
+  mo                   716  could not be found ! 
+  mo                   717  could not be found ! 
+  mo                   718  could not be found ! 
+  mo                   719  could not be found ! 
+  mo                   720  could not be found ! 
+  mo                   721  could not be found ! 
+  mo                   722  could not be found ! 
+  mo                   723  could not be found ! 
+  mo                   724  could not be found ! 
+  mo                   725  could not be found ! 
+  mo                   726  could not be found ! 
+  mo                   727  could not be found ! 
+  mo                   728  could not be found ! 
+  mo                   729  could not be found ! 
+  mo                   730  could not be found ! 
+  mo                   731  could not be found ! 
+  mo                   732  could not be found ! 
+  mo                   733  could not be found ! 
+  mo                   734  could not be found ! 
+  mo                   735  could not be found ! 
+  mo                   736  could not be found ! 
+  mo                   737  could not be found ! 
+  mo                   738  could not be found ! 
+  mo                   739  could not be found ! 
+  mo                   740  could not be found ! 
+  mo                   741  could not be found ! 
+  mo                   742  could not be found ! 
+  mo                   743  could not be found ! 
+  mo                   744  could not be found ! 
+  mo                   745  could not be found ! 
+  mo                   746  could not be found ! 
+  mo                   747  could not be found ! 
+  mo                   748  could not be found ! 
+  mo                   749  could not be found ! 
+  mo                   750  could not be found ! 
+  mo                   751  could not be found ! 
+  mo                   752  could not be found ! 
+  mo                   753  could not be found ! 
+  mo                   754  could not be found ! 
+  mo                   755  could not be found ! 
+  mo                   756  could not be found ! 
+  mo                   757  could not be found ! 
+  mo                   758  could not be found ! 
+  mo                   759  could not be found ! 
+  mo                   760  could not be found ! 
+  mo                   761  could not be found ! 
+  mo                   762  could not be found ! 
+  mo                   763  could not be found ! 
+  mo                   764  could not be found ! 
+  mo                   765  could not be found ! 
+  mo                   766  could not be found ! 
+  mo                   767  could not be found ! 
+  mo                   768  could not be found ! 
+  mo                   769  could not be found ! 
+  mo                   770  could not be found ! 
+  mo                   771  could not be found ! 
+  mo                   772  could not be found ! 
+  mo                   773  could not be found ! 
+  mo                   774  could not be found ! 
+  mo                   775  could not be found ! 
+  mo                   776  could not be found ! 
+  mo                   777  could not be found ! 
+  mo                   778  could not be found ! 
+  mo                   779  could not be found ! 
+  mo                   780  could not be found ! 
+  mo                   781  could not be found ! 
+  mo                   782  could not be found ! 
+  mo                   783  could not be found ! 
+  mo                   784  could not be found ! 
+  mo                   785  could not be found ! 
+  mo                   786  could not be found ! 
+  mo                   787  could not be found ! 
+  mo                   788  could not be found ! 
+  mo                   789  could not be found ! 
+  mo                   790  could not be found ! 
+  mo                   791  could not be found ! 
+  mo                   792  could not be found ! 
+  mo                   793  could not be found ! 
+  mo                   794  could not be found ! 
+  mo                   795  could not be found ! 
+  mo                   796  could not be found ! 
+  mo                   797  could not be found ! 
+  mo                   798  could not be found ! 
+  mo                   799  could not be found ! 
+  mo                   800  could not be found ! 
+  mo                   801  could not be found ! 
+  mo                   802  could not be found ! 
+  mo                   803  could not be found ! 
+  mo                   804  could not be found ! 
+  mo                   805  could not be found ! 
+  mo                   806  could not be found ! 
+  mo                   807  could not be found ! 
+  mo                   808  could not be found ! 
+  mo                   809  could not be found ! 
+  mo                   810  could not be found ! 
+  mo                   811  could not be found ! 
+  mo                   812  could not be found ! 
+  mo                   813  could not be found ! 
+  mo                   814  could not be found ! 
+  mo                   815  could not be found ! 
+  mo                   816  could not be found ! 
+  mo                   817  could not be found ! 
+  mo                   818  could not be found ! 
+  mo                   819  could not be found ! 
+  mo                   820  could not be found ! 
+  mo                   821  could not be found ! 
+  mo                   822  could not be found ! 
+  mo                   823  could not be found ! 
+  mo                   824  could not be found ! 
+  mo                   825  could not be found ! 
+  mo                   826  could not be found ! 
+  mo                   827  could not be found ! 
+  mo                   828  could not be found ! 
+  mo                   829  could not be found ! 
+  mo                   830  could not be found ! 
+  mo                   831  could not be found ! 
+  mo                   832  could not be found ! 
+  mo                   833  could not be found ! 
+  mo                   834  could not be found ! 
+  mo                   835  could not be found ! 
+  mo                   836  could not be found ! 
+  mo                   837  could not be found ! 
+  mo                   838  could not be found ! 
+  mo                   839  could not be found ! 
+ mo-orthogonalization by Cholesky decomposition
+ ERROR: non-positive definite matrix in Cholesky decomposition
+    of MOs in cho_ortho.f                                                        
+
+========================
+ internal module stack: 
+------------------------
+    ridft
+    getmos
+    moget
+========================
+
+ Fatal error in cholesky
+ ridft ended abnormally
+ridft step ended abnormally
+next step = ridft
