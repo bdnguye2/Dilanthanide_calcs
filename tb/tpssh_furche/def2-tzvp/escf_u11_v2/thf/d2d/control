@@ -1,0 +1,166 @@
+$cosmo
+  epsilon=    7.250
+  rsolv= 1.30
+$cosmo_atoms
+# radii in Angstrom units
+s  4-7                                                                         \
+   radius=  2.1600
+c  8-27                                                                        \
+   radius=  2.0000
+h  28-47                                                                       \
+   radius=  1.3000
+mo 1                                                                           \
+   radius=  2.5840
+tb 2-3                                                                         \
+   radius=  2.5840
+$cosmo_out file=out.ccf
+#$fermi tmstrt=300.00 tmend=20 tmfac=0.95 hlcrt=1.0E-01 stop=1.0E-03
+$pop nbo
+$title
+$symmetry d2d
+$redundant    file=coord
+$user-defined bonds    file=coord
+$coord    file=coord
+$optimize
+ internal   on
+ redundant  on
+ cartesian  off
+ global     off
+ basis      off
+$atoms
+mo 1                                                                           \
+   basis =mo def2-TZVP                                                         \
+   ecp   =mo def2-ecp                                                          \
+   jbas  =mo def2-TZVP
+tb 2-3                                                                         \
+   basis =tb def2-TZVP                                                         \
+   ecp   =tb def2-ecp                                                          \
+   jbas  =tb def2-TZVP
+s  4-7                                                                         \
+   basis =s def2-TZVP                                                          \
+   jbas  =s def2-TZVP
+c  8-27                                                                        \
+   basis =c def2-TZVP                                                          \
+   jbas  =c def2-TZVP
+h  28-47                                                                       \
+   basis =h def2-TZVP                                                          \
+   jbas  =h def2-TZVP
+$basis    file=basis
+$ecp    file=basis
+$uhfmo_alpha   file=alpha
+$uhfmo_beta   file=beta
+$uhf
+$scfiterlimit       300
+$thize     0.10000000E-04
+$thime        5
+$scfdamp   start=1.000  step=0.050  min=0.050
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$energy    file=energy
+$grad    file=gradient
+$forceapprox    file=forceapprox
+$dft
+   functional tpssh
+   gridsize   4
+   weight derivatives
+$scfconv   7
+$denconv 1d-7
+$scforbitalshift  closedshell=.05
+$ricore    55000
+$rij
+$jbas    file=auxbasis
+$disp3 bj
+$marij
+$rundimensions
+   natoms=47
+   nbf(CAO)=1286
+   nbf(AO)=1114
+$ssquare from ridft
+         38.073 (not to be modified here)
+$charge from ridft
+         -1.000 (not to be modified here)
+$dipole from ridft
+  x    -0.00000000000024    y     0.00000000000093    z     0.00000000000048    a.u.
+   | dipole | =    0.0000000000  debye
+$last SCF energy change = -.55502661E-01
+$optinfo       file=optinfo
+$hessapprox   file=hessapprox
+$dipgrad    file=dipgrad
+$hessian (projected)    file=hessian
+$vibrational normal modes    file=vib_normal_modes
+$vibrational reduced masses
+  11.9966181529   9.3306292482  10.6021838048  10.3212455591  16.0295489669
+  13.1707271310   3.4822399707   3.3983488574   8.0532452687   8.0533377979
+   3.7063429725   3.7063634456   5.9136954690   8.9285395391   8.3901054658
+   8.3901079582  15.9080028182  11.9492136832  11.9492097096   7.0363581969
+   9.4851412031  29.0424989281  29.0424994572  31.0986165466  26.8011313667
+  22.5389140296  22.5389143571   5.9292490758   5.2565352823   3.6283961128
+   3.6283961506   3.5026378657   3.5005935011  14.3128216631   8.2540225807
+   4.1913916545   4.1913917101   4.9796008186   8.6559714704   8.6559714458
+   7.4931597052  32.0042877339  40.0506249149  40.7789492573  40.7789496964
+   4.8993567309   4.8981242548   4.9626409263   4.9626409404   4.3549693099
+   4.3549693011   4.3260407662   4.3248988904   1.2386551430   1.2386551432
+   1.2866439606   1.2874161318   1.2806821739   1.2806821741   1.2387747258
+   1.2444492875   1.1471577151   1.1471577178   1.1440876634   1.1416600188
+   4.4793362196   4.4793362097   4.4874978703   4.4869692009   4.7357478510
+   4.7364229724   4.4350126601   4.4350126447   1.1529168256   1.1529747717
+   1.1634442259   1.1634442252   1.1872090363   1.1872090362   1.1872975611
+   1.1872056456   1.4468027857   1.4467847030   1.4443283410   1.4443283448
+   1.4516726973   1.4516726992   1.4448807160   1.4448913047   1.2266968129
+   1.2266968135   1.2267533971   1.2266243430   1.2220577566   1.2225869401
+   1.2211932032   1.2211932040   5.8019582841   5.8019582784   5.8131070244
+   5.8106255436   1.2809939484   1.2810078001   1.2803445128   1.2803445118
+   4.9930749224   4.9863063514   5.0655517874   5.0655517842   5.1669999565
+   5.1669999529   5.1414533351   5.1441638061   2.5527920702   2.5527920826
+   2.5359976517   2.5365175029   2.5268564610   2.5268564699   2.5583125361
+   2.5580972464   1.0864312446   1.0864304088   1.0860659320   1.0860659320
+   1.0877893167   1.0877893168   1.0873008270   1.0872952342   1.0963139633
+   1.0963139631   1.0956728500   1.0956624229   1.0955609966   1.0955609965
+   1.0960715889   1.0960708925   1.1044458849   1.1044458850   1.1046492501
+   1.1046478361
+$nvibro      141
+$vibrational spectrum    file=vibspectrum
+$orbital_max_rnorm 0.13535610765814E-04
+$subenergy  Etot         E1                  Ej                Ex                 Ec                 En                 Disp
+-4085.366769905    -16385.89426337     7555.069757059    -285.7365161463    -11.65395360195     5042.956465392    -.1082592340491
+$alpha shells
+ a1      1-27                                   ( 1 )
+ a2      1-11                                   ( 1 )
+ b1      1-11                                   ( 1 )
+ b2      1-27                                   ( 1 )
+ e       1-38                                   ( 1 )
+$beta shells
+ a1      1-27                                   ( 1 )
+ a2      1-10                                   ( 1 )
+ b1      1-10                                   ( 1 )
+ b2      1-26                                   ( 1 )
+ e       1-34                                   ( 1 )
+$scfinstab urpa
+$soes
+ b2         100
+ e          100
+$rpacor    75000   in_total
+#$maxcor   3500 MiB  per_core
+$actual step      escf
+$end
