@@ -1,0 +1,632 @@
+           SMPCPUS    set: Shared-memory Parallelization with  20 CPUs.
+
+           SMP Parallelization Reference:
+           C. van Wullen, J. Comput. Chem. 32 (2011) 1195--1201
+
+ force (hpc3-14-15) : TURBOMOLE rev. V7.5.0 compiled 13 Jun 2020 at 23:29:25
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-09-03 10:09:57.864 
+
+
+
+                             T U R B O M O L E   
+
+                          a o f o r c e - program
+
+                        using direct algorithms for
+
+                       SCF level calculations of
+                         * harmonic force constants
+                         * hyperpolarizabilities
+                         * IR and RAMAN intensities
+                         * VCD intensities
+
+                       DFT level calculations of
+                         * harmonic force constants
+                         * IR intensities
+                                                   
+       Stephan Boecker, Peter Deglmann, Filipp Furche and Marco Haeser
+                          Quantum Chemistry Group
+                          Universitaet  Karlsruhe
+                                   Germany
+
+ 
+ 
+ 
+ 
+     References :
+ 
+       RI-J implementation:
+         Peter Deglmann, Klaus May, Filipp Furche, Reinhart Ahlrichs
+                 Chem. Phys. Lett. 384:103 (2004)
+ 
+       Efficiency, technical details:
+         Peter Deglmann, Filipp Furche, Reinhart Ahlrichs
+                 Chem. Phys. Lett. 362:511 (2002)
+ 
+       Search of lowest eigenvalues by iterative diagonalization:
+         Peter Deglmann, Filipp Furche
+                 J. Chem. Phys. 117:9535 (2002)
+ 
+       Vibrational circular dichroism implementation:
+        Kevin Reiter, Michael Kuehn, Florian Weigend
+                 J. Chem. Phys. 146:054102 (2017)  
+ 
+ 
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.48712414    y     39.000     0
+          2.54138892    2.21613752   -2.56662443    s     16.000     0
+         -2.54138892   -2.21613752   -2.56662443    s     16.000     0
+          2.21613752   -2.54138892    2.56662443    s     16.000     0
+         -2.21613752    2.54138892    2.56662443    s     16.000     0
+          4.52426039   -1.62473577   -7.91825102    c      6.000     0
+          3.71801244   -3.39927368   -6.05272088    c      6.000     0
+          1.61639346   -4.75291258   -7.04801982    c      6.000     0
+          1.13196915   -3.84066688   -9.54298491    c      6.000     0
+          2.95575493   -1.92234257  -10.09532997    c      6.000     0
+         -1.61639346    4.75291258   -7.04801982    c      6.000     0
+         -3.71801244    3.39927368   -6.05272088    c      6.000     0
+         -4.52426039    1.62473577   -7.91825102    c      6.000     0
+         -2.95575493    1.92234257  -10.09532997    c      6.000     0
+         -1.13196915    3.84066688   -9.54298491    c      6.000     0
+          0.31606730   -6.95392406   -5.81229464    c      6.000     0
+         -0.70370781   -5.02323068  -11.36328575    c      6.000     0
+          5.00332479   -3.91498095   -3.58038088    c      6.000     0
+          3.49180464   -0.79180445  -12.64358138    c      6.000     0
+          6.76702399    0.10528434   -7.68655345    c      6.000     0
+          0.70370781    5.02323068  -11.36328575    c      6.000     0
+         -5.00332479    3.91498095   -3.58038088    c      6.000     0
+         -6.76702399   -0.10528434   -7.68655345    c      6.000     0
+         -3.49180464    0.79180445  -12.64358138    c      6.000     0
+          6.53600138   -5.31537368   -3.82433999    h      1.000     0
+          3.68014948   -4.66479025   -2.16619543    h      1.000     0
+         -3.68014948    4.66479025   -2.16619543    h      1.000     0
+         -6.53600138    5.31537368   -3.82433999    h      1.000     0
+          5.82965021   -2.19050891   -2.76705712    h      1.000     0
+         -5.82965021    2.19050891   -2.76705712    h      1.000     0
+          6.55503930    1.80737204   -8.86718542    h      1.000     0
+          8.53170231   -0.84222175   -8.28476615    h      1.000     0
+          7.02202044    0.73703315   -5.72162471    h      1.000     0
+         -6.55503930   -1.80737204   -8.86718542    h      1.000     0
+         -8.53170231    0.84222175   -8.28476615    h      1.000     0
+         -7.02202044   -0.73703315   -5.72162471    h      1.000     0
+         -0.31606730    6.95392406   -5.81229464    c      6.000     0
+         -1.24501126    8.75325567   -6.33400645    h      1.000     0
+          1.67897168    7.09329841   -6.38485995    h      1.000     0
+         -0.34802126    6.78743073   -3.74171580    h      1.000     0
+          1.24501126   -8.75325567   -6.33400645    h      1.000     0
+         -1.67897168   -7.09329841   -6.38485995    h      1.000     0
+          1.77768417   -0.58203604  -13.79893318    h      1.000     0
+         -1.77768417    0.58203604  -13.79893318    h      1.000     0
+          0.08611941    6.94614854  -11.89915327    h      1.000     0
+         -0.08611941   -6.94614854  -11.89915327    h      1.000     0
+          0.34802126   -6.78743073   -3.74171580    h      1.000     0
+          0.00000000    0.00000000    6.48712414    y     39.000     0
+          1.62473577    4.52426039    7.91825102    c      6.000     0
+         -1.62473577   -4.52426039    7.91825102    c      6.000     0
+          4.75291258    1.61639346    7.04801982    c      6.000     0
+         -4.75291258   -1.61639346    7.04801982    c      6.000     0
+          3.39927368    3.71801244    6.05272088    c      6.000     0
+         -3.39927368   -3.71801244    6.05272088    c      6.000     0
+          3.84066688    1.13196915    9.54298491    c      6.000     0
+         -3.84066688   -1.13196915    9.54298491    c      6.000     0
+          1.92234257    2.95575493   10.09532997    c      6.000     0
+         -1.92234257   -2.95575493   10.09532997    c      6.000     0
+          6.95392406    0.31606730    5.81229464    c      6.000     0
+         -6.95392406   -0.31606730    5.81229464    c      6.000     0
+         -0.10528434    6.76702399    7.68655345    c      6.000     0
+          0.10528434   -6.76702399    7.68655345    c      6.000     0
+          5.02323068   -0.70370781   11.36328575    c      6.000     0
+         -5.02323068    0.70370781   11.36328575    c      6.000     0
+          0.79180445    3.49180464   12.64358138    c      6.000     0
+         -0.79180445   -3.49180464   12.64358138    c      6.000     0
+          3.91498095    5.00332479    3.58038088    c      6.000     0
+         -3.91498095   -5.00332479    3.58038088    c      6.000     0
+          5.31537368    6.53600138    3.82433999    h      1.000     0
+         -5.31537368   -6.53600138    3.82433999    h      1.000     0
+          4.66479025    3.68014948    2.16619543    h      1.000     0
+         -4.66479025   -3.68014948    2.16619543    h      1.000     0
+          2.19050891    5.82965021    2.76705712    h      1.000     0
+         -2.19050891   -5.82965021    2.76705712    h      1.000     0
+         -1.80737204    6.55503930    8.86718542    h      1.000     0
+          1.80737204   -6.55503930    8.86718542    h      1.000     0
+          7.09329841   -1.67897168    6.38485995    h      1.000     0
+         -7.09329841    1.67897168    6.38485995    h      1.000     0
+          0.84222175    8.53170231    8.28476615    h      1.000     0
+         -0.84222175   -8.53170231    8.28476615    h      1.000     0
+          8.75325567    1.24501126    6.33400645    h      1.000     0
+         -8.75325567   -1.24501126    6.33400645    h      1.000     0
+         -0.73703315    7.02202044    5.72162471    h      1.000     0
+          0.73703315   -7.02202044    5.72162471    h      1.000     0
+          6.78743073    0.34802126    3.74171580    h      1.000     0
+         -6.78743073   -0.34802126    3.74171580    h      1.000     0
+          5.21429583   -2.61600936   10.55579477    h      1.000     0
+         -2.61600936   -5.21429583  -10.55579477    h      1.000     0
+          2.61600936    5.21429583  -10.55579477    h      1.000     0
+          0.58203604    1.77768417   13.79893318    h      1.000     0
+         -0.58203604   -1.77768417   13.79893318    h      1.000     0
+          3.91827299   -0.87058601   13.11238154    h      1.000     0
+         -0.87058601   -3.91827299  -13.11238154    h      1.000     0
+         -3.91827299    0.87058601   13.11238154    h      1.000     0
+          0.87058601    3.91827299  -13.11238154    h      1.000     0
+         -5.21429583    2.61600936   10.55579477    h      1.000     0
+          1.07954284   -4.38194343   12.49217962    h      1.000     0
+         -4.38194343   -1.07954284  -12.49217962    h      1.000     0
+         -1.07954284    4.38194343   12.49217962    h      1.000     0
+          4.38194343    1.07954284  -12.49217962    h      1.000     0
+         -6.94614854    0.08611941   11.89915327    h      1.000     0
+          6.94614854   -0.08611941   11.89915327    h      1.000     0
+         -2.00733129   -4.80829793   13.72085122    h      1.000     0
+         -4.80829793    2.00733129  -13.72085122    h      1.000     0
+          2.00733129    4.80829793   13.72085122    h      1.000     0
+          4.80829793   -2.00733129  -13.72085122    h      1.000     0
+ 
+       center of nuclear mass  :    0.00000000    0.00000000   -0.00000000
+       center of nuclear charge:    0.00000000    0.00000000    0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     57     31   def2-SVP   [5s3p2d1f|7s6p5d1f]
+    y        2     57     31   def2-SVP   [5s3p2d1f|7s6p5d1f]
+    s        4     36     18   def2-SVP   [4s3p1d|10s7p1d]
+    c       40     24     14   def2-SVP   [3s2p1d|7s4p1d]
+    h       60      7      5   def2-SVP   [2s1p|4s1p]
+   ---------------------------------------------------------------------------
+   total:  107   1695   1025
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :   73
+   total number of contracted shells         :  485
+   total number of cartesian basis functions : 1084
+   total number of SCF-basis functions       : 1025
+
+ number of unique ecp types :                     2
+ 
+             FOUND RI-J FLAG !
+ 
+
+ NOTE: THIS IS A PRELIMINARY IMPLEMENTATION. THE RI APPROXIMATION IS
+       PRESENTLY USED FOR CPKS CONTRIBUTIONS TO THE HESSIAN ONLY! SEE
+       MANUAL FOR FURTHER DETAILS.
+
+  
+ AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     99     89   def2-SVP   [8s5p5d2f3g|11s5p5d3f3g]
+    y        2     99     89   def2-SVP   [8s5p5d2f3g|11s5p5d3f3g]
+    s        4     77     51   def2-SVP   [8s4p3d1f1g|14s5p5d2f1g]
+    c       40     70     49   def2-SVP   [6s4p3d1f1g|12s5p4d2f1g]
+    h       60     16     11   def2-SVP   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:  107   4365   3091
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  113
+   total number of contracted shells         : 1037
+   total number of cartesian basis functions : 3766
+   total number of SCF-basis functions       : 3091
+
+
+ symmetry group of the molecule :   s4 
+
+ the group has the following generators :
+   s4(z)
+
+    4 symmetry operations found
+
+ there are 3 real representations :   a    b    e   
+
+ maximum number of shells which are related by symmetry :  4
+
+
+ determining totally symmetric integral contributions 
+    - equivalent to irreducible tensor elements - 
+ which can be formed within each triple of representations :
+
+             representation triple      contributions
+
+              a     a     a               1
+              a     b     b               1
+              a     e     e               2
+              b     a     b               1
+              b     b     a               1
+              b     e     e               2
+              e     a     e               2
+              e     b     e               2
+              e     e     a               2
+              e     e     b               2
+
+
+ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ Point groups with complex reducible e representations are currently 
+ NOT supported by aoforce.
+ It is STRONGLY RECOMMENDED to use a lower symmetry!
+
+ WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+       UHF mode switched on !
+
+    mo occupation :
+   irrep   mo's   occupied
+    a      259       51
+    b      258       50
+    e      508      100
+ 
+ number of basis functions   :  1025
+ number of occupied orbitals :   201
+ 
+ ALPHA-Occupation:                   201
+ BETA-Occupation :                   200
+  MOs are in ASCII format !
+
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : scfconv=7
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : scfconv=7
+ time elapsed for calculating density matrices :   2.608 sec
+
+ number of non-frozen orbitals          :  1025
+ number of non-frozen occupied orbitals :   201
+
+ number of non-frozen orbitals          :  1025
+ number of non-frozen occupied orbitals :   200
+ Splitting of direct access files enabled for dh.
+ Blocking parameters 
+ shells:
+    index      start shell   last shell  start bf    last bf    #bf 
+       1             1         485             1       1084   1084
+          size of I/O Block in Byte:                9400448
+  
+           ----------------------
+               RI - INFORMATION
+           ----------------------
+
+ biggest AO integral is expected to be     9.765798878
+
+ Threshold for integral neglect (rithr2):   0.58E-12
+ Threshold for integral neglect (rithr1):   0.58E-12
+
+ Contributions to RI integral batches: 
+  neglected integral batches:                101117
+  direct contribution:                            0
+  memory contribution:                 16738
+ Core memory available (ricore):             50000 MiB
+ Core memory needed for (P|Q) and Cholesky:     28 MiB
+ Core memory used for integrals:              2336 MiB
+ 
+ ****************************************
+ Memory allocated for RIDFT: 2363 MiB
+ ****************************************
+ 
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                    28
+ partition function    : becke
+ partition sharpness   :                     3
+  
+ 
+ Derivatives of quadrature weights will be included
+ 
+ preparing DFT   numerical integration ....
+          Overall gridpoints after grid construction =        244121
+ Ordering of quadrature gridpoints disabled.
+ 
+ 
+ 
+ 
+ OCCUPIED-OCCUPIED TENSOR SPACES :
+
+          IRREP   tensor space dimension   number of roots
+
+           a             30101                  78
+           b             30100                  79
+           e             40200                 158
+ 
+ OCCUPIED-VIRTUAL TENSOR SPACES :
+
+          IRREP   tensor space dimension   number of roots
+
+           a             82658                  78
+           b             82658                  79
+           e            165308                 158
+ 
+ 
+ 
+ 
+ CONSTRUCTING integral bounds
+
+ setting up bound for integral derivative estimation
+
+ increment for numerical differentiation : 0.00050000
+ 
+ machine precision:   2.220446049250313E-016
+
+ integral neglect threshold       :  0.10E-09
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ 
+ 
+ 
+ PREPARING NUMERICAL INTEGRATION
+ 
+ Remaining core memory for DFT =                 41358 MB
+ 
+ Memory needed per atom    =                 27565 KiB
+ 
+     i. e.                   107 atoms per loop
+
+ Calculating ground state density on molecular grid
+
+ Integral of ground state total density: Na =   400.9984601883959    
+
+ Integral of ground state spin density:  Nb =  0.9999960096625485    
+
+
+ 
+ 
+ CONSTRUCTING first deriv. of <mu|x,y,z|nu> -> Dip. deriv.
+  dipole integral derivatives will be neglected if
+  expon. factor <0.461255E-12
+      ...terminated. cpu:       3.04       wall:       0.15
+ 
+ 
+ 
+ 
+ CONSTRUCTING first deriv. of  <mu|nu>
+                               <mu|h|nu>    -> RHS
+              second deriv. of <mu|nu>      -> Hessian
+                               <mu|h|nu>    -> Hessian
+                               nucl. rep.   -> Hessian
+     integrals are neglected if expon. factor <  4.612546125461255E-014
+ 
+ CONSTRUCTING ECP contribution              -> RHS
+ 
+                                            -> Hessian
+  _________________________________
+ |                                 |
+ |         DFTD3 V3.1 Rev 0        |
+ | S.Grimme, University Bonn       |
+ |            June  2014           |
+ |   see standalone version        |
+ |       dftd3 -h for options      |
+ |_________________________________|
+ 
+ Please cite DFT-D3 work done with this code as:
+ S. Grimme, J. Antony, S. Ehrlich and H. Krieg,
+ J. Chem. Phys, 132 (2010), 154104.
+ If used with BJ-damping cite also
+ S. Grimme, S. Ehrlich and L. Goerigk,
+ J. Comput. Chem. 32 (2011), 1456-1465
+ For DFT-D2 the reference is
+ S. Grimme, J. Comput. Chem., 27 (2006), 1787-1799
+ 
+C6 coefficients used:
+                     2  C6 for element                      1
+Z=  1 CN= 0.912     C6(AA)=    3.03
+Z=  1 CN= 0.000     C6(AA)=    7.59
+                     5  C6 for element                      6
+Z=  6 CN= 0.000     C6(AA)=   49.11
+Z=  6 CN= 0.987     C6(AA)=   43.25
+Z=  6 CN= 1.998     C6(AA)=   29.36
+Z=  6 CN= 2.999     C6(AA)=   25.78
+Z=  6 CN= 3.984     C6(AA)=   18.21
+                     3  C6 for element                     16
+Z= 16 CN= 0.000     C6(AA)=  134.01
+Z= 16 CN= 0.995     C6(AA)=  131.00
+Z= 16 CN= 1.990     C6(AA)=  125.81
+                     3  C6 for element                     39
+Z= 39 CN= 0.000     C6(AA)= 2365.89
+Z= 39 CN= 1.915     C6(AA)= 1132.30
+Z= 39 CN= 2.890     C6(AA)=  451.08
+                     3  C6 for element                     42
+Z= 42 CN= 0.000     C6(AA)=  845.90
+Z= 42 CN= 1.942     C6(AA)=  502.01
+Z= 42 CN=11.056     C6(AA)=  337.11
+
+#           XYZ [au]              R0(AA) [Ang.]  CN          C6(AA)     C8(AA)   C10(AA) [au]
+  1  -0.02000   0.00000   0.00000   mo  1.286  5.451       502.0     57804.9   8153712.7
+  2   0.00000   0.00000  -6.48712   y   1.655 11.604       451.1     86005.2  20087594.1
+  3   2.54139   2.21614  -2.56662   s   0.839  2.068       125.9      6166.2    370057.8
+  4  -2.54139  -2.21614  -2.56662   s   0.839  2.069       125.9      6166.2    370057.2
+  5   2.21614  -2.54139   2.56662   s   0.839  2.068       125.9      6166.2    370057.7
+  6  -2.21614   2.54139   2.56662   s   0.839  2.069       125.9      6166.2    370057.2
+  7   4.52426  -1.62474  -7.91825   c   0.644  4.135        18.2       527.8     18698.3
+  8   3.71801  -3.39927  -6.05272   c   0.644  4.118        18.3       527.9     18704.3
+  9   1.61639  -4.75291  -7.04802   c   0.644  4.122        18.3       527.9     18703.0
+ 10   1.13197  -3.84067  -9.54298   c   0.644  4.119        18.3       527.9     18704.1
+ 11   2.95575  -1.92234 -10.09533   c   0.644  4.112        18.3       528.0     18706.9
+ 12  -1.61639   4.75291  -7.04802   c   0.644  4.122        18.3       527.9     18703.0
+ 13  -3.71801   3.39927  -6.05272   c   0.644  4.119        18.3       527.9     18704.2
+ 14  -4.52426   1.62474  -7.91825   c   0.644  4.135        18.2       527.8     18698.3
+ 15  -2.95575   1.92234 -10.09533   c   0.644  4.112        18.3       528.0     18706.9
+ 16  -1.13197   3.84067  -9.54298   c   0.644  4.119        18.3       527.9     18704.1
+ 17   0.31607  -6.95392  -5.81229   c   0.644  4.071        18.3       528.5     18726.0
+ 18  -0.70371  -5.02323 -11.36329   c   0.644  4.061        18.3       528.7     18731.9
+ 19   5.00332  -3.91498  -3.58038   c   0.644  4.080        18.3       528.4     18721.4
+ 20   3.49180  -0.79180 -12.64358   c   0.644  4.057        18.3       528.8     18733.9
+ 21   6.76702   0.10528  -7.68655   c   0.644  4.074        18.3       528.5     18724.4
+ 22   0.70371   5.02323 -11.36329   c   0.644  4.061        18.3       528.7     18731.9
+ 23  -5.00332   3.91498  -3.58038   c   0.644  4.080        18.3       528.4     18721.3
+ 24  -6.76702  -0.10528  -7.68655   c   0.644  4.074        18.3       528.5     18724.4
+ 25  -3.49180   0.79180 -12.64358   c   0.644  4.057        18.3       528.8     18733.9
+ 26   6.53600  -5.31537  -3.82434   h   0.417  0.997         3.1        37.4       553.5
+ 27   3.68015  -4.66479  -2.16620   h   0.417  1.005         3.1        37.3       552.8
+ 28  -3.68015   4.66479  -2.16620   h   0.417  1.005         3.1        37.3       552.8
+ 29  -6.53600   5.31537  -3.82434   h   0.417  0.997         3.1        37.4       553.5
+ 30   5.82965  -2.19051  -2.76706   h   0.417  1.003         3.1        37.3       552.9
+ 31  -5.82965   2.19051  -2.76706   h   0.417  1.004         3.1        37.3       552.9
+ 32   6.55504   1.80737  -8.86719   h   0.417  1.000         3.1        37.4       553.3
+ 33   8.53170  -0.84222  -8.28477   h   0.417  0.996         3.1        37.4       553.5
+ 34   7.02202   0.73703  -5.72162   h   0.417  1.002         3.1        37.3       553.1
+ 35  -6.55504  -1.80737  -8.86719   h   0.417  1.000         3.1        37.4       553.3
+ 36  -8.53170   0.84222  -8.28477   h   0.417  0.996         3.1        37.4       553.5
+ 37  -7.02202  -0.73703  -5.72162   h   0.417  1.002         3.1        37.3       553.1
+ 38  -0.31607   6.95392  -5.81229   c   0.644  4.071        18.3       528.5     18726.0
+ 39  -1.24501   8.75326  -6.33401   h   0.417  0.996         3.1        37.4       553.5
+ 40   1.67897   7.09330  -6.38486   h   0.417  1.000         3.1        37.4       553.2
+ 41  -0.34802   6.78743  -3.74172   h   0.417  1.002         3.1        37.3       553.1
+ 42   1.24501  -8.75326  -6.33401   h   0.417  0.996         3.1        37.4       553.5
+ 43  -1.67897  -7.09330  -6.38486   h   0.417  1.000         3.1        37.4       553.2
+ 44   1.77768  -0.58204 -13.79893   h   0.417  0.999         3.1        37.4       553.3
+ 45  -1.77768   0.58204 -13.79893   h   0.417  0.999         3.1        37.4       553.3
+ 46   0.08612   6.94615 -11.89915   h   0.417  0.997         3.1        37.4       553.5
+ 47  -0.08612  -6.94615 -11.89915   h   0.417  0.997         3.1        37.4       553.5
+ 48   0.34802  -6.78743  -3.74172   h   0.417  1.002         3.1        37.3       553.1
+ 49   0.00000   0.00000   6.48712   y   1.655 11.604       451.1     86005.2  20087594.1
+ 50   1.62474   4.52426   7.91825   c   0.644  4.135        18.2       527.8     18698.3
+ 51  -1.62474  -4.52426   7.91825   c   0.644  4.135        18.2       527.8     18698.3
+ 52   4.75291   1.61639   7.04802   c   0.644  4.122        18.3       527.9     18703.0
+ 53  -4.75291  -1.61639   7.04802   c   0.644  4.122        18.3       527.9     18703.0
+ 54   3.39927   3.71801   6.05272   c   0.644  4.118        18.3       527.9     18704.3
+ 55  -3.39927  -3.71801   6.05272   c   0.644  4.119        18.3       527.9     18704.2
+ 56   3.84067   1.13197   9.54298   c   0.644  4.119        18.3       527.9     18704.1
+ 57  -3.84067  -1.13197   9.54298   c   0.644  4.119        18.3       527.9     18704.1
+ 58   1.92234   2.95575  10.09533   c   0.644  4.112        18.3       528.0     18706.9
+ 59  -1.92234  -2.95575  10.09533   c   0.644  4.112        18.3       528.0     18706.9
+ 60   6.95392   0.31607   5.81229   c   0.644  4.071        18.3       528.5     18726.0
+ 61  -6.95392  -0.31607   5.81229   c   0.644  4.071        18.3       528.5     18726.0
+ 62  -0.10528   6.76702   7.68655   c   0.644  4.074        18.3       528.5     18724.4
+ 63   0.10528  -6.76702   7.68655   c   0.644  4.074        18.3       528.5     18724.4
+ 64   5.02323  -0.70371  11.36329   c   0.644  4.061        18.3       528.7     18731.9
+ 65  -5.02323   0.70371  11.36329   c   0.644  4.061        18.3       528.7     18731.9
+ 66   0.79180   3.49180  12.64358   c   0.644  4.057        18.3       528.8     18733.9
+ 67  -0.79180  -3.49180  12.64358   c   0.644  4.057        18.3       528.8     18733.9
+ 68   3.91498   5.00332   3.58038   c   0.644  4.080        18.3       528.4     18721.4
+ 69  -3.91498  -5.00332   3.58038   c   0.644  4.080        18.3       528.4     18721.3
+ 70   5.31537   6.53600   3.82434   h   0.417  0.997         3.1        37.4       553.5
+ 71  -5.31537  -6.53600   3.82434   h   0.417  0.997         3.1        37.4       553.5
+ 72   4.66479   3.68015   2.16620   h   0.417  1.005         3.1        37.3       552.8
+ 73  -4.66479  -3.68015   2.16620   h   0.417  1.005         3.1        37.3       552.8
+ 74   2.19051   5.82965   2.76706   h   0.417  1.003         3.1        37.3       552.9
+ 75  -2.19051  -5.82965   2.76706   h   0.417  1.004         3.1        37.3       552.9
+ 76  -1.80737   6.55504   8.86719   h   0.417  1.000         3.1        37.4       553.3
+ 77   1.80737  -6.55504   8.86719   h   0.417  1.000         3.1        37.4       553.3
+ 78   7.09330  -1.67897   6.38486   h   0.417  1.000         3.1        37.4       553.2
+ 79  -7.09330   1.67897   6.38486   h   0.417  1.000         3.1        37.4       553.2
+ 80   0.84222   8.53170   8.28477   h   0.417  0.996         3.1        37.4       553.5
+ 81  -0.84222  -8.53170   8.28477   h   0.417  0.996         3.1        37.4       553.5
+ 82   8.75326   1.24501   6.33401   h   0.417  0.996         3.1        37.4       553.5
+ 83  -8.75326  -1.24501   6.33401   h   0.417  0.996         3.1        37.4       553.5
+ 84  -0.73703   7.02202   5.72162   h   0.417  1.002         3.1        37.3       553.1
+ 85   0.73703  -7.02202   5.72162   h   0.417  1.002         3.1        37.3       553.1
+ 86   6.78743   0.34802   3.74172   h   0.417  1.002         3.1        37.3       553.1
+ 87  -6.78743  -0.34802   3.74172   h   0.417  1.002         3.1        37.3       553.1
+ 88   5.21430  -2.61601  10.55579   h   0.417  0.999         3.1        37.4       553.3
+ 89  -2.61601  -5.21430 -10.55579   h   0.417  0.999         3.1        37.4       553.3
+ 90   2.61601   5.21430 -10.55579   h   0.417  0.999         3.1        37.4       553.3
+ 91   0.58204   1.77768  13.79893   h   0.417  0.999         3.1        37.4       553.3
+ 92  -0.58204  -1.77768  13.79893   h   0.417  0.999         3.1        37.4       553.3
+ 93   3.91827  -0.87059  13.11238   h   0.417  0.999         3.1        37.4       553.3
+ 94  -0.87059  -3.91827 -13.11238   h   0.417  0.999         3.1        37.4       553.3
+ 95  -3.91827   0.87059  13.11238   h   0.417  0.999         3.1        37.4       553.3
+ 96   0.87059   3.91827 -13.11238   h   0.417  0.999         3.1        37.4       553.3
+ 97  -5.21430   2.61601  10.55579   h   0.417  0.999         3.1        37.4       553.3
+ 98   1.07954  -4.38194  12.49218   h   0.417  0.999         3.1        37.4       553.3
+ 99  -4.38194  -1.07954 -12.49218   h   0.417  0.999         3.1        37.4       553.3
+100  -1.07954   4.38194  12.49218   h   0.417  0.999         3.1        37.4       553.3
+101   4.38194   1.07954 -12.49218   h   0.417  0.999         3.1        37.4       553.3
+102  -6.94615   0.08612  11.89915   h   0.417  0.997         3.1        37.4       553.5
+103   6.94615  -0.08612  11.89915   h   0.417  0.997         3.1        37.4       553.5
+104  -2.00733  -4.80830  13.72085   h   0.417  0.996         3.1        37.4       553.5
+105  -4.80830   2.00733 -13.72085   h   0.417  0.996         3.1        37.4       553.5
+106   2.00733   4.80830  13.72085   h   0.417  0.996         3.1        37.4       553.5
+107   4.80830  -2.00733 -13.72085   h   0.417  0.996         3.1        37.4       553.5
+
+molecular C6(AA) [au] =    146757.29
+
+           DFT-D V3(BJ)
+ DF tpssh                                             
+ parameters
+ s6       :    1.0000
+ s8       :    2.2382
+ a1       :    0.4529
+ a2       :    4.6550
+ k1-k3    :   16.0000    1.3333   -4.0000
+ 
+ Edisp /kcal,au:  -155.0233 -0.24704540
+
+ E6    /kcal :   -67.7549
+ E8    /kcal :   -87.2685
+ % E8        : 56.29
+ 
+ doing analytical gradient O(N^2) ...
+ 
+ |G|=  9.316229361984497E-002
+      ...terminated. cpu:     787.87       wall:      54.28
+ 
+ 
+ 
+ 
+ CONSTRUCTING second deriv. of 2e energy    -> Hessian
+   treating Coulomb (and exchange) contribution
+     integrals will be neglected if total contribution <  4.612546125461255E-010
+      ...terminated. cpu:    2096.24       wall:     105.12
+   treating exchange-correlation contribution
+      ...terminated. cpu:    2290.13       wall:     115.02
+ 
+ 
+ 
+ 
+ CONSTRUCTING S(i,j)xi
+      ...terminated. cpu:      11.03       wall:       9.28
+ 
+ 
+ 
+ 
+ CONSTRUCTING <i|x,y,z|j>*S(i,j)xi          -> Dip. deriv.
+      ...terminated. cpu:       5.48       wall:       0.35
+ 
+ 
+ 
+ 
+ CONSTRUCTING epsilon(i)*S(i,j)xi*S(i,j)chi -> Hessian
+      ...terminated. cpu:       7.87       wall:       0.58
+ 
+ 
+ 
+ 
+ CONSTRUCTING G(a,i)[S(k,l)xi]              -> RHS
+              G(i,j)[S(k,l)xi]*S(i,j)chi    -> Hessian
+ 
+         Maximum core memory set to                  50000 MB
+         This corresponds to                  2779 vectors in CAO basis
