@@ -1,0 +1,143 @@
+$marij
+#$fermi tmstrt=300.00 tmend=20 tmfac=0.95 hlcrt=1.0E-01 stop=1.0E-03
+$title
+$symmetry d2d
+$user-defined bonds    file=coord
+$coord    file=coord
+$optimize
+ internal   off
+ redundant  off
+ cartesian  on
+ global     off
+ basis      off
+$atoms
+mo 1                                                                           \
+   basis =mo def2-TZVP                                                         \
+   ecp   =mo def2-ecp                                                          \
+   jbas  =mo def2-TZVP
+dy 2-3                                                                         \
+   basis =dy def2-TZVP                                                         \
+   ecp   =dy def2-ecp                                                          \
+   jbas  =dy def2-TZVP
+s  4-7                                                                         \
+   basis =s def2-TZVP                                                          \
+   jbas  =s def2-TZVP
+c  8-27                                                                        \
+   basis =c def2-TZVP                                                          \
+   jbas  =c def2-TZVP
+h  28-47                                                                       \
+   basis =h def2-TZVP                                                          \
+   jbas  =h def2-TZVP
+$basis    file=basis
+$ecp    file=basis
+$uhfmo_alpha   file=alpha
+$uhfmo_beta   file=beta
+$uhf
+$scfiterlimit       5000
+$thize     0.10000000E-04
+$thime        5
+$scfdamp   start=1.000  step=0.050  min=0.050
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$maxcor   3500 MiB  per_core
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$forceapprox    file=forceapprox
+$dft
+   functional tpssh
+   gridsize   4
+   weight derivatives
+$scfconv   7
+$scforbitalshift  closedshell=.5
+$ricore    45000
+$rij
+$jbas    file=auxbasis
+$disp3 bj
+$rundimensions
+   natoms=47
+   nbf(CAO)=1286
+   nbf(AO)=1114
+$redundant    file=coord
+$energy    file=energy
+$grad    file=gradient
+$last step     force
+$ssquare from ridft
+         26.781 (not to be modified here)
+$charge from ridft
+         -1.000 (not to be modified here)
+$dipole from force
+  x    -0.00000000000011    y    -0.00000000000022    z     0.00000000000122    a.u.
+   | dipole | =    0.0000000000  debye
+$last SCF energy change = -.82166025E-06
+$alpha shells
+ a1      1-27                                   ( 1 )
+ a2      1-10                                   ( 1 )
+ b1      1-10                                   ( 1 )
+ b2      1-26                                   ( 1 )
+ e       1-35                                   ( 1 )
+$beta shells
+ a1      1-27                                   ( 1 )
+ a2      1-11                                   ( 1 )
+ b1      1-11                                   ( 1 )
+ b2      1-27                                   ( 1 )
+ e       1-38                                   ( 1 )
+$optinfo       file=optinfo
+$hessapprox   file=hessapprox
+$orbital_max_rnorm 0.76412341287879E-03
+$subenergy  Etot         E1                  Ej                Ex                 Ec                 En                 Disp
+-4206.639212628    -16764.82509974     7742.753016441    -289.8636579625    -11.84508814292     5117.252013292    -.1103965115403
+$dipgrad    file=dipgrad
+$hessian (projected)    file=hessian
+$vibrational normal modes    file=vib_normal_modes
+$vibrational reduced masses
+   7.4332530644  11.8597183234  16.0568675015  11.1476861036  13.7772180913
+  13.5829758488   9.2668872021   9.2668727764   3.4825307264   3.4001374489
+   3.5024284833   3.5024311721   5.9196243114   9.3579910330   8.4635153961
+   8.4635172353  15.7850630963  11.7499891078  11.7499855124   7.0768694263
+   9.0394055779  29.3533898079  29.3533885162  31.3121364854  23.3293034351
+  22.8305572799  22.8305642099   5.8560366239   5.2715131099   3.9603214325
+   3.9603216186  18.7615750498   8.4147248508   3.4851178615   3.5070935123
+   4.2177434639   4.2177295153   7.3162745399   7.3162326081   4.8003625236
+   7.4828588885  31.8833012157  41.0081233162  40.7627672645  40.7627677681
+   4.8202936146   4.8188023824   4.8895388224   4.8895388242   4.2872125674
+   4.2872125694   4.2581174074   4.2592296081   1.2376672354   1.2376672346
+   1.2884529023   1.2883972604   1.2802778344   1.2802778267   1.2359652488
+   1.2427535676   1.1404952130   1.1404952153   1.1428322218   1.1406054511
+   4.4791741990   4.4791741887   4.4826991318   4.4843993267   4.7346356240
+   4.7348735444   4.3970250942   4.3970250787   1.1565870119   1.1566385543
+   1.1705359335   1.1705359329   1.1915340533   1.1915340532   1.1915649786
+   1.1914424420   1.4477599661   1.4477599705   1.4457091492   1.4457130694
+   1.4473582873   1.4473562552   1.4500600122   1.4500600148   1.2276226397
+   1.2276226404   1.2276914752   1.2274937609   1.2199921410   1.2208888283
+   1.2207393826   1.2207393835   5.7956954388   5.7956954333   5.8101562282
+   5.8071455445   1.2809836284   1.2809988106   1.2803003048   1.2803003037
+   5.0255226575   5.0393093237   5.1299202811   5.1299202737   5.0757724733
+   5.0757724659   5.1164231012   5.1193727546   2.5524707598   2.5524707600
+   2.5400512913   2.5395594971   2.5320841027   2.5320840997   2.5571052209
+   2.5569221954   1.0863059800   1.0863025781   1.0859938141   1.0859938141
+   1.0872806379   1.0872806380   1.0870056894   1.0870026354   1.0958212043
+   1.0958116679   1.0956265803   1.0956265798   1.0963845177   1.0963845172
+   1.0959344734   1.0959247537   1.1047079064   1.1047079064   1.1048818840
+   1.1048883566
+$nvibro      141
+$vibrational spectrum    file=vibspectrum
+$end

@@ -1,0 +1,135 @@
+$cosmo
+  epsilon=    7.250
+  rsolv= 1.30
+$cosmo_atoms
+# radii in Angstrom units
+h  28-47                                                                       \
+   radius=  1.3000
+dy 2-3                                                                         \
+   radius=  2.5840
+s  4-7                                                                         \
+   radius=  2.1600
+c  8-27                                                                        \
+   radius=  2.0000
+mo 1                                                                           \
+   radius=  2.5840
+$cosmo_out file=out.ccf
+#$pointval mo 222,223 fmt=cub
+$pop nbo
+ lall
+$title
+$symmetry d2d
+$redundant    file=coord
+$user-defined bonds    file=coord
+$coord    file=coord
+$optimize
+ internal   off
+ redundant  off
+ cartesian  on
+ global     off
+ basis      off
+$atoms
+mo 1                                                                           \
+   basis =mo def2-TZVP                                                         \
+   ecp   =mo def2-ecp                                                          \
+   jbas  =mo def2-TZVP
+dy 2-3                                                                         \
+   basis =dy def2-TZVP                                                         \
+   ecp   =dy def2-ecp                                                          \
+   jbas  =dy def2-TZVP
+s  4-7                                                                         \
+   basis =s  def2-TZVP                                                         \
+   jbas  =s def2-TZVP
+c  8-27                                                                        \
+   basis =c  def2-TZVP                                                         \
+   jbas  =c def2-TZVP
+h  28-47                                                                       \
+   basis =h  def2-TZVP                                                         \
+   jbas  =h def2-TZVP
+$basis    file=basis
+$ecp    file=basis
+$uhfmo_alpha   file=alpha
+$uhfmo_beta   file=beta
+$uhf
+$scfiterlimit       1000
+$thize     0.10000000E-04
+$thime        5
+$scfdamp   start=1.000  step=0.050  min=0.050
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$dft
+   functional tpssh
+   gridsize   4
+   weight derivatives
+$disp3 bj
+$rundimensions
+   natoms=47
+   nbf(CAO)=1286
+   nbf(AO)=1114
+$last SCF energy change = 0.27271562E-03
+$ssquare from ridft
+         26.809 (not to be modified here)
+$charge from ridft
+         -1.000 (not to be modified here)
+$optinfo       file=optinfo
+$hessapprox   file=hessapprox
+$newecp
+$forceapprox    file=forceapprox
+$scfconv   7
+$denconv 1d-7
+$scforbitalshift  closedshell=.1
+#$marij
+$energy    file=energy
+$grad    file=gradient
+$dipole from ridft
+  x     0.00000000000044    y     0.00000000000035    z    -0.00000000000092    a.u.
+   | dipole | =    0.0000000000  debye
+$jbas    file=auxbasis
+$ricore    50000
+$rij
+$alpha shells
+ a1      1-27                                   ( 1 )
+ a2      1-11                                   ( 1 )
+ b1      1-11                                   ( 1 )
+ b2      1-27                                   ( 1 )
+ e       1-38                                   ( 1 )
+$beta shells
+ a1      1-27                                   ( 1 )
+ a2      1-10                                   ( 1 )
+ b1      1-10                                   ( 1 )
+ b2      1-26                                   ( 1 )
+ e       1-35                                   ( 1 )
+$scfinstab ucis
+$soes
+ b2          50
+ e           50
+$rpacor    50000   in_total
+$spectrum 1/cm
+$rpaconv      4
+#$maxcor   3500 MiB  per_core
+$actual step      escf
+$orbital_max_rnorm 0.22123623053312E-04
+$subenergy  Etot         E1                  Ej                Ex                 Ec                 En                 Disp
+-4206.696587833    -16780.57956843     7751.302921045    -289.8754895693    -11.84884295920     5124.415213582    -.1108215015726
+$end

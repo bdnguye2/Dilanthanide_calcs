@@ -1,0 +1,3442 @@
+
+   OpenMP run-time library returned nthreads = 20
+
+ ridft (hpc3-17-09) : TURBOMOLE rev. V7-5-tag-28-gbe0a187fad compiled 7 Apr 2020 at 04:41:40
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-07-29 17:18:42.120 
+
+
+
+                                  r i d f t
+
+                        DFT program with RI approximation 
+                                for coulomb part 
+
+
+
+
+                                                 
+                                 References:     
+                                                 
+          TURBOMOLE:                             
+              R. Ahlrichs, M. Baer, M. Haeser, H. Horn, and
+              C. Koelmel
+              Electronic structure calculations on workstation
+              computers: the program system TURBOMOLE
+              Chem. Phys. Lett. 162: 165 (1989)
+          Density Functional:                              
+              O. Treutler and R. Ahlrichs                      
+              Efficient Molecular Numerical Integration Schemes
+              J. Chem. Phys. 102: 346 (1995)                   
+          Parallel Version:                                
+              Performance of parallel TURBOMOLE for Density    
+              Functional Calculations                          
+              M. v. Arnim and R. Ahlrichs                      
+              J. Comp. Chem. 19: 1746 (1998)                   
+          RI-J Method:                                     
+              Auxiliary Basis Sets to approximate Coulomb      
+              Potentials                                       
+              Chem. Phys. Lett. 240: 283 (1995)                
+              K. Eichkorn, O. Treutler, H. Oehm, M. Haeser     
+              and R. Ahlrichs                                  
+              Chem. Phys. Lett. 242: 652 (1995)                
+                                                           
+              Auxiliary Basis Sets for Main Row Atoms and their
+              Use to approximate Coulomb Potentials            
+              K. Eichkorn, F. Weigend, O. Treutler and         
+              R. Ahlrichs                                      
+              Theo. Chem. Acc. 97: 119 (1997)                   
+                                                           
+              Accurate Coulomb-fitting basis sets for H to Rn 
+              F. Weigend                                        
+              Phys. Chem. Chem. Phys. 8: 1057 (2006)            
+                                                           
+          Multipole accelerated RI-J (MARI-J):             
+              Fast evaluation of the Coulomb potential for     
+              electron densities using multipole accelerated   
+              resolution of identity approximation             
+              M. Sierka, A. Hogekamp and R. Ahlrichs           
+              J. Chem. Phys. 118: 9136 (2003)                  
+          RI-JK Method:                                     
+              A fully direct RI-HF algorithm: Implementation,
+              optimised auxiliary basis sets, demonstration of
+              accuracy and efficiency                         
+              F. Weigend                                      
+              Phys. Chem. Chem. Phys. 4: 4285 (2002)           
+          Two-component HF and DFT with spin-orbit coupling:  
+              Self-consistent treatment of spin-orbit         
+              interactions with efficient Hartree-Fock and    
+              density functional methods                      
+              M. K. Armbruster, F. Weigend, C. van Wüllen and 
+              W. Klopper                                      
+              Phys. Chem. Chem. Phys. 10: 1748 (2008)         
+          Two-component difference density and DIIS algorithm 
+              Efficient two-component self-consistent field   
+              procedures and gradients: implementation in     
+              TURBOMOLE and application to Au20-              
+              A. Baldes, F. Weigend                           
+              Mol. Phys. 111: 2617 (2013)                     
+          Relativistic all-electron 2c calculations           
+              An efficient implementation of two-component    
+              relativistic exact-decoupling methods for large 
+              molecules                                       
+              D. Peng, N. Middendorf, F. Weigend, M. Reiher   
+              J. Chem. Phys. 138: 184105 (2013)               
+          Finite nucleus model and SNSO approximation         
+              Efficient implementation of one- and two-       
+              component analytical energy gradients in exact  
+              two-component theory                            
+              Y. J. Franzke, N. Middendorf, F. Weigend        
+              J. Chem. Phys. 148: 104110 (2018)               
+          Grids for all-electron relativistic methods         
+              Error-consistent segmented contracted all-      
+              electron relativistic basis sets of double-     
+              and triple-zeta quality for NMR shielding       
+              constants                                       
+              Y. J. Franzke, R. Tress, T. M. Pazdera,         
+              F. Weigend                                      
+              Phys. Chem. Chem. Phys. 21: 166658 (2019)       
+          Seminumerical exchange algorithms                   
+              Seminumerical calculation of the Hartree-Fock   
+              exchange matirx: Application to two-component   
+              procedures and efficient evaluation of local    
+              hybrid functionsl                               
+              P. Plessow, F. Weigend,                         
+              J. Comput. Chem. 33: 810 (2012)                 
+          Improved seminumerical algorithms                   
+              C. Holzer, in preparation (2020)                
+                                         
+
+
+
+
+
+          OpenMP Shared-Memory Parallelization: 20 CPUs.
+
+            By: Christof Holzer and Yannick J. Franzke
+
+
+              +--------------------------------------------------+
+              |      general information about current run       |
+              +--------------------------------------------------+
+
+ 
+
+ DENSITY CONVERGENCE CHECK SWITCHED ON !
+ SCF CONVERGENCE IF RMS(delta[D]) <     0.1000000000E-06
+
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+ A Hybrid-DFT calculation using the RI-J approximation will be carried out.
+ Allocatable memory for RI due to $ricore (MB):                 70000
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.38168945    dy    66.000     0
+          0.00000000    0.00000000    6.38168945    dy    66.000     0
+          2.38782413    2.38782413   -2.50242503    s     16.000     0
+         -2.38782413   -2.38782413   -2.50242503    s     16.000     0
+          2.38782413   -2.38782413    2.50242503    s     16.000     0
+         -2.38782413    2.38782413    2.50242503    s     16.000     0
+          4.63802671   -1.58454810   -7.62248341    c      6.000     0
+          3.57722342   -3.57722342   -6.19730486    c      6.000     0
+          1.58454810   -4.63802671   -7.62248341    c      6.000     0
+          1.40423895   -3.29732457   -9.92825172    c      6.000     0
+          3.29732457   -1.40423895   -9.92825172    c      6.000     0
+         -1.58454810    4.63802671   -7.62248341    c      6.000     0
+         -3.57722342    3.57722342   -6.19730486    c      6.000     0
+         -4.63802671    1.58454810   -7.62248341    c      6.000     0
+         -3.29732457    1.40423895   -9.92825172    c      6.000     0
+         -1.40423895    3.29732457   -9.92825172    c      6.000     0
+          1.58454810    4.63802671    7.62248341    c      6.000     0
+          1.40423895    3.29732457    9.92825172    c      6.000     0
+          3.29732457    1.40423895    9.92825172    c      6.000     0
+          4.63802671    1.58454810    7.62248341    c      6.000     0
+          3.57722342    3.57722342    6.19730486    c      6.000     0
+         -4.63802671   -1.58454810    7.62248341    c      6.000     0
+         -3.29732457   -1.40423895    9.92825172    c      6.000     0
+         -1.40423895   -3.29732457    9.92825172    c      6.000     0
+         -1.58454810   -4.63802671    7.62248341    c      6.000     0
+         -3.57722342   -3.57722342    6.19730486    c      6.000     0
+          0.37859118   -6.17317477   -7.02306311    h      1.000     0
+          0.06857564   -3.65914270  -11.43087968    h      1.000     0
+          4.12515530   -4.12515530   -4.30878102    h      1.000     0
+          3.65914270   -0.06857564  -11.43087968    h      1.000     0
+          6.17317477   -0.37859118   -7.02306311    h      1.000     0
+         -0.06857564    3.65914270  -11.43087968    h      1.000     0
+         -0.37859118    6.17317477   -7.02306311    h      1.000     0
+         -4.12515530    4.12515530   -4.30878102    h      1.000     0
+         -6.17317477    0.37859118   -7.02306311    h      1.000     0
+         -3.65914270    0.06857564  -11.43087968    h      1.000     0
+         -0.37859118   -6.17317477    7.02306311    h      1.000     0
+         -4.12515530   -4.12515530    4.30878102    h      1.000     0
+         -6.17317477   -0.37859118    7.02306311    h      1.000     0
+         -3.65914270   -0.06857564   11.43087968    h      1.000     0
+         -0.06857564   -3.65914270   11.43087968    h      1.000     0
+          0.06857564    3.65914270   11.43087968    h      1.000     0
+          0.37859118    6.17317477    7.02306311    h      1.000     0
+          4.12515530    4.12515530    4.30878102    h      1.000     0
+          3.65914270    0.06857564   11.43087968    h      1.000     0
+          6.17317477    0.37859118    7.02306311    h      1.000     0
+ 
+       center of nuclear mass  :    0.00000000   -0.00000000    0.00000000
+       center of nuclear charge:   -0.00000000   -0.00000000   -0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     60     40   def2-TZVP   [6s4p3d1f|7s7p5d1f]
+    dy       2    171     93   def2-TZVP   [10s7p5d4f1g|14s14p10d8f1g]
+    s        4     63     37   def2-TZVP   [5s5p2d1f|14s9p3d1f]
+    c       20     46     31   def2-TZVP   [5s3p2d1f|11s6p2d1f]
+    h       20      8      6   def2-TZVP   [3s1p|5s1p]
+   ---------------------------------------------------------------------------
+   total:   47   1734   1114
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  120
+   total number of contracted shells         :  420
+   total number of cartesian basis functions : 1286
+   total number of SCF-basis functions       : 1114
+
+ number of unique ecp types :                     2
+
+ integral neglect threshold       :  0.26E-13
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ RI-J AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     99     89   def2-TZVP   [8s5p5d2f3g|11s5p5d3f3g]
+    dy       2    263    200   def2-TZVP   [14s7p6d6f5g2h2i|18s7p6d6f6g3h5i]
+    s        4     77     51   def2-TZVP   [8s4p3d1f1g|14s5p5d2f1g]
+    c       20     70     49   def2-TZVP   [6s4p3d1f1g|12s5p4d2f1g]
+    h       20     16     11   def2-TZVP   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   47   2653   1893
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  137
+   total number of contracted shells         :  575
+   total number of cartesian basis functions : 2438
+   total number of SCF-basis functions       : 1893
+
+
+ symmetry group of the molecule :   c1 
+
+ the group has the following generators :
+   c1(z)
+
+    1 symmetry operations found
+
+ there are 1 real representations :   a   
+
+ maximum number of shells which are related by symmetry :  1
+
+ ==============================================================================
+                      COSMO switched on
+ ==============================================================================
+ COSMO stati: segments per atom: H   32 other atoms   92
+ COSMO statistics: nps   1587 npspher:    651
+ COSMO surface:
+   number of segments: 1587
+   area (bohr**2):     1485.528260
+   volume (bohr**3):   3846.263781
+ COSMO: check number of disjunct cavities:
+
+       ... OK contiguous cavity found
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                    47
+ partition function    : becke
+ partition sharpness   :                     3
+  
+ 
+ Derivatives of quadrature weights will be included
+ 
+
+ biggest AO integral is expected to be    25.238462089
+
+          ------------------------
+          nuclear repulsion energy  :   5118.72288462    
+          ------------------------
+
+  _________________________________
+ |                                 |
+ |         DFTD3 V3.1 Rev 0        |
+ | S.Grimme, University Bonn       |
+ |            June  2014           |
+ |   see standalone version        |
+ |       dftd3 -h for options      |
+ |_________________________________|
+ 
+ Please cite DFT-D3 work done with this code as:
+ S. Grimme, J. Antony, S. Ehrlich and H. Krieg,
+ J. Chem. Phys, 132 (2010), 154104.
+ If used with BJ-damping cite also
+ S. Grimme, S. Ehrlich and L. Goerigk,
+ J. Comput. Chem. 32 (2011), 1456-1465
+ For DFT-D2 the reference is
+ S. Grimme, J. Comput. Chem., 27 (2006), 1787-1799
+ 
+C6 coefficients used:
+                     2  C6 for element                      1
+Z=  1 CN= 0.912     C6(AA)=    3.03
+Z=  1 CN= 0.000     C6(AA)=    7.59
+                     5  C6 for element                      6
+Z=  6 CN= 0.000     C6(AA)=   49.11
+Z=  6 CN= 0.987     C6(AA)=   43.25
+Z=  6 CN= 1.998     C6(AA)=   29.36
+Z=  6 CN= 2.999     C6(AA)=   25.78
+Z=  6 CN= 3.984     C6(AA)=   18.21
+                     3  C6 for element                     16
+Z= 16 CN= 0.000     C6(AA)=  134.01
+Z= 16 CN= 0.995     C6(AA)=  131.00
+Z= 16 CN= 1.990     C6(AA)=  125.81
+                     3  C6 for element                     42
+Z= 42 CN= 0.000     C6(AA)=  845.90
+Z= 42 CN= 1.942     C6(AA)=  502.01
+Z= 42 CN=11.056     C6(AA)=  337.11
+                     2  C6 for element                     66
+Z= 66 CN= 0.000     C6(AA)= 2617.33
+Z= 66 CN= 2.897     C6(AA)=  544.44
+
+#           XYZ [au]              R0(AA) [Ang.]  CN          C6(AA)     C8(AA)   C10(AA) [au]
+  1   0.00000   0.00000   0.00000   mo  1.286  5.583       502.0     57804.9   8153712.7
+  2   0.00000   0.00000  -6.38169   dy  1.749 11.661       544.4    115916.4  30232866.7
+  3   0.00000   0.00000   6.38169   dy  1.749 11.661       544.4    115916.4  30232866.7
+  4   2.38782   2.38782  -2.50243   s   0.839  2.050       125.9      6166.6    370081.8
+  5  -2.38782  -2.38782  -2.50243   s   0.839  2.050       125.9      6166.6    370081.8
+  6   2.38782  -2.38782   2.50243   s   0.839  2.050       125.9      6166.6    370081.8
+  7  -2.38782   2.38782   2.50243   s   0.839  2.050       125.9      6166.6    370081.8
+  8   4.63803  -1.58455  -7.62248   c   0.644  4.115        18.3       528.0     18705.6
+  9   3.57722  -3.57722  -6.19730   c   0.644  4.112        18.3       528.0     18706.7
+ 10   1.58455  -4.63803  -7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 11   1.40424  -3.29732  -9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 12   3.29732  -1.40424  -9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 13  -1.58455   4.63803  -7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 14  -3.57722   3.57722  -6.19730   c   0.644  4.112        18.3       528.0     18706.7
+ 15  -4.63803   1.58455  -7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 16  -3.29732   1.40424  -9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 17  -1.40424   3.29732  -9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 18   1.58455   4.63803   7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 19   1.40424   3.29732   9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 20   3.29732   1.40424   9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 21   4.63803   1.58455   7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 22   3.57722   3.57722   6.19730   c   0.644  4.112        18.3       528.0     18706.7
+ 23  -4.63803  -1.58455   7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 24  -3.29732  -1.40424   9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 25  -1.40424  -3.29732   9.92825   c   0.644  4.115        18.3       528.0     18705.7
+ 26  -1.58455  -4.63803   7.62248   c   0.644  4.115        18.3       528.0     18705.6
+ 27  -3.57722  -3.57722   6.19730   c   0.644  4.112        18.3       528.0     18706.7
+ 28   0.37859  -6.17317  -7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 29   0.06858  -3.65914 -11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 30   4.12516  -4.12516  -4.30878   h   0.417  1.018         3.1        37.3       551.9
+ 31   3.65914  -0.06858 -11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 32   6.17317  -0.37859  -7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 33  -0.06858   3.65914 -11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 34  -0.37859   6.17317  -7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 35  -4.12516   4.12516  -4.30878   h   0.417  1.018         3.1        37.3       551.9
+ 36  -6.17317   0.37859  -7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 37  -3.65914   0.06858 -11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 38  -0.37859  -6.17317   7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 39  -4.12516  -4.12516   4.30878   h   0.417  1.018         3.1        37.3       551.9
+ 40  -6.17317  -0.37859   7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 41  -3.65914  -0.06858  11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 42  -0.06858  -3.65914  11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 43   0.06858   3.65914  11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 44   0.37859   6.17317   7.02306   h   0.417  1.016         3.1        37.3       552.0
+ 45   4.12516   4.12516   4.30878   h   0.417  1.018         3.1        37.3       551.9
+ 46   3.65914   0.06858  11.43088   h   0.417  1.015         3.1        37.3       552.0
+ 47   6.17317   0.37859   7.02306   h   0.417  1.016         3.1        37.3       552.0
+
+molecular C6(AA) [au] =     53821.88
+
+           DFT-D V3(BJ)
+ DF tpssh                                             
+ parameters
+ s6       :    1.0000
+ s8       :    2.2382
+ a1       :    0.4529
+ a2       :    4.6550
+ k1-k3    :   16.0000    1.3333   -4.0000
+ 
+ Edisp /kcal,au:   -69.3207 -0.11046949
+
+ E6    /kcal :   -27.1055
+ E8    /kcal :   -42.2151
+ % E8        : 60.90
+ nuclear repulsion energy                  =    5118.722884622
+ empirical dispersive energy correction    =      -0.110469488
+ nuclear repulsion + dispersion correction =    5118.612415134
+
+
+         -----------------
+         -S,T+V- integrals
+         -----------------
+
+ 1e-integrals will be neglected if expon. factor < 0.259873E-14
+
+
+          ----------------
+          -ecp-  integrals
+          ----------------
+ 
+   Difference densities algorithm switched on.
+   The maximal number of linear combinations of
+   difference densities is                    20 .
+
+ DIIS switched on: error vector is FDS-SDF
+ Max. Iterations for DIIS is     :   4
+ DIIS matrix (see manual) 
+    Scaling factor of diagonals  :  1.200
+    threshold for scaling factor :  0.000
+
+ scf convergence criterion : increment of total energy < .1000000D-08
+                  and increment of one-electron energy < .1000000D-05
+
+ MOs are in ASCII format !
+
+
+    mo occupation :
+   irrep   mo's   occupied
+    a     1114      152
+ 
+ number of basis functions   :  1114
+ number of occupied orbitals :   152
+ 
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : scfconv=7
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : scfconv=7
+ mo-orthogonalization by Cholesky decomposition
+ mo-orthogonalization by Cholesky decomposition
+
+ UHF mode switched on !
+
+ closed shell shift switched on 
+ all occupied orbitals are shifted by    0.10000
+
+  
+           ------------------------
+               RI-J - INFORMATION
+           ------------------------
+ Contributions to RI integral batches: 
+  neglected integral batches:                 39783
+  direct contribution:                            0
+  memory contribution:                 48627
+ Memory core needed for (P|Q) and Cholesky     28 MByte
+ Memory core minimum needed except of (P|Q)     6 MByte
+ Total minimum memory core needed (sum)        33 MByte
+  
+ ****************************************
+ Memory allocated for RI-J  8711 MByte
+ ****************************************
+                                            
+
+ DSCF restart information will be dumped onto file alpha
+
+
+ Starting SCF iterations
+
+          Overall gridpoints after grid construction =        480742
+ Ordering of quadrature gridpoints disabled.
+ Caution, gridordering can improve performance!
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   1  -4206.6966018507    -16768.920892     7443.6118751    0.000D+00 0.259D-13
+                            Exc = -301.724992278     Coul =  7777.04721117    
+                            exK = -31.7103437464    
+                         Ntotal = 295.00140996      Nspin = 9.0000123172    
+                             Na = 152.00071114         Nb = 143.00069882    
+                          Ediel =-0.581861658805E-01
+                            current damping = 1.000
+ 
+          max. resid. norm for Fia-block=  1.273D-04 for orbital    134a    beta 
+          max. resid. fock norm         =  2.948D-04 for orbital   1062a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   2  -4206.6966015834    -16768.928169     7443.6191522    0.653D-06 0.164D-13
+                            Exc = -301.727200028      Eck =  7745.34635227    
+                         Ntotal = 295.00140995      Nspin = 9.0000123198    
+                             Na = 152.00071114         Nb = 143.00069882    
+                          Ediel =-0.581857633995E-01
+                            current damping = 1.000
+ 
+          Norm of current diis error: 0.24097E-02
+          max. resid. norm for Fia-block=  4.046D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  1.196D-04 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   3  -4206.6966017196    -16768.927060     7443.6180434    0.230D-06 0.145D-13
+                            Exc = -301.726789818      Eck =  7745.34483322    
+                         Ntotal = 295.00140995      Nspin = 9.0000123200    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581860712876E-01
+                            current damping = 0.950
+ 
+          Norm of current diis error: 0.18987E-02
+          max. resid. norm for Fia-block=  3.169D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  7.923D-05 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   4  -4206.6966018255    -16768.925789     7443.6167718    0.178D-06 0.118D-13
+                            Exc = -301.726361092      Eck =  7745.34313291    
+                         Ntotal = 295.00140995      Nspin = 9.0000123200    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581864045225E-01
+                            current damping = 0.800
+ 
+          Norm of current diis error: 0.13730E-02
+          max. resid. norm for Fia-block=  2.319D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  4.611D-05 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   5  -4206.6966018921    -16768.924639     7443.6156222    0.143D-06 0.928D-14
+                            Exc = -301.725992688      Eck =  7745.34161493    
+                         Ntotal = 295.00140995      Nspin = 9.0000123200    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581867366442E-01
+                            current damping = 0.650
+ 
+          Norm of current diis error: 0.92413E-03
+          max. resid. norm for Fia-block=  9.289D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  2.118D-04 for orbital   1061a    alpha
+          mo-orthogonalization: Cholesky decomposition
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   6  -4206.6966018835    -16768.918919     7443.6099016    0.570D-06 0.446D-14
+                            Exc = -301.724376584      Eck =  7745.33427821    
+                         Ntotal = 295.00140994      Nspin = 9.0000123190    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581878925180E-01
+                            current damping = 0.700
+ 
+          Norm of current diis error: 0.13311E-02
+          max. resid. norm for Fia-block=  3.432D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  7.389D-05 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   7  -4206.6966018882    -16768.917357     7443.6083404    0.229D-06 0.493D-14
+                            Exc = -301.723850902      Eck =  7745.33219132    
+                         Ntotal = 295.00140994      Nspin = 9.0000123189    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581884136178E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.14223E-02
+          max. resid. norm for Fia-block=  2.576D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  4.671D-05 for orbital   1076a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   8  -4206.6966019376    -16768.918924     7443.6099074    0.177D-06 0.392D-14
+                            Exc = -301.724388371      Eck =  7745.33429578    
+                         Ntotal = 295.00140994      Nspin = 9.0000123197    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581885626252E-01
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.11803E-02
+          max. resid. norm for Fia-block=  3.820D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  9.737D-05 for orbital   1062a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+   9  -4206.6966020172    -16768.920378     7443.6113610    0.240D-06 0.412D-14
+                            Exc = -301.724883315      Eck =  7745.33624428    
+                         Ntotal = 295.00140994      Nspin = 9.0000123204    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581885343490E-01
+                            current damping = 0.450
+ 
+          Norm of current diis error: 0.36210E-03
+          max. resid. norm for Fia-block=  6.826D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  1.174D-04 for orbital   1076a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  10  -4206.6966019303    -16768.927359     7443.6183420    0.471D-06 0.327D-14
+                            Exc = -301.726971428      Eck =  7745.34531340    
+                         Ntotal = 295.00140993      Nspin = 9.0000123226    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581878799845E-01
+                            current damping = 0.500
+ 
+          Norm of current diis error: 0.15604E-02
+          max. resid. norm for Fia-block=  3.061D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  7.573D-05 for orbital   1061a    alpha
+          mo-orthogonalization: Cholesky decomposition
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  11  -4206.6966020030    -16768.926228     7443.6172105    0.223D-06 0.406D-14
+                            Exc = -301.726602583      Eck =  7745.34381309    
+                         Ntotal = 295.00140993      Nspin = 9.0000123225    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581879696443E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.11148E-02
+          max. resid. norm for Fia-block=  2.161D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  4.160D-05 for orbital   1062a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  12  -4206.6966020366    -16768.925215     7443.6161977    0.148D-06 0.470D-14
+                            Exc = -301.726280557      Eck =  7745.34247823    
+                         Ntotal = 295.00140993      Nspin = 9.0000123223    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581881231915E-01
+                            current damping = 0.400
+ 
+          Norm of current diis error: 0.85921E-03
+          max. resid. norm for Fia-block=  2.243D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  4.611D-05 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  13  -4206.6966020808    -16768.922935     7443.6139177    0.166D-06 0.473D-14
+                            Exc = -301.725547967      Eck =  7745.33946569    
+                         Ntotal = 295.00140993      Nspin = 9.0000123218    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581884586054E-01
+                            current damping = 0.250
+ 
+          Norm of current diis error: 0.26886E-03
+          max. resid. norm for Fia-block=  4.281D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  7.066D-05 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  14  -4206.6966020804    -16768.920164     7443.6111464    0.325D-06 0.414D-14
+                            Exc = -301.724813998      Eck =  7745.33596039    
+                         Ntotal = 295.00140993      Nspin = 9.0000123214    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581892015863E-01
+                            current damping = 0.100
+ 
+          Norm of current diis error: 0.78553E-03
+          max. resid. norm for Fia-block=  2.181D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  4.589D-05 for orbital   1062a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  15  -4206.6966021090    -16768.919506     7443.6104885    0.198D-06 0.420D-14
+                            Exc = -301.724617498      Eck =  7745.33510602    
+                         Ntotal = 295.00140993      Nspin = 9.0000123215    
+                             Na = 152.00071113         Nb = 143.00069881    
+                          Ediel =-0.581895475912E-01
+                            current damping = 0.050
+ 
+          Norm of current diis error: 0.59655E-03
+          max. resid. norm for Fia-block=  1.875D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  2.944D-05 for orbital   1075a    alpha
+          mo-orthogonalization: Cholesky decomposition
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  16  -4206.6966021391    -16768.921313     7443.6122952    0.178D-06 0.393D-14
+                            Exc = -301.725126699      Eck =  7745.33742194    
+                         Ntotal = 295.00140993      Nspin = 9.0000123221    
+                             Na = 152.00071113         Nb = 143.00069880    
+                          Ediel =-0.581893680990E-01
+                            current damping = 0.100
+ 
+          Norm of current diis error: 0.21459E-03
+          max. resid. norm for Fia-block=  1.923D-05 for orbital    134a    beta 
+          max. resid. fock norm         =  3.678D-05 for orbital   1062a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  17  -4206.6966021490    -16768.922420     7443.6134027    0.174D-06 0.374D-14
+                            Exc = -301.725494607      Eck =  7745.33889729    
+                         Ntotal = 295.00140993      Nspin = 9.0000123226    
+                             Na = 152.00071113         Nb = 143.00069880    
+                          Ediel =-0.581893059516E-01
+                            current damping = 0.050
+ 
+          Norm of current diis error: 0.33395E-03
+          max. resid. norm for Fia-block=  2.636D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  3.638D-05 for orbital   1061a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  18  -4206.6966021706    -16768.922217     7443.6131998    0.231D-06 0.412D-14
+                            Exc = -301.725323733      Eck =  7745.33852354    
+                         Ntotal = 295.00140993      Nspin = 9.0000123226    
+                             Na = 152.00071113         Nb = 143.00069880    
+                          Ediel =-0.581892601869E-01
+                            current damping = 0.100
+ 
+          Norm of current diis error: 0.16667E-03
+          max. resid. norm for Fia-block=  2.342D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  2.597D-05 for orbital    139a    beta 
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  19  -4206.6966021884    -16768.921467     7443.6124498    0.195D-06 0.386D-14
+                            Exc = -301.725173433      Eck =  7745.33762319    
+                         Ntotal = 295.00140993      Nspin = 9.0000123226    
+                             Na = 152.00071113         Nb = 143.00069880    
+                          Ediel =-0.581895670457E-01
+                            current damping = 0.050
+ 
+          Norm of current diis error: 0.19843E-03
+          max. resid. norm for Fia-block=  2.021D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  2.200D-05 for orbital    139a    beta 
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  20  -4206.6966022030    -16768.922210     7443.6131928    0.177D-06 0.390D-14
+                            Exc = -301.725423062      Eck =  7745.33861583    
+                         Ntotal = 295.00140993      Nspin = 9.0000123230    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581896574906E-01
+                            current damping = 0.100
+ 
+          Norm of current diis error: 0.15888E-03
+          max. resid. norm for Fia-block=  2.299D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  2.361D-05 for orbital    139a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  21  -4206.6966022148    -16768.921376     7443.6123583    0.193D-06 0.396D-14
+                            Exc = -301.725037482      Eck =  7745.33739574    
+                         Ntotal = 295.00140993      Nspin = 9.0000123229    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581896698914E-01
+                            current damping = 0.150
+ 
+          Norm of current diis error: 0.22105E-03
+          max. resid. norm for Fia-block=  1.353D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.828D-05 for orbital   1075a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  22  -4206.6966022208    -16768.922269     7443.6132521    0.111D-06 0.259D-13
+                            Exc = -301.725350473     Coul =  7777.04899759    
+                            exK = -31.7103950097    
+                         Ntotal = 295.00140993      Nspin = 9.0000123233    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581896591079E-01
+                            current damping = 0.200
+ 
+          Norm of current diis error: 0.12511E-03
+          max. resid. norm for Fia-block=  2.327D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  2.471D-05 for orbital    139a    beta 
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  23  -4206.6966022311    -16768.921542     7443.6125246    0.178D-06 0.164D-13
+                            Exc = -301.725207295      Eck =  7745.33773190    
+                         Ntotal = 295.00140993      Nspin = 9.0000123232    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581899278962E-01
+                            current damping = 0.250
+ 
+          Norm of current diis error: 0.23279E-03
+          max. resid. norm for Fia-block=  1.281D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  2.497D-05 for orbital   1062a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  24  -4206.6966022399    -16768.921764     7443.6127470    0.989D-07 0.132D-13
+                            Exc = -301.725257599      Eck =  7745.33800463    
+                         Ntotal = 295.00140992      Nspin = 9.0000123234    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581899443865E-01
+                            current damping = 0.300
+ 
+          Norm of current diis error: 0.10310E-03
+          max. resid. norm for Fia-block=  2.336D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  2.489D-05 for orbital    154a    beta 
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  25  -4206.6966022514    -16768.922422     7443.6134043    0.160D-06 0.100D-13
+                            Exc = -301.725334152      Eck =  7745.33873845    
+                         Ntotal = 295.00140992      Nspin = 9.0000123236    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581897444109E-01
+                            current damping = 0.150
+ 
+          Norm of current diis error: 0.11936E-03
+          max. resid. norm for Fia-block=  1.752D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.845D-05 for orbital    139a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  26  -4206.6966022604    -16768.921598     7443.6125811    0.143D-06 0.853D-14
+                            Exc = -301.725168349      Eck =  7745.33774941    
+                         Ntotal = 295.00140992      Nspin = 9.0000123236    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581901012205E-01
+                            current damping = 0.200
+ 
+          Norm of current diis error: 0.15322E-03
+          max. resid. norm for Fia-block=  1.522D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.654D-05 for orbital   1076a    alpha
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  27  -4206.6966022669    -16768.922337     7443.6133200    0.120D-06 0.778D-14
+                            Exc = -301.725479700      Eck =  7745.33879971    
+                         Ntotal = 295.00140992      Nspin = 9.0000123239    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581901725930E-01
+                            current damping = 0.250
+ 
+          Norm of current diis error: 0.18161E-03
+          max. resid. norm for Fia-block=  8.981D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  1.595D-05 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  28  -4206.6966022714    -16768.921778     7443.6127608    0.722D-07 0.758D-14
+                            Exc = -301.725278318      Eck =  7745.33803910    
+                         Ntotal = 295.00140992      Nspin = 9.0000123238    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581901903226E-01
+                            current damping = 0.300
+ 
+          Norm of current diis error: 0.10068E-03
+          max. resid. norm for Fia-block=  1.376D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.458D-05 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  29  -4206.6966022774    -16768.922091     7443.6130738    0.961D-07 0.709D-14
+                            Exc = -301.725259855      Eck =  7745.33833368    
+                         Ntotal = 295.00140992      Nspin = 9.0000123238    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581899922181E-01
+                            current damping = 0.350
+ 
+          Norm of current diis error: 0.10520E-03
+          max. resid. norm for Fia-block=  1.677D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.753D-05 for orbital    154a    beta 
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  30  -4206.6966022841    -16768.922178     7443.6131608    0.113D-06 0.675D-14
+                            Exc = -301.725285893      Eck =  7745.33844668    
+                         Ntotal = 295.00140992      Nspin = 9.0000123240    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581901651103E-01
+                            current damping = 0.200
+ 
+          Norm of current diis error: 0.10834E-03
+          max. resid. norm for Fia-block=  1.575D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.704D-05 for orbital   1075a    alpha
+          mo-orthogonalization: Cholesky decomposition
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  31  -4206.6966022906    -16768.921763     7443.6127459    0.121D-06 0.637D-14
+                            Exc = -301.725277178      Eck =  7745.33802313    
+                         Ntotal = 295.00140992      Nspin = 9.0000123241    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581903609409E-01
+                            current damping = 0.250
+ 
+          Norm of current diis error: 0.12584E-03
+          max. resid. norm for Fia-block=  1.235D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.350D-05 for orbital   1062a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  32  -4206.6966022959    -16768.922322     7443.6133045    0.929D-07 0.616D-14
+                            Exc = -301.725369916      Eck =  7745.33867438    
+                         Ntotal = 295.00140992      Nspin = 9.0000123242    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581901205590E-01
+                            current damping = 0.300
+ 
+          Norm of current diis error: 0.10133E-03
+          max. resid. norm for Fia-block=  9.360D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  1.156D-05 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  33  -4206.6966022984    -16768.921671     7443.6126532    0.706D-07 0.605D-14
+                            Exc = -301.725148732      Eck =  7745.33780190    
+                         Ntotal = 295.00140992      Nspin = 9.0000123241    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581902931118E-01
+                            current damping = 0.350
+ 
+          Norm of current diis error: 0.13672E-03
+          max. resid. norm for Fia-block=  1.114D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.149D-05 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  34  -4206.6966023036    -16768.922175     7443.6131579    0.747D-07 0.589D-14
+                            Exc = -301.725279306      Eck =  7745.33843719    
+                         Ntotal = 295.00140992      Nspin = 9.0000123243    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581903515528E-01
+                            current damping = 0.400
+ 
+          Norm of current diis error: 0.66569E-04
+          max. resid. norm for Fia-block=  1.520D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.653D-05 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  35  -4206.6966023083    -16768.921970     7443.6129525    0.982D-07 0.571D-14
+                            Exc = -301.725301345      Eck =  7745.33825389    
+                         Ntotal = 295.00140992      Nspin = 9.0000123243    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581902939138E-01
+                            current damping = 0.450
+ 
+          Norm of current diis error: 0.67294E-04
+          max. resid. norm for Fia-block=  1.293D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.381D-05 for orbital   1061a    alpha
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  36  -4206.6966023120    -16768.922207     7443.6131892    0.838D-07 0.560D-14
+                            Exc = -301.725298999      Eck =  7745.33848823    
+                         Ntotal = 295.00140992      Nspin = 9.0000123244    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581904456496E-01
+                            current damping = 0.500
+ 
+          Norm of current diis error: 0.12941E-03
+          max. resid. norm for Fia-block=  8.984D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  1.256D-05 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  37  -4206.6966023153    -16768.922159     7443.6131416    0.564D-07 0.551D-14
+                            Exc = -301.725264687      Eck =  7745.33840631    
+                         Ntotal = 295.00140992      Nspin = 9.0000123245    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581904837238E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.66072E-04
+          max. resid. norm for Fia-block=  1.393D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.463D-05 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  38  -4206.6966023174    -16768.922495     7443.6134778    0.815D-07 0.739D-14
+                            Exc = -301.725393224      Eck =  7745.33887103    
+                         Ntotal = 295.00140992      Nspin = 9.0000123246    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581904195289E-01
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.10121E-03
+          max. resid. norm for Fia-block=  7.648D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  8.893D-06 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  39  -4206.6966023193    -16768.922069     7443.6130518    0.464D-07 0.721D-14
+                            Exc = -301.725271540      Eck =  7745.33832329    
+                         Ntotal = 295.00140992      Nspin = 9.0000123245    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581904313483E-01
+                            current damping = 0.650
+ 
+          Norm of current diis error: 0.62287E-04
+          max. resid. norm for Fia-block=  1.195D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.277D-05 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  40  -4206.6966023223    -16768.922143     7443.6131259    0.649D-07 0.719D-14
+                            Exc = -301.725300334      Eck =  7745.33842627    
+                         Ntotal = 295.00140992      Nspin = 9.0000123246    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581905076029E-01
+                            current damping = 0.700
+ 
+          Norm of current diis error: 0.57079E-04
+          max. resid. norm for Fia-block=  1.356D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.417D-05 for orbital    155a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  41  -4206.6966023253    -16768.922104     7443.6130868    0.719D-07 0.685D-14
+                            Exc = -301.725263261      Eck =  7745.33835004    
+                         Ntotal = 295.00140992      Nspin = 9.0000123247    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581905535993E-01
+                            current damping = 0.750
+ 
+          Norm of current diis error: 0.83601E-04
+          max. resid. norm for Fia-block=  9.598D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  1.038D-05 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  42  -4206.6966023271    -16768.922116     7443.6130985    0.508D-07 0.738D-14
+                            Exc = -301.725271994      Eck =  7745.33837046    
+                         Ntotal = 295.00140992      Nspin = 9.0000123247    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581905294546E-01
+                            current damping = 0.800
+ 
+          Norm of current diis error: 0.56860E-04
+          max. resid. norm for Fia-block=  1.188D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.239D-05 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  43  -4206.6966023288    -16768.922511     7443.6134940    0.619D-07 0.259D-13
+                            Exc = -301.725418851     Coul =  7777.04931480    
+                            exK = -31.7104019896    
+                         Ntotal = 295.00140992      Nspin = 9.0000123249    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581905264583E-01
+                            current damping = 0.650
+ 
+          Norm of current diis error: 0.11873E-03
+          max. resid. norm for Fia-block=  7.651D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.962D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  44  -4206.6966023307    -16768.922250     7443.6132327    0.443D-07 0.164D-13
+                            Exc = -301.725336688      Eck =  7745.33856936    
+                         Ntotal = 295.00140992      Nspin = 9.0000123248    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581905799977E-01
+                            current damping = 0.700
+ 
+          Norm of current diis error: 0.60783E-04
+          max. resid. norm for Fia-block=  9.561D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  9.892D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  45  -4206.6966023328    -16768.922084     7443.6130663    0.508D-07 0.107D-13
+                            Exc = -301.725263557      Eck =  7745.33832987    
+                         Ntotal = 295.00140992      Nspin = 9.0000123248    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581906182415E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.53194E-04
+          max. resid. norm for Fia-block=  1.184D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.266D-05 for orbital    154a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  46  -4206.6966023359    -16768.922262     7443.6132445    0.679D-07 0.774D-14
+                            Exc = -301.725315562      Eck =  7745.33856002    
+                         Ntotal = 295.00140992      Nspin = 9.0000123249    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581906237511E-01
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.51356E-04
+          max. resid. norm for Fia-block=  9.667D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  1.363D-05 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  47  -4206.6966023370    -16768.922060     7443.6130423    0.573D-07 0.680D-14
+                            Exc = -301.725251714      Eck =  7745.33829397    
+                         Ntotal = 295.00140992      Nspin = 9.0000123249    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581906765666E-01
+                            current damping = 0.650
+ 
+          Norm of current diis error: 0.11919E-03
+          max. resid. norm for Fia-block=  7.164D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  9.302D-06 for orbital   1076a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  48  -4206.6966023390    -16768.922106     7443.6130885    0.403D-07 0.656D-14
+                            Exc = -301.725269198      Eck =  7745.33835770    
+                         Ntotal = 295.00140992      Nspin = 9.0000123249    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581906996620E-01
+                            current damping = 0.700
+ 
+          Norm of current diis error: 0.61397E-04
+          max. resid. norm for Fia-block=  8.177D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  8.472D-06 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  49  -4206.6966023403    -16768.922186     7443.6131689    0.438D-07 0.738D-14
+                            Exc = -301.725294518      Eck =  7745.33846345    
+                         Ntotal = 295.00140992      Nspin = 9.0000123250    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581907049207E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.43942E-04
+          max. resid. norm for Fia-block=  1.032D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.098D-05 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  50  -4206.6966023422    -16768.922346     7443.6133289    0.599D-07 0.720D-14
+                            Exc = -301.725341292      Eck =  7745.33867023    
+                         Ntotal = 295.00140992      Nspin = 9.0000123251    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581907072298E-01
+                            current damping = 0.400
+ 
+          Norm of current diis error: 0.59423E-04
+          max. resid. norm for Fia-block=  7.138D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.982D-06 for orbital   1061a    alpha
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  51  -4206.6966023436    -16768.922052     7443.6130349    0.480D-07 0.702D-14
+                            Exc = -301.725239386      Eck =  7745.33827426    
+                         Ntotal = 295.00140992      Nspin = 9.0000123250    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581907499771E-01
+                            current damping = 0.450
+ 
+          Norm of current diis error: 0.65714E-04
+          max. resid. norm for Fia-block=  7.642D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.909D-06 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  52  -4206.6966023452    -16768.922235     7443.6132180    0.476D-07 0.686D-14
+                            Exc = -301.725303272      Eck =  7745.33852126    
+                         Ntotal = 295.00140992      Nspin = 9.0000123251    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581907747765E-01
+                            current damping = 0.500
+ 
+          Norm of current diis error: 0.38626E-04
+          max. resid. norm for Fia-block=  1.249D-05 for orbital    139a    beta 
+          max. resid. fock norm         =  1.350D-05 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  53  -4206.6966023478    -16768.922211     7443.6131935    0.739D-07 0.668D-14
+                            Exc = -301.725294924      Eck =  7745.33848844    
+                         Ntotal = 295.00140992      Nspin = 9.0000123252    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581907790183E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.41276E-04
+          max. resid. norm for Fia-block=  7.167D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  1.153D-05 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  54  -4206.6966023488    -16768.922047     7443.6130297    0.450D-07 0.739D-14
+                            Exc = -301.725233078      Eck =  7745.33826278    
+                         Ntotal = 295.00140992      Nspin = 9.0000123252    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581908444879E-01
+                            current damping = 0.400
+ 
+          Norm of current diis error: 0.10703E-03
+          max. resid. norm for Fia-block=  6.143D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.411D-06 for orbital   1076a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  55  -4206.6966023504    -16768.922250     7443.6132330    0.409D-07 0.722D-14
+                            Exc = -301.725296007      Eck =  7745.33852897    
+                         Ntotal = 295.00140992      Nspin = 9.0000123253    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581908631212E-01
+                            current damping = 0.450
+ 
+          Norm of current diis error: 0.51547E-04
+          max. resid. norm for Fia-block=  6.570D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  6.797D-06 for orbital    155a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  56  -4206.6966023518    -16768.922186     7443.6131686    0.417D-07 0.702D-14
+                            Exc = -301.725280636      Eck =  7745.33844924    
+                         Ntotal = 295.00140992      Nspin = 9.0000123253    
+                             Na = 152.00071112         Nb = 143.00069880    
+                          Ediel =-0.581908697379E-01
+                            current damping = 0.500
+ 
+          Norm of current diis error: 0.38397E-04
+          max. resid. norm for Fia-block=  6.767D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.036D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  57  -4206.6966023530    -16768.922441     7443.6134235    0.422D-07 0.685D-14
+                            Exc = -301.725369161      Eck =  7745.33879269    
+                         Ntotal = 295.00140992      Nspin = 9.0000123254    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581908332453E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.69656E-04
+          max. resid. norm for Fia-block=  5.949D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  6.158D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  58  -4206.6966023540    -16768.922255     7443.6132374    0.360D-07 0.671D-14
+                            Exc = -301.725304712      Eck =  7745.33854210    
+                         Ntotal = 295.00140992      Nspin = 9.0000123254    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581908582844E-01
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.33330E-04
+          max. resid. norm for Fia-block=  7.245D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.649D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  59  -4206.6966023549    -16768.922189     7443.6131718    0.409D-07 0.655D-14
+                            Exc = -301.725274207      Eck =  7745.33844601    
+                         Ntotal = 295.00140992      Nspin = 9.0000123254    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909329970E-01
+                            current damping = 0.450
+ 
+          Norm of current diis error: 0.42187E-04
+          max. resid. norm for Fia-block=  5.375D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.726D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  60  -4206.6966023560    -16768.922279     7443.6132611    0.342D-07 0.640D-14
+                            Exc = -301.725302383      Eck =  7745.33856350    
+                         Ntotal = 295.00140991      Nspin = 9.0000123254    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909314179E-01
+                            current damping = 0.500
+ 
+          Norm of current diis error: 0.42692E-04
+          max. resid. norm for Fia-block=  5.503D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.812D-06 for orbital    139a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  61  -4206.6966023568    -16768.922257     7443.6132398    0.337D-07 0.627D-14
+                            Exc = -301.725300835      Eck =  7745.33854064    
+                         Ntotal = 295.00140991      Nspin = 9.0000123255    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909121796E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.32595E-04
+          max. resid. norm for Fia-block=  7.120D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.515D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  62  -4206.6966023569    -16768.922187     7443.6131699    0.414D-07 0.740D-14
+                            Exc = -301.725273145      Eck =  7745.33844307    
+                         Ntotal = 295.00140991      Nspin = 9.0000123255    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909643873E-01
+                            current damping = 0.400
+ 
+          Norm of current diis error: 0.39882E-04
+          max. resid. norm for Fia-block=  5.252D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.489D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  63  -4206.6966023575    -16768.922434     7443.6134164    0.352D-07 0.722D-14
+                            Exc = -301.725352689      Eck =  7745.33876905    
+                         Ntotal = 295.00140991      Nspin = 9.0000123256    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909725271E-01
+                            current damping = 0.450
+ 
+          Norm of current diis error: 0.52691E-04
+          max. resid. norm for Fia-block=  4.653D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.869D-06 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  64  -4206.6966023577    -16768.922241     7443.6132235    0.301D-07 0.259D-13
+                            Exc = -301.725288954     Coul =  7777.04890062    
+                            exK = -31.7103881596    
+                         Ntotal = 295.00140991      Nspin = 9.0000123255    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909862815E-01
+                            current damping = 0.500
+ 
+          Norm of current diis error: 0.33679E-04
+          max. resid. norm for Fia-block=  5.419D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.704D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  65  -4206.6966023584    -16768.922310     7443.6132925    0.329D-07 0.164D-13
+                            Exc = -301.725313396      Eck =  7745.33860592    
+                         Ntotal = 295.00140991      Nspin = 9.0000123256    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581909609956E-01
+                            current damping = 0.550
+ 
+          Norm of current diis error: 0.40073E-04
+          max. resid. norm for Fia-block=  4.921D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.181D-06 for orbital    139a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  66  -4206.6966023589    -16768.922254     7443.6132362    0.292D-07 0.119D-13
+                            Exc = -301.725291421      Eck =  7745.33852760    
+                         Ntotal = 295.00140991      Nspin = 9.0000123256    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910032634E-01
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.26495E-04
+          max. resid. norm for Fia-block=  6.640D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  7.130D-06 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  67  -4206.6966023599    -16768.922318     7443.6133006    0.370D-07 0.902D-14
+                            Exc = -301.725311688      Eck =  7745.33861226    
+                         Ntotal = 295.00140991      Nspin = 9.0000123256    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910279147E-01
+                            current damping = 0.650
+ 
+          Norm of current diis error: 0.25649E-04
+          max. resid. norm for Fia-block=  5.874D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  6.009D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  68  -4206.6966023601    -16768.922108     7443.6130901    0.328D-07 0.780D-14
+                            Exc = -301.725239817      Eck =  7745.33832990    
+                         Ntotal = 295.00140991      Nspin = 9.0000123256    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910337810E-01
+                            current damping = 0.700
+ 
+          Norm of current diis error: 0.55157E-04
+          max. resid. norm for Fia-block=  3.592D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  3.868D-06 for orbital   1076a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  69  -4206.6966023607    -16768.922226     7443.6132086    0.196D-07 0.742D-14
+                            Exc = -301.725277409      Eck =  7745.33848602    
+                         Ntotal = 295.00140991      Nspin = 9.0000123256    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910290639E-01
+                            current damping = 0.750
+ 
+          Norm of current diis error: 0.28966E-04
+          max. resid. norm for Fia-block=  4.920D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.161D-06 for orbital    154a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  70  -4206.6966023614    -16768.922325     7443.6133077    0.257D-07 0.702D-14
+                            Exc = -301.725312247      Eck =  7745.33861992    
+                         Ntotal = 295.00140991      Nspin = 9.0000123257    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910520815E-01
+                            current damping = 0.600
+ 
+          Norm of current diis error: 0.25693E-04
+          max. resid. norm for Fia-block=  5.171D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.448D-06 for orbital    139a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  71  -4206.6966023619    -16768.922282     7443.6132649    0.299D-07 0.685D-14
+                            Exc = -301.725297130      Eck =  7745.33856206    
+                         Ntotal = 295.00140991      Nspin = 9.0000123257    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910808694E-01
+                            current damping = 0.650
+ 
+          Norm of current diis error: 0.44184E-04
+          max. resid. norm for Fia-block=  3.551D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.373D-06 for orbital   1061a    alpha
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  72  -4206.6966023622    -16768.922305     7443.6132880    0.201D-07 0.739D-14
+                            Exc = -301.725303498      Eck =  7745.33859150    
+                         Ntotal = 295.00140991      Nspin = 9.0000123257    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910826076E-01
+                            current damping = 0.700
+ 
+          Norm of current diis error: 0.21811E-04
+          max. resid. norm for Fia-block=  5.276D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.555D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  73  -4206.6966023627    -16768.922235     7443.6132177    0.279D-07 0.740D-14
+                            Exc = -301.725279260      Eck =  7745.33849698    
+                         Ntotal = 295.00140991      Nspin = 9.0000123257    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910838775E-01
+                            current damping = 0.750
+ 
+          Norm of current diis error: 0.29825E-04
+          max. resid. norm for Fia-block=  3.266D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  3.380D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  74  -4206.6966023632    -16768.922340     7443.6133230    0.174D-07 0.739D-14
+                            Exc = -301.725313326      Eck =  7745.33863631    
+                         Ntotal = 295.00140991      Nspin = 9.0000123258    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581910815448E-01
+                            current damping = 0.800
+ 
+          Norm of current diis error: 0.23238E-04
+          max. resid. norm for Fia-block=  4.008D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.167D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  75  -4206.6966023634    -16768.922266     7443.6132484    0.203D-07 0.740D-14
+                            Exc = -301.725287683      Eck =  7745.33853610    
+                         Ntotal = 295.00140991      Nspin = 9.0000123258    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911110577E-01
+                            current damping = 0.850
+ 
+          Norm of current diis error: 0.22626E-04
+          max. resid. norm for Fia-block=  4.399D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.613D-06 for orbital    154a    beta 
+          mo-orthogonalization: Cholesky decomposition
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  76  -4206.6966023638    -16768.922341     7443.6133234    0.215D-07 0.739D-14
+                            Exc = -301.725312922      Eck =  7745.33863630    
+                         Ntotal = 295.00140991      Nspin = 9.0000123258    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911163201E-01
+                            current damping = 0.900
+ 
+          Norm of current diis error: 0.22552E-04
+          max. resid. norm for Fia-block=  4.382D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.558D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  77  -4206.6966023643    -16768.922285     7443.6132678    0.209D-07 0.739D-14
+                            Exc = -301.725293609      Eck =  7745.33856140    
+                         Ntotal = 295.00140991      Nspin = 9.0000123258    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911130447E-01
+                            current damping = 0.950
+ 
+          Norm of current diis error: 0.21493E-04
+          max. resid. norm for Fia-block=  4.185D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.487D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  78  -4206.6966023644    -16768.922265     7443.6132471    0.197D-07 0.738D-14
+                            Exc = -301.725284548      Eck =  7745.33853169    
+                         Ntotal = 295.00140991      Nspin = 9.0000123258    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911349318E-01
+                            current damping = 0.800
+ 
+          Norm of current diis error: 0.30897E-04
+          max. resid. norm for Fia-block=  2.950D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  3.120D-06 for orbital    139a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  79  -4206.6966023648    -16768.922331     7443.6133138    0.153D-07 0.738D-14
+                            Exc = -301.725306331      Eck =  7745.33862015    
+                         Ntotal = 295.00140991      Nspin = 9.0000123258    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911398172E-01
+                            current damping = 0.850
+ 
+          Norm of current diis error: 0.18491E-04
+          max. resid. norm for Fia-block=  4.803D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  5.142D-06 for orbital    155a    beta 
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  80  -4206.6966023650    -16768.922286     7443.6132686    0.232D-07 0.740D-14
+                            Exc = -301.725292865      Eck =  7745.33856148    
+                         Ntotal = 295.00140991      Nspin = 9.0000123259    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911500853E-01
+                            current damping = 0.900
+ 
+          Norm of current diis error: 0.18155E-04
+          max. resid. norm for Fia-block=  4.758D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  4.983D-06 for orbital    154a    beta 
+          mo-orthogonalization: Cholesky decomposition
+ density matrices became linear dependent...
+Subroutine ddmat can not establish optimal linear combination of delta densities !
+ Next fock matrix will be calculated from scratch !
+
+ DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  81  -4206.6966023648    -16768.922377     7443.6133598    0.227D-07 0.259D-13
+                            Exc = -301.725321661     Coul =  7777.04907296    
+                            exK = -31.7103915293    
+                         Ntotal = 295.00140991      Nspin = 9.0000123259    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911425256E-01
+                            current damping = 0.950
+ 
+          Norm of current diis error: 0.24548E-04
+          max. resid. norm for Fia-block=  2.899D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  3.017D-06 for orbital    155a    beta 
+
+ ENERGY & DENSITY CONVERGED !
+
+
+ ITERATION  ENERGY          1e-ENERGY        2e-ENERGY     RMS[dD(SAO)]   TOL
+  82  -4206.6966023652    -16768.922371     7443.6133530    0.139D-07 0.164D-13
+                            Exc = -301.725318047      Eck =  7745.33867107    
+                         Ntotal = 295.00140991      Nspin = 9.0000123259    
+                             Na = 152.00071112         Nb = 143.00069879    
+                          Ediel =-0.581911560616E-01
+                            current damping = 1.000
+ 
+          Norm of current diis error: 0.24908E-04
+          max. resid. norm for Fia-block=  2.657D-06 for orbital    139a    beta 
+          max. resid. fock norm         =  2.787D-06 for orbital    139a    beta 
+
+ End of SCF iterations
+
+   convergence criteria satisfied after    82 iterations
+
+
+                  ------------------------------------------ 
+                 |  total energy      =  -4206.69660236518  |
+                  ------------------------------------------ 
+                 :  kinetic energy    =   3938.91860338882  :
+                 :  potential energy  =  -8145.61520575400  :
+                 :  virial theorem    =      1.93634482724  :
+                 :  wavefunction norm =      1.00000000000  :
+                  .......................................... 
+
+
+ orbitals $uhfmo_beta  will be written to file beta
+
+ orbitals $uhfmo_alpha  will be written to file alpha
+ 
+ alpha: 
+
+    irrep                148a        149a        150a        151a        152a   
+ eigenvalues H         -0.19870    -0.19870    -0.18404    -0.18370    -0.18369
+            eV          -5.4070     -5.4068     -5.0081     -4.9988     -4.9985
+ occupation              1.0000      1.0000      1.0000      1.0000      1.0000
+
+    irrep                153a        154a        155a        156a        157a   
+ eigenvalues H         -0.07513    -0.07114    -0.06866    -0.03561    -0.03560
+            eV          -2.0443     -1.9357     -1.8682     -0.9691     -0.9688
+ 
+ beta:  
+
+    irrep                139a        140a        141a        142a        143a   
+ eigenvalues H         -0.19526    -0.18491    -0.18367    -0.18366    -0.13510
+            eV          -5.3132     -5.0318     -4.9979     -4.9977     -3.6762
+ occupation              1.0000      1.0000      1.0000      1.0000      1.0000
+
+    irrep                144a        145a        146a        147a        148a   
+ eigenvalues H         -0.08826    -0.08327    -0.05755    -0.05754    -0.05751
+            eV          -2.4017     -2.2658     -1.5659     -1.5658     -1.5648
+ 
+ ==============================================================================
+                                  COSMO RESULTS
+ ==============================================================================
+  PARAMETER:
+    nppa:      1082
+    nspa:        92
+    nsph:        32
+    nps:       1587
+    npspher:    651
+    disex:   10.0000    
+    disex2:  4827.56    
+    rsolv [A]: 1.3000
+    routf:     0.8500
+    phsran:    0.0    
+    ampran:   0.10E-04
+    cavity:  closed
+    epsilon:     7.250
+    refind:     1.300
+    fepsi:      0.8064516
+  CAVITY VOLUME/AREA [a.u.]:
+    surface: V1.0, A matrix: V1.0
+    area:  1485.53
+    volume:  3846.26
+  SCREENING CHARGE:
+    cosmo      :   0.949917
+    correction :   0.048113
+    total      :   0.998030
+  ENERGIES [a.u.]:
+    Total energy            =   -4206.6966023651830
+    Total energy + OC corr. =    -4206.7006180523
+    Dielectric energy       =       -0.0581911561
+    Diel. energy + OC corr. =       -0.0622068432
+  ELEMENT RADIUS [A]: ATOM LIST
+    mo 2.58: 1
+    dy 2.58: 2,3
+    s  2.16: 4-7
+    c  2.00: 8-27
+    h  1.30: 28-47
+ ==============================================================================
+
+                                             _ _ _ 
+  IRREP     alpha occ.     beta occ.      tr(D*D-D)
+
+
+ a        152.00000000   143.00000000    -3.27929108
+
+   -------------------------------------------------
+
+   sum    152.00000000   143.00000000    -3.27929108
+
+ <S*S>    26.80858216
+
+ 
+ 
+ 
+ ==============================================================================
+                           electrostatic moments
+ ==============================================================================
+
+ reference point for electrostatic moments:    0.00000   0.00000   0.00000
+
+ 
+              nuc           elec       ->  total
+ ------------------------------------------------------------------------------
+                          charge      
+ ------------------------------------------------------------------------------
+         294.000000    -295.000000      -1.000000
+ a-b                                     9.000000
+ 
+ ------------------------------------------------------------------------------
+                       dipole moment  
+ ------------------------------------------------------------------------------
+   x      -0.000000      -0.000267      -0.000267
+   y       0.000000       0.000375       0.000375
+   z       0.000000       0.001159       0.001159
+ 
+   | dipole moment | =     0.0012 a.u. =     0.0032 debye 
+ 
+ ------------------------------------------------------------------------------
+                     quadrupole moment
+ ------------------------------------------------------------------------------
+  xx    1831.466825   -2038.489792    -207.022967
+  yy    1831.466825   -2038.489954    -207.023129
+  zz   13452.154148  -13665.919842    -213.765694
+  xy       0.000000      -0.008881      -0.008881
+  xz      -0.000000      -0.000146      -0.000146
+  yz      -0.000000      -0.003001      -0.003001
+ 
+     1/3  trace=    -209.270597
+     anisotropy=       6.742666
+ 
+ 
+ ==============================================================================
+                  NATURAL POPULATION ANALYSIS (AO-BASIS) 
+ ==============================================================================
+A.E. Reed, R.B. Weinstock and F. Weinhold:
+Natural population analysis, J. Chem. Phys. 83(2), 735(1985)
+nbfiat:  1  6 12 15  7  0  0  0  0  0  0  0
+nbfiat:  2 10 21 25 28  9  0  0  0  0  0  0
+nbfiat:  3 10 21 25 28  9  0  0  0  0  0  0
+nbfiat:  4  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  5  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  6  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  7  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  8  5  9 10  7  0  0  0  0  0  0  0
+nbfiat:  9  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 10  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 11  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 12  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 13  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 14  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 15  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 16  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 17  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 18  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 19  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 20  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 21  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 22  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 23  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 24  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 25  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 26  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 27  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 28  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 29  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 30  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 31  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 32  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 33  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 34  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 35  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 36  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 37  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 38  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 39  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 40  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 41  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 42  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 43  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 44  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 45  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 46  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 47  3  3  0  0  0  0  0  0  0  0  0
+Basis set: (total   1114 functions)
+mo      (shells)  s:  6 p:  4 d:  3 f:  1 g:  0
+dy      (shells)  s: 10 p:  7 d:  5 f:  4 g:  1
+dy      (shells)  s: 10 p:  7 d:  5 f:  4 g:  1
+s       (shells)  s:  5 p:  5 d:  2 f:  1 g:  0
+s       (shells)  s:  5 p:  5 d:  2 f:  1 g:  0
+s       (shells)  s:  5 p:  5 d:  2 f:  1 g:  0
+s       (shells)  s:  5 p:  5 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  5 p:  3 d:  2 f:  1 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  3 p:  1 d:  0 f:  0 g:  0
+NMB set: (total    218 functions)
+mo      (shells)  s:  2 p:  1 d:  1 f:  0 g:  0
+dy      (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+dy      (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+s       (shells)  s:  3 p:  2 d:  0 f:  0 g:  0
+s       (shells)  s:  3 p:  2 d:  0 f:  0 g:  0
+s       (shells)  s:  3 p:  2 d:  0 f:  0 g:  0
+s       (shells)  s:  3 p:  2 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+c       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+h       (shells)  s:  1 p:  0 d:  0 f:  0 g:  0
+NRB set: (total    896 functions)
+mo      (shells)  s:  4 p:  3 d:  2 f:  1 g:  0
+dy      (shells)  s:  7 p:  5 d:  3 f:  3 g:  1
+dy      (shells)  s:  7 p:  5 d:  3 f:  3 g:  1
+s       (shells)  s:  2 p:  3 d:  2 f:  1 g:  0
+s       (shells)  s:  2 p:  3 d:  2 f:  1 g:  0
+s       (shells)  s:  2 p:  3 d:  2 f:  1 g:  0
+s       (shells)  s:  2 p:  3 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+c       (shells)  s:  3 p:  2 d:  2 f:  1 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+h       (shells)  s:  2 p:  1 d:  0 f:  0 g:  0
+
+*********************
+*** Total density ***
+*********************
+
+ Nr Atom            Natural Electron Configuration
+--------------------------------------------------
+   1 mo [ecp-28] [core] 5s( 0.41) 6s( 0.01) 5p( 0.01) 4d( 5.38) 5d( 0.06) 4f( 0.01)                 
+   2 dy [ecp-28] [core] 6s( 0.69) 7s( 0.10) 5d( 1.49) 6d( 0.08) 4f( 8.56) 5f( 0.01)                 
+   3 dy [ecp-28] [core] 6s( 0.69) 7s( 0.10) 5d( 1.49) 6d( 0.08) 4f( 8.56) 5f( 0.01)                 
+   4 s    [core]        3s( 1.77) 3p( 4.56) 4p( 0.01) 3d( 0.02)                                     
+   5 s    [core]        3s( 1.77) 3p( 4.56) 4p( 0.01) 3d( 0.02)                                     
+   6 s    [core]        3s( 1.77) 3p( 4.56) 4p( 0.01) 3d( 0.02)                                     
+   7 s    [core]        3s( 1.77) 3p( 4.56) 4p( 0.01) 3d( 0.02)                                     
+   8 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+   9 c    [core]        2s( 0.99) 2p( 3.32) 3p( 0.01) 3d( 0.01)                                     
+  10 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  11 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  12 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  13 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  14 c    [core]        2s( 0.99) 2p( 3.32) 3p( 0.01) 3d( 0.01)                                     
+  15 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  16 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  17 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  18 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  19 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  20 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  21 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  22 c    [core]        2s( 0.99) 2p( 3.32) 3p( 0.01) 3d( 0.01)                                     
+  23 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  24 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  25 c    [core]        2s( 0.99) 2p( 3.33) 3p( 0.01) 3d( 0.01)                                     
+  26 c    [core]        2s( 0.99) 2p( 3.31) 3p( 0.01) 3d( 0.01)                                     
+  27 c    [core]        2s( 0.99) 2p( 3.32) 3p( 0.01) 3d( 0.01)                                     
+  28 h                  1s( 0.76)                                                                   
+  29 h                  1s( 0.77)                                                                   
+  30 h                  1s( 0.76)                                                                   
+  31 h                  1s( 0.77)                                                                   
+  32 h                  1s( 0.76)                                                                   
+  33 h                  1s( 0.77)                                                                   
+  34 h                  1s( 0.76)                                                                   
+  35 h                  1s( 0.76)                                                                   
+  36 h                  1s( 0.76)                                                                   
+  37 h                  1s( 0.77)                                                                   
+  38 h                  1s( 0.76)                                                                   
+  39 h                  1s( 0.76)                                                                   
+  40 h                  1s( 0.76)                                                                   
+  41 h                  1s( 0.77)                                                                   
+  42 h                  1s( 0.77)                                                                   
+  43 h                  1s( 0.77)                                                                   
+  44 h                  1s( 0.76)                                                                   
+  45 h                  1s( 0.76)                                                                   
+  46 h                  1s( 0.77)                                                                   
+  47 h                  1s( 0.76)                                                                   
+
+NATURAL POPULATIONS:  Natural atomic orbital occupancies
+
+NAO   Atom  #       Type(AO)   Occupancy
+----------------------------------------
+    1 mo    1 s    Cor(4s)        1.99293
+    2 mo    1 s    Val(5s)        0.41046
+    3 mo    1 s    Ryd            0.00543
+    4 mo    1 s    Ryd            0.00059
+    5 mo    1 s    Ryd            0.00004
+    6 mo    1 s    Ryd            0.00000
+    7 mo    1 p    Cor(4px)       1.99316
+    8 mo    1 p    Cor(4py)       1.99316
+    9 mo    1 p    Cor(4pz)       1.98921
+   10 mo    1 p    Ryd            0.00299
+   11 mo    1 p    Ryd            0.00299
+   12 mo    1 p    Ryd            0.00237
+   13 mo    1 p    Ryd            0.00100
+   14 mo    1 p    Ryd            0.00100
+   15 mo    1 p    Ryd            0.00066
+   16 mo    1 p    Ryd            0.00009
+   17 mo    1 p    Ryd            0.00009
+   18 mo    1 p    Ryd            0.00011
+   19 mo    1 d    Val(4dz2)      1.32040
+   20 mo    1 d    Val(4dxz)      1.02632
+   21 mo    1 d    Val(4dyz)      1.02631
+   22 mo    1 d    Val(4dxy)      0.98847
+   23 mo    1 d    Val(4dx2-y2)   1.02227
+   24 mo    1 d    Ryd            0.01260
+   25 mo    1 d    Ryd            0.01117
+   26 mo    1 d    Ryd            0.01117
+   27 mo    1 d    Ryd            0.01943
+   28 mo    1 d    Ryd            0.00069
+   29 mo    1 d    Ryd            0.00006
+   30 mo    1 d    Ryd            0.00014
+   31 mo    1 d    Ryd            0.00014
+   32 mo    1 d    Ryd            0.00010
+   33 mo    1 d    Ryd            0.00004
+   34 mo    1 f    Ryd            0.00082
+   35 mo    1 f    Ryd            0.00089
+   36 mo    1 f    Ryd            0.00089
+   37 mo    1 f    Ryd            0.00077
+   38 mo    1 f    Ryd            0.00128
+   39 mo    1 f    Ryd            0.00089
+   40 mo    1 f    Ryd            0.00089
+
+   41 dy    2 s    Cor(4s)        1.99979
+   42 dy    2 s    Cor(5s)        1.98484
+   43 dy    2 s    Val(6s)        0.69461
+   44 dy    2 s    Ryd            0.09506
+   45 dy    2 s    Ryd            0.00197
+   46 dy    2 s    Ryd            0.00041
+   47 dy    2 s    Ryd            0.00005
+   48 dy    2 s    Ryd            0.00001
+   49 dy    2 s    Ryd            0.00000
+   50 dy    2 s    Ryd            0.00000
+   51 dy    2 p    Cor(4px)       1.99999
+   52 dy    2 p    Cor(4py)       1.99999
+   53 dy    2 p    Cor(4pz)       1.99999
+   54 dy    2 p    Cor(5px)       1.99805
+   55 dy    2 p    Cor(5py)       1.99805
+   56 dy    2 p    Cor(5pz)       1.99749
+   57 dy    2 p    Ryd            0.00160
+   58 dy    2 p    Ryd            0.00160
+   59 dy    2 p    Ryd            0.00140
+   60 dy    2 p    Ryd            0.00050
+   61 dy    2 p    Ryd            0.00050
+   62 dy    2 p    Ryd            0.00081
+   63 dy    2 p    Ryd            0.00030
+   64 dy    2 p    Ryd            0.00030
+   65 dy    2 p    Ryd            0.00040
+   66 dy    2 p    Ryd            0.00002
+   67 dy    2 p    Ryd            0.00002
+   68 dy    2 p    Ryd            0.00002
+   69 dy    2 p    Ryd            0.00000
+   70 dy    2 p    Ryd            0.00000
+   71 dy    2 p    Ryd            0.00000
+   72 dy    2 d    Cor(4dz2)      1.99996
+   73 dy    2 d    Cor(4dxz)      1.99997
+   74 dy    2 d    Cor(4dyz)      1.99997
+   75 dy    2 d    Cor(4dxy)      1.99997
+   76 dy    2 d    Cor(4dx2-y2)   1.99998
+   77 dy    2 d    Val(5dz2)      0.28963
+   78 dy    2 d    Val(5dxz)      0.33615
+   79 dy    2 d    Val(5dyz)      0.33615
+   80 dy    2 d    Val(5dxy)      0.20227
+   81 dy    2 d    Val(5dx2-y2)   0.32770
+   82 dy    2 d    Ryd            0.01045
+   83 dy    2 d    Ryd            0.01975
+   84 dy    2 d    Ryd            0.01975
+   85 dy    2 d    Ryd            0.01357
+   86 dy    2 d    Ryd            0.01224
+   87 dy    2 d    Ryd            0.00009
+   88 dy    2 d    Ryd            0.00007
+   89 dy    2 d    Ryd            0.00007
+   90 dy    2 d    Ryd            0.00007
+   91 dy    2 d    Ryd            0.00005
+   92 dy    2 d    Ryd            0.00001
+   93 dy    2 d    Ryd            0.00001
+   94 dy    2 d    Ryd            0.00001
+   95 dy    2 d    Ryd            0.00001
+   96 dy    2 d    Ryd            0.00000
+   97 dy    2 f    Val(4f0)       1.00908
+   98 dy    2 f    Val(4fC1)      1.26719
+   99 dy    2 f    Val(4fS1)      1.26719
+  100 dy    2 f    Val(4fC2)      1.51056
+  101 dy    2 f    Val(4fS2)      1.00667
+  102 dy    2 f    Val(4fC3)      1.24850
+  103 dy    2 f    Val(4fS3)      1.24850
+  104 dy    2 f    Ryd            0.00043
+  105 dy    2 f    Ryd            0.00086
+  106 dy    2 f    Ryd            0.00086
+  107 dy    2 f    Ryd            0.00107
+  108 dy    2 f    Ryd            0.00069
+  109 dy    2 f    Ryd            0.00065
+  110 dy    2 f    Ryd            0.00065
+  111 dy    2 f    Ryd            0.00010
+  112 dy    2 f    Ryd            0.00009
+  113 dy    2 f    Ryd            0.00009
+  114 dy    2 f    Ryd            0.00011
+  115 dy    2 f    Ryd            0.00009
+  116 dy    2 f    Ryd            0.00010
+  117 dy    2 f    Ryd            0.00010
+  118 dy    2 f    Ryd            0.00000
+  119 dy    2 f    Ryd            0.00001
+  120 dy    2 f    Ryd            0.00001
+  121 dy    2 f    Ryd            0.00001
+  122 dy    2 f    Ryd            0.00000
+  123 dy    2 f    Ryd            0.00001
+  124 dy    2 f    Ryd            0.00001
+  125 dy    2 g    Ryd            0.00002
+  126 dy    2 g    Ryd            0.00002
+  127 dy    2 g    Ryd            0.00002
+  128 dy    2 g    Ryd            0.00002
+  129 dy    2 g    Ryd            0.00003
+  130 dy    2 g    Ryd            0.00002
+  131 dy    2 g    Ryd            0.00002
+  132 dy    2 g    Ryd            0.00002
+  133 dy    2 g    Ryd            0.00001
+
+  134 dy    3 s    Cor(4s)        1.99979
+  135 dy    3 s    Cor(5s)        1.98484
+  136 dy    3 s    Val(6s)        0.69461
+  137 dy    3 s    Ryd            0.09507
+  138 dy    3 s    Ryd            0.00197
+  139 dy    3 s    Ryd            0.00041
+  140 dy    3 s    Ryd            0.00005
+  141 dy    3 s    Ryd            0.00001
+  142 dy    3 s    Ryd            0.00000
+  143 dy    3 s    Ryd            0.00000
+  144 dy    3 p    Cor(4px)       1.99999
+  145 dy    3 p    Cor(4py)       1.99999
+  146 dy    3 p    Cor(4pz)       1.99999
+  147 dy    3 p    Cor(5px)       1.99805
+  148 dy    3 p    Cor(5py)       1.99805
+  149 dy    3 p    Cor(5pz)       1.99749
+  150 dy    3 p    Ryd            0.00160
+  151 dy    3 p    Ryd            0.00160
+  152 dy    3 p    Ryd            0.00140
+  153 dy    3 p    Ryd            0.00050
+  154 dy    3 p    Ryd            0.00050
+  155 dy    3 p    Ryd            0.00081
+  156 dy    3 p    Ryd            0.00030
+  157 dy    3 p    Ryd            0.00030
+  158 dy    3 p    Ryd            0.00040
+  159 dy    3 p    Ryd            0.00002
+  160 dy    3 p    Ryd            0.00002
+  161 dy    3 p    Ryd            0.00002
+  162 dy    3 p    Ryd            0.00000
+  163 dy    3 p    Ryd            0.00000
+  164 dy    3 p    Ryd            0.00000
+  165 dy    3 d    Cor(4dz2)      1.99996
+  166 dy    3 d    Cor(4dxz)      1.99997
+  167 dy    3 d    Cor(4dyz)      1.99997
+  168 dy    3 d    Cor(4dxy)      1.99997
+  169 dy    3 d    Cor(4dx2-y2)   1.99998
+  170 dy    3 d    Val(5dz2)      0.28963
+  171 dy    3 d    Val(5dxz)      0.33619
+  172 dy    3 d    Val(5dyz)      0.33619
+  173 dy    3 d    Val(5dxy)      0.20225
+  174 dy    3 d    Val(5dx2-y2)   0.32771
+  175 dy    3 d    Ryd            0.01045
+  176 dy    3 d    Ryd            0.01975
+  177 dy    3 d    Ryd            0.01975
+  178 dy    3 d    Ryd            0.01357
+  179 dy    3 d    Ryd            0.01224
+  180 dy    3 d    Ryd            0.00009
+  181 dy    3 d    Ryd            0.00007
+  182 dy    3 d    Ryd            0.00007
+  183 dy    3 d    Ryd            0.00007
+  184 dy    3 d    Ryd            0.00005
+  185 dy    3 d    Ryd            0.00001
+  186 dy    3 d    Ryd            0.00001
+  187 dy    3 d    Ryd            0.00001
+  188 dy    3 d    Ryd            0.00001
+  189 dy    3 d    Ryd            0.00000
+  190 dy    3 f    Val(4f0)       1.00908
+  191 dy    3 f    Val(4fC1)      1.26717
+  192 dy    3 f    Val(4fS1)      1.26718
+  193 dy    3 f    Val(4fC2)      1.51053
+  194 dy    3 f    Val(4fS2)      1.00667
+  195 dy    3 f    Val(4fC3)      1.24852
+  196 dy    3 f    Val(4fS3)      1.24852
+  197 dy    3 f    Ryd            0.00043
+  198 dy    3 f    Ryd            0.00086
+  199 dy    3 f    Ryd            0.00086
+  200 dy    3 f    Ryd            0.00107
+  201 dy    3 f    Ryd            0.00069
+  202 dy    3 f    Ryd            0.00065
+  203 dy    3 f    Ryd            0.00065
+  204 dy    3 f    Ryd            0.00010
+  205 dy    3 f    Ryd            0.00009
+  206 dy    3 f    Ryd            0.00009
+  207 dy    3 f    Ryd            0.00011
+  208 dy    3 f    Ryd            0.00009
+  209 dy    3 f    Ryd            0.00010
+  210 dy    3 f    Ryd            0.00010
+  211 dy    3 f    Ryd            0.00000
+  212 dy    3 f    Ryd            0.00001
+  213 dy    3 f    Ryd            0.00001
+  214 dy    3 f    Ryd            0.00001
+  215 dy    3 f    Ryd            0.00000
+  216 dy    3 f    Ryd            0.00001
+  217 dy    3 f    Ryd            0.00001
+  218 dy    3 g    Ryd            0.00002
+  219 dy    3 g    Ryd            0.00002
+  220 dy    3 g    Ryd            0.00002
+  221 dy    3 g    Ryd            0.00002
+  222 dy    3 g    Ryd            0.00003
+  223 dy    3 g    Ryd            0.00002
+  224 dy    3 g    Ryd            0.00002
+  225 dy    3 g    Ryd            0.00002
+  226 dy    3 g    Ryd            0.00001
+
+  227 s     4 s    Cor(1s)        2.00000
+  228 s     4 s    Cor(2s)        1.99940
+  229 s     4 s    Val(3s)        1.76507
+  230 s     4 s    Ryd            0.00144
+  231 s     4 s    Ryd            0.00000
+  232 s     4 p    Cor(2px)       1.99987
+  233 s     4 p    Cor(2py)       1.99987
+  234 s     4 p    Cor(2pz)       1.99979
+  235 s     4 p    Val(3px)       1.52947
+  236 s     4 p    Val(3py)       1.52947
+  237 s     4 p    Val(3pz)       1.50200
+  238 s     4 p    Ryd            0.00158
+  239 s     4 p    Ryd            0.00158
+  240 s     4 p    Ryd            0.00265
+  241 s     4 p    Ryd            0.00003
+  242 s     4 p    Ryd            0.00003
+  243 s     4 p    Ryd            0.00005
+  244 s     4 p    Ryd            0.00000
+  245 s     4 p    Ryd            0.00000
+  246 s     4 p    Ryd            0.00000
+  247 s     4 d    Ryd            0.00212
+  248 s     4 d    Ryd            0.00545
+  249 s     4 d    Ryd            0.00545
+  250 s     4 d    Ryd            0.00555
+  251 s     4 d    Ryd            0.00501
+  252 s     4 d    Ryd            0.00042
+  253 s     4 d    Ryd            0.00027
+  254 s     4 d    Ryd            0.00027
+  255 s     4 d    Ryd            0.00035
+  256 s     4 d    Ryd            0.00016
+  257 s     4 f    Ryd            0.00006
+  258 s     4 f    Ryd            0.00008
+  259 s     4 f    Ryd            0.00008
+  260 s     4 f    Ryd            0.00013
+  261 s     4 f    Ryd            0.00008
+  262 s     4 f    Ryd            0.00016
+  263 s     4 f    Ryd            0.00016
+
+  264 s     5 s    Cor(1s)        2.00000
+  265 s     5 s    Cor(2s)        1.99940
+  266 s     5 s    Val(3s)        1.76507
+  267 s     5 s    Ryd            0.00144
+  268 s     5 s    Ryd            0.00000
+  269 s     5 p    Cor(2px)       1.99987
+  270 s     5 p    Cor(2py)       1.99987
+  271 s     5 p    Cor(2pz)       1.99979
+  272 s     5 p    Val(3px)       1.52947
+  273 s     5 p    Val(3py)       1.52947
+  274 s     5 p    Val(3pz)       1.50200
+  275 s     5 p    Ryd            0.00158
+  276 s     5 p    Ryd            0.00158
+  277 s     5 p    Ryd            0.00265
+  278 s     5 p    Ryd            0.00003
+  279 s     5 p    Ryd            0.00003
+  280 s     5 p    Ryd            0.00005
+  281 s     5 p    Ryd            0.00000
+  282 s     5 p    Ryd            0.00000
+  283 s     5 p    Ryd            0.00000
+  284 s     5 d    Ryd            0.00212
+  285 s     5 d    Ryd            0.00545
+  286 s     5 d    Ryd            0.00545
+  287 s     5 d    Ryd            0.00555
+  288 s     5 d    Ryd            0.00501
+  289 s     5 d    Ryd            0.00042
+  290 s     5 d    Ryd            0.00027
+  291 s     5 d    Ryd            0.00027
+  292 s     5 d    Ryd            0.00035
+  293 s     5 d    Ryd            0.00016
+  294 s     5 f    Ryd            0.00006
+  295 s     5 f    Ryd            0.00008
+  296 s     5 f    Ryd            0.00008
+  297 s     5 f    Ryd            0.00013
+  298 s     5 f    Ryd            0.00008
+  299 s     5 f    Ryd            0.00016
+  300 s     5 f    Ryd            0.00016
+
+  301 s     6 s    Cor(1s)        2.00000
+  302 s     6 s    Cor(2s)        1.99940
+  303 s     6 s    Val(3s)        1.76506
+  304 s     6 s    Ryd            0.00144
+  305 s     6 s    Ryd            0.00000
+  306 s     6 p    Cor(2px)       1.99987
+  307 s     6 p    Cor(2py)       1.99987
+  308 s     6 p    Cor(2pz)       1.99979
+  309 s     6 p    Val(3px)       1.52921
+  310 s     6 p    Val(3py)       1.52919
+  311 s     6 p    Val(3pz)       1.50184
+  312 s     6 p    Ryd            0.00158
+  313 s     6 p    Ryd            0.00158
+  314 s     6 p    Ryd            0.00265
+  315 s     6 p    Ryd            0.00003
+  316 s     6 p    Ryd            0.00003
+  317 s     6 p    Ryd            0.00005
+  318 s     6 p    Ryd            0.00000
+  319 s     6 p    Ryd            0.00000
+  320 s     6 p    Ryd            0.00000
+  321 s     6 d    Ryd            0.00212
+  322 s     6 d    Ryd            0.00545
+  323 s     6 d    Ryd            0.00545
+  324 s     6 d    Ryd            0.00555
+  325 s     6 d    Ryd            0.00501
+  326 s     6 d    Ryd            0.00042
+  327 s     6 d    Ryd            0.00027
+  328 s     6 d    Ryd            0.00027
+  329 s     6 d    Ryd            0.00035
+  330 s     6 d    Ryd            0.00016
+  331 s     6 f    Ryd            0.00006
+  332 s     6 f    Ryd            0.00008
+  333 s     6 f    Ryd            0.00008
+  334 s     6 f    Ryd            0.00013
+  335 s     6 f    Ryd            0.00008
+  336 s     6 f    Ryd            0.00016
+  337 s     6 f    Ryd            0.00016
+
+  338 s     7 s    Cor(1s)        2.00000
+  339 s     7 s    Cor(2s)        1.99940
+  340 s     7 s    Val(3s)        1.76505
+  341 s     7 s    Ryd            0.00144
+  342 s     7 s    Ryd            0.00000
+  343 s     7 p    Cor(2px)       1.99987
+  344 s     7 p    Cor(2py)       1.99987
+  345 s     7 p    Cor(2pz)       1.99979
+  346 s     7 p    Val(3px)       1.52921
+  347 s     7 p    Val(3py)       1.52920
+  348 s     7 p    Val(3pz)       1.50185
+  349 s     7 p    Ryd            0.00158
+  350 s     7 p    Ryd            0.00158
+  351 s     7 p    Ryd            0.00265
+  352 s     7 p    Ryd            0.00003
+  353 s     7 p    Ryd            0.00003
+  354 s     7 p    Ryd            0.00005
+  355 s     7 p    Ryd            0.00000
+  356 s     7 p    Ryd            0.00000
+  357 s     7 p    Ryd            0.00000
+  358 s     7 d    Ryd            0.00212
+  359 s     7 d    Ryd            0.00545
+  360 s     7 d    Ryd            0.00545
+  361 s     7 d    Ryd            0.00555
+  362 s     7 d    Ryd            0.00501
+  363 s     7 d    Ryd            0.00042
+  364 s     7 d    Ryd            0.00027
+  365 s     7 d    Ryd            0.00027
+  366 s     7 d    Ryd            0.00035
+  367 s     7 d    Ryd            0.00016
+  368 s     7 f    Ryd            0.00006
+  369 s     7 f    Ryd            0.00008
+  370 s     7 f    Ryd            0.00008
+  371 s     7 f    Ryd            0.00013
+  372 s     7 f    Ryd            0.00008
+  373 s     7 f    Ryd            0.00016
+  374 s     7 f    Ryd            0.00016
+
+  375 c     8 s    Cor(1s)        1.99904
+  376 c     8 s    Val(2s)        0.98947
+  377 c     8 s    Ryd            0.00195
+  378 c     8 s    Ryd            0.00011
+  379 c     8 s    Ryd            0.00000
+  380 c     8 p    Val(2px)       1.14811
+  381 c     8 p    Val(2py)       1.11399
+  382 c     8 p    Val(2pz)       1.05105
+  383 c     8 p    Ryd            0.00371
+  384 c     8 p    Ryd            0.00286
+  385 c     8 p    Ryd            0.00338
+  386 c     8 p    Ryd            0.00051
+  387 c     8 p    Ryd            0.00022
+  388 c     8 p    Ryd            0.00019
+  389 c     8 d    Ryd            0.00065
+  390 c     8 d    Ryd            0.00149
+  391 c     8 d    Ryd            0.00086
+  392 c     8 d    Ryd            0.00140
+  393 c     8 d    Ryd            0.00140
+  394 c     8 d    Ryd            0.00036
+  395 c     8 d    Ryd            0.00020
+  396 c     8 d    Ryd            0.00032
+  397 c     8 d    Ryd            0.00028
+  398 c     8 d    Ryd            0.00014
+  399 c     8 f    Ryd            0.00024
+  400 c     8 f    Ryd            0.00025
+  401 c     8 f    Ryd            0.00015
+  402 c     8 f    Ryd            0.00035
+  403 c     8 f    Ryd            0.00022
+  404 c     8 f    Ryd            0.00022
+  405 c     8 f    Ryd            0.00030
+
+  406 c     9 s    Cor(1s)        1.99902
+  407 c     9 s    Val(2s)        0.99052
+  408 c     9 s    Ryd            0.00210
+  409 c     9 s    Ryd            0.00015
+  410 c     9 s    Ryd            0.00000
+  411 c     9 p    Val(2px)       1.07167
+  412 c     9 p    Val(2py)       1.07168
+  413 c     9 p    Val(2pz)       1.17346
+  414 c     9 p    Ryd            0.00373
+  415 c     9 p    Ryd            0.00373
+  416 c     9 p    Ryd            0.00351
+  417 c     9 p    Ryd            0.00043
+  418 c     9 p    Ryd            0.00043
+  419 c     9 p    Ryd            0.00035
+  420 c     9 d    Ryd            0.00144
+  421 c     9 d    Ryd            0.00120
+  422 c     9 d    Ryd            0.00120
+  423 c     9 d    Ryd            0.00115
+  424 c     9 d    Ryd            0.00064
+  425 c     9 d    Ryd            0.00039
+  426 c     9 d    Ryd            0.00019
+  427 c     9 d    Ryd            0.00019
+  428 c     9 d    Ryd            0.00031
+  429 c     9 d    Ryd            0.00023
+  430 c     9 f    Ryd            0.00032
+  431 c     9 f    Ryd            0.00024
+  432 c     9 f    Ryd            0.00024
+  433 c     9 f    Ryd            0.00046
+  434 c     9 f    Ryd            0.00012
+  435 c     9 f    Ryd            0.00015
+  436 c     9 f    Ryd            0.00015
+
+  437 c    10 s    Cor(1s)        1.99904
+  438 c    10 s    Val(2s)        0.98947
+  439 c    10 s    Ryd            0.00195
+  440 c    10 s    Ryd            0.00011
+  441 c    10 s    Ryd            0.00000
+  442 c    10 p    Val(2px)       1.11399
+  443 c    10 p    Val(2py)       1.14812
+  444 c    10 p    Val(2pz)       1.05106
+  445 c    10 p    Ryd            0.00286
+  446 c    10 p    Ryd            0.00371
+  447 c    10 p    Ryd            0.00338
+  448 c    10 p    Ryd            0.00022
+  449 c    10 p    Ryd            0.00051
+  450 c    10 p    Ryd            0.00019
+  451 c    10 d    Ryd            0.00065
+  452 c    10 d    Ryd            0.00086
+  453 c    10 d    Ryd            0.00149
+  454 c    10 d    Ryd            0.00140
+  455 c    10 d    Ryd            0.00140
+  456 c    10 d    Ryd            0.00036
+  457 c    10 d    Ryd            0.00032
+  458 c    10 d    Ryd            0.00020
+  459 c    10 d    Ryd            0.00028
+  460 c    10 d    Ryd            0.00014
+  461 c    10 f    Ryd            0.00024
+  462 c    10 f    Ryd            0.00015
+  463 c    10 f    Ryd            0.00025
+  464 c    10 f    Ryd            0.00035
+  465 c    10 f    Ryd            0.00022
+  466 c    10 f    Ryd            0.00030
+  467 c    10 f    Ryd            0.00022
+
+  468 c    11 s    Cor(1s)        1.99908
+  469 c    11 s    Val(2s)        0.98852
+  470 c    11 s    Ryd            0.00219
+  471 c    11 s    Ryd            0.00012
+  472 c    11 s    Ryd            0.00000
+  473 c    11 p    Val(2px)       1.13370
+  474 c    11 p    Val(2py)       1.06675
+  475 c    11 p    Val(2pz)       1.12663
+  476 c    11 p    Ryd            0.00287
+  477 c    11 p    Ryd            0.00351
+  478 c    11 p    Ryd            0.00405
+  479 c    11 p    Ryd            0.00023
+  480 c    11 p    Ryd            0.00033
+  481 c    11 p    Ryd            0.00039
+  482 c    11 d    Ryd            0.00146
+  483 c    11 d    Ryd            0.00098
+  484 c    11 d    Ryd            0.00139
+  485 c    11 d    Ryd            0.00128
+  486 c    11 d    Ryd            0.00076
+  487 c    11 d    Ryd            0.00019
+  488 c    11 d    Ryd            0.00045
+  489 c    11 d    Ryd            0.00028
+  490 c    11 d    Ryd            0.00015
+  491 c    11 d    Ryd            0.00024
+  492 c    11 f    Ryd            0.00011
+  493 c    11 f    Ryd            0.00033
+  494 c    11 f    Ryd            0.00033
+  495 c    11 f    Ryd            0.00023
+  496 c    11 f    Ryd            0.00025
+  497 c    11 f    Ryd            0.00022
+  498 c    11 f    Ryd            0.00026
+
+  499 c    12 s    Cor(1s)        1.99908
+  500 c    12 s    Val(2s)        0.98853
+  501 c    12 s    Ryd            0.00219
+  502 c    12 s    Ryd            0.00012
+  503 c    12 s    Ryd            0.00000
+  504 c    12 p    Val(2px)       1.06673
+  505 c    12 p    Val(2py)       1.13370
+  506 c    12 p    Val(2pz)       1.12664
+  507 c    12 p    Ryd            0.00351
+  508 c    12 p    Ryd            0.00287
+  509 c    12 p    Ryd            0.00405
+  510 c    12 p    Ryd            0.00033
+  511 c    12 p    Ryd            0.00023
+  512 c    12 p    Ryd            0.00039
+  513 c    12 d    Ryd            0.00147
+  514 c    12 d    Ryd            0.00139
+  515 c    12 d    Ryd            0.00098
+  516 c    12 d    Ryd            0.00128
+  517 c    12 d    Ryd            0.00076
+  518 c    12 d    Ryd            0.00019
+  519 c    12 d    Ryd            0.00028
+  520 c    12 d    Ryd            0.00045
+  521 c    12 d    Ryd            0.00015
+  522 c    12 d    Ryd            0.00024
+  523 c    12 f    Ryd            0.00011
+  524 c    12 f    Ryd            0.00033
+  525 c    12 f    Ryd            0.00033
+  526 c    12 f    Ryd            0.00023
+  527 c    12 f    Ryd            0.00025
+  528 c    12 f    Ryd            0.00026
+  529 c    12 f    Ryd            0.00022
+
+  530 c    13 s    Cor(1s)        1.99904
+  531 c    13 s    Val(2s)        0.98947
+  532 c    13 s    Ryd            0.00195
+  533 c    13 s    Ryd            0.00011
+  534 c    13 s    Ryd            0.00000
+  535 c    13 p    Val(2px)       1.11398
+  536 c    13 p    Val(2py)       1.14811
+  537 c    13 p    Val(2pz)       1.05106
+  538 c    13 p    Ryd            0.00286
+  539 c    13 p    Ryd            0.00371
+  540 c    13 p    Ryd            0.00338
+  541 c    13 p    Ryd            0.00022
+  542 c    13 p    Ryd            0.00051
+  543 c    13 p    Ryd            0.00019
+  544 c    13 d    Ryd            0.00065
+  545 c    13 d    Ryd            0.00086
+  546 c    13 d    Ryd            0.00149
+  547 c    13 d    Ryd            0.00140
+  548 c    13 d    Ryd            0.00140
+  549 c    13 d    Ryd            0.00036
+  550 c    13 d    Ryd            0.00032
+  551 c    13 d    Ryd            0.00020
+  552 c    13 d    Ryd            0.00028
+  553 c    13 d    Ryd            0.00014
+  554 c    13 f    Ryd            0.00024
+  555 c    13 f    Ryd            0.00015
+  556 c    13 f    Ryd            0.00025
+  557 c    13 f    Ryd            0.00035
+  558 c    13 f    Ryd            0.00022
+  559 c    13 f    Ryd            0.00030
+  560 c    13 f    Ryd            0.00022
+
+  561 c    14 s    Cor(1s)        1.99902
+  562 c    14 s    Val(2s)        0.99052
+  563 c    14 s    Ryd            0.00210
+  564 c    14 s    Ryd            0.00015
+  565 c    14 s    Ryd            0.00000
+  566 c    14 p    Val(2px)       1.07168
+  567 c    14 p    Val(2py)       1.07168
+  568 c    14 p    Val(2pz)       1.17346
+  569 c    14 p    Ryd            0.00373
+  570 c    14 p    Ryd            0.00373
+  571 c    14 p    Ryd            0.00351
+  572 c    14 p    Ryd            0.00043
+  573 c    14 p    Ryd            0.00043
+  574 c    14 p    Ryd            0.00035
+  575 c    14 d    Ryd            0.00144
+  576 c    14 d    Ryd            0.00120
+  577 c    14 d    Ryd            0.00120
+  578 c    14 d    Ryd            0.00115
+  579 c    14 d    Ryd            0.00064
+  580 c    14 d    Ryd            0.00039
+  581 c    14 d    Ryd            0.00019
+  582 c    14 d    Ryd            0.00019
+  583 c    14 d    Ryd            0.00031
+  584 c    14 d    Ryd            0.00023
+  585 c    14 f    Ryd            0.00032
+  586 c    14 f    Ryd            0.00024
+  587 c    14 f    Ryd            0.00024
+  588 c    14 f    Ryd            0.00046
+  589 c    14 f    Ryd            0.00012
+  590 c    14 f    Ryd            0.00015
+  591 c    14 f    Ryd            0.00015
+
+  592 c    15 s    Cor(1s)        1.99904
+  593 c    15 s    Val(2s)        0.98947
+  594 c    15 s    Ryd            0.00195
+  595 c    15 s    Ryd            0.00011
+  596 c    15 s    Ryd            0.00000
+  597 c    15 p    Val(2px)       1.14810
+  598 c    15 p    Val(2py)       1.11398
+  599 c    15 p    Val(2pz)       1.05105
+  600 c    15 p    Ryd            0.00371
+  601 c    15 p    Ryd            0.00286
+  602 c    15 p    Ryd            0.00338
+  603 c    15 p    Ryd            0.00051
+  604 c    15 p    Ryd            0.00022
+  605 c    15 p    Ryd            0.00019
+  606 c    15 d    Ryd            0.00065
+  607 c    15 d    Ryd            0.00149
+  608 c    15 d    Ryd            0.00086
+  609 c    15 d    Ryd            0.00140
+  610 c    15 d    Ryd            0.00140
+  611 c    15 d    Ryd            0.00036
+  612 c    15 d    Ryd            0.00020
+  613 c    15 d    Ryd            0.00032
+  614 c    15 d    Ryd            0.00028
+  615 c    15 d    Ryd            0.00014
+  616 c    15 f    Ryd            0.00024
+  617 c    15 f    Ryd            0.00025
+  618 c    15 f    Ryd            0.00015
+  619 c    15 f    Ryd            0.00035
+  620 c    15 f    Ryd            0.00022
+  621 c    15 f    Ryd            0.00022
+  622 c    15 f    Ryd            0.00030
+
+  623 c    16 s    Cor(1s)        1.99908
+  624 c    16 s    Val(2s)        0.98853
+  625 c    16 s    Ryd            0.00219
+  626 c    16 s    Ryd            0.00012
+  627 c    16 s    Ryd            0.00000
+  628 c    16 p    Val(2px)       1.06674
+  629 c    16 p    Val(2py)       1.13370
+  630 c    16 p    Val(2pz)       1.12663
+  631 c    16 p    Ryd            0.00351
+  632 c    16 p    Ryd            0.00287
+  633 c    16 p    Ryd            0.00405
+  634 c    16 p    Ryd            0.00033
+  635 c    16 p    Ryd            0.00023
+  636 c    16 p    Ryd            0.00039
+  637 c    16 d    Ryd            0.00147
+  638 c    16 d    Ryd            0.00139
+  639 c    16 d    Ryd            0.00098
+  640 c    16 d    Ryd            0.00128
+  641 c    16 d    Ryd            0.00076
+  642 c    16 d    Ryd            0.00019
+  643 c    16 d    Ryd            0.00028
+  644 c    16 d    Ryd            0.00045
+  645 c    16 d    Ryd            0.00015
+  646 c    16 d    Ryd            0.00024
+  647 c    16 f    Ryd            0.00011
+  648 c    16 f    Ryd            0.00033
+  649 c    16 f    Ryd            0.00033
+  650 c    16 f    Ryd            0.00023
+  651 c    16 f    Ryd            0.00025
+  652 c    16 f    Ryd            0.00026
+  653 c    16 f    Ryd            0.00022
+
+  654 c    17 s    Cor(1s)        1.99908
+  655 c    17 s    Val(2s)        0.98852
+  656 c    17 s    Ryd            0.00219
+  657 c    17 s    Ryd            0.00012
+  658 c    17 s    Ryd            0.00000
+  659 c    17 p    Val(2px)       1.13369
+  660 c    17 p    Val(2py)       1.06674
+  661 c    17 p    Val(2pz)       1.12661
+  662 c    17 p    Ryd            0.00287
+  663 c    17 p    Ryd            0.00351
+  664 c    17 p    Ryd            0.00405
+  665 c    17 p    Ryd            0.00023
+  666 c    17 p    Ryd            0.00033
+  667 c    17 p    Ryd            0.00039
+  668 c    17 d    Ryd            0.00147
+  669 c    17 d    Ryd            0.00099
+  670 c    17 d    Ryd            0.00139
+  671 c    17 d    Ryd            0.00128
+  672 c    17 d    Ryd            0.00076
+  673 c    17 d    Ryd            0.00019
+  674 c    17 d    Ryd            0.00045
+  675 c    17 d    Ryd            0.00028
+  676 c    17 d    Ryd            0.00015
+  677 c    17 d    Ryd            0.00024
+  678 c    17 f    Ryd            0.00011
+  679 c    17 f    Ryd            0.00033
+  680 c    17 f    Ryd            0.00033
+  681 c    17 f    Ryd            0.00023
+  682 c    17 f    Ryd            0.00025
+  683 c    17 f    Ryd            0.00022
+  684 c    17 f    Ryd            0.00026
+
+  685 c    18 s    Cor(1s)        1.99904
+  686 c    18 s    Val(2s)        0.98947
+  687 c    18 s    Ryd            0.00195
+  688 c    18 s    Ryd            0.00011
+  689 c    18 s    Ryd            0.00000
+  690 c    18 p    Val(2px)       1.11400
+  691 c    18 p    Val(2py)       1.14812
+  692 c    18 p    Val(2pz)       1.05106
+  693 c    18 p    Ryd            0.00286
+  694 c    18 p    Ryd            0.00371
+  695 c    18 p    Ryd            0.00338
+  696 c    18 p    Ryd            0.00022
+  697 c    18 p    Ryd            0.00051
+  698 c    18 p    Ryd            0.00019
+  699 c    18 d    Ryd            0.00065
+  700 c    18 d    Ryd            0.00086
+  701 c    18 d    Ryd            0.00149
+  702 c    18 d    Ryd            0.00140
+  703 c    18 d    Ryd            0.00140
+  704 c    18 d    Ryd            0.00036
+  705 c    18 d    Ryd            0.00032
+  706 c    18 d    Ryd            0.00020
+  707 c    18 d    Ryd            0.00028
+  708 c    18 d    Ryd            0.00014
+  709 c    18 f    Ryd            0.00024
+  710 c    18 f    Ryd            0.00015
+  711 c    18 f    Ryd            0.00025
+  712 c    18 f    Ryd            0.00035
+  713 c    18 f    Ryd            0.00022
+  714 c    18 f    Ryd            0.00030
+  715 c    18 f    Ryd            0.00022
+
+  716 c    19 s    Cor(1s)        1.99908
+  717 c    19 s    Val(2s)        0.98852
+  718 c    19 s    Ryd            0.00219
+  719 c    19 s    Ryd            0.00012
+  720 c    19 s    Ryd            0.00000
+  721 c    19 p    Val(2px)       1.13369
+  722 c    19 p    Val(2py)       1.06673
+  723 c    19 p    Val(2pz)       1.12663
+  724 c    19 p    Ryd            0.00288
+  725 c    19 p    Ryd            0.00351
+  726 c    19 p    Ryd            0.00405
+  727 c    19 p    Ryd            0.00023
+  728 c    19 p    Ryd            0.00033
+  729 c    19 p    Ryd            0.00039
+  730 c    19 d    Ryd            0.00146
+  731 c    19 d    Ryd            0.00098
+  732 c    19 d    Ryd            0.00139
+  733 c    19 d    Ryd            0.00128
+  734 c    19 d    Ryd            0.00076
+  735 c    19 d    Ryd            0.00019
+  736 c    19 d    Ryd            0.00045
+  737 c    19 d    Ryd            0.00028
+  738 c    19 d    Ryd            0.00015
+  739 c    19 d    Ryd            0.00024
+  740 c    19 f    Ryd            0.00011
+  741 c    19 f    Ryd            0.00033
+  742 c    19 f    Ryd            0.00033
+  743 c    19 f    Ryd            0.00023
+  744 c    19 f    Ryd            0.00025
+  745 c    19 f    Ryd            0.00022
+  746 c    19 f    Ryd            0.00026
+
+  747 c    20 s    Cor(1s)        1.99908
+  748 c    20 s    Val(2s)        0.98852
+  749 c    20 s    Ryd            0.00219
+  750 c    20 s    Ryd            0.00012
+  751 c    20 s    Ryd            0.00000
+  752 c    20 p    Val(2px)       1.06676
+  753 c    20 p    Val(2py)       1.13370
+  754 c    20 p    Val(2pz)       1.12662
+  755 c    20 p    Ryd            0.00351
+  756 c    20 p    Ryd            0.00288
+  757 c    20 p    Ryd            0.00405
+  758 c    20 p    Ryd            0.00033
+  759 c    20 p    Ryd            0.00023
+  760 c    20 p    Ryd            0.00039
+  761 c    20 d    Ryd            0.00146
+  762 c    20 d    Ryd            0.00139
+  763 c    20 d    Ryd            0.00098
+  764 c    20 d    Ryd            0.00128
+  765 c    20 d    Ryd            0.00076
+  766 c    20 d    Ryd            0.00019
+  767 c    20 d    Ryd            0.00028
+  768 c    20 d    Ryd            0.00045
+  769 c    20 d    Ryd            0.00015
+  770 c    20 d    Ryd            0.00024
+  771 c    20 f    Ryd            0.00011
+  772 c    20 f    Ryd            0.00033
+  773 c    20 f    Ryd            0.00033
+  774 c    20 f    Ryd            0.00023
+  775 c    20 f    Ryd            0.00025
+  776 c    20 f    Ryd            0.00026
+  777 c    20 f    Ryd            0.00022
+
+  778 c    21 s    Cor(1s)        1.99904
+  779 c    21 s    Val(2s)        0.98947
+  780 c    21 s    Ryd            0.00195
+  781 c    21 s    Ryd            0.00011
+  782 c    21 s    Ryd            0.00000
+  783 c    21 p    Val(2px)       1.14812
+  784 c    21 p    Val(2py)       1.11399
+  785 c    21 p    Val(2pz)       1.05105
+  786 c    21 p    Ryd            0.00371
+  787 c    21 p    Ryd            0.00286
+  788 c    21 p    Ryd            0.00338
+  789 c    21 p    Ryd            0.00051
+  790 c    21 p    Ryd            0.00022
+  791 c    21 p    Ryd            0.00019
+  792 c    21 d    Ryd            0.00065
+  793 c    21 d    Ryd            0.00149
+  794 c    21 d    Ryd            0.00086
+  795 c    21 d    Ryd            0.00140
+  796 c    21 d    Ryd            0.00140
+  797 c    21 d    Ryd            0.00036
+  798 c    21 d    Ryd            0.00020
+  799 c    21 d    Ryd            0.00032
+  800 c    21 d    Ryd            0.00028
+  801 c    21 d    Ryd            0.00014
+  802 c    21 f    Ryd            0.00024
+  803 c    21 f    Ryd            0.00025
+  804 c    21 f    Ryd            0.00015
+  805 c    21 f    Ryd            0.00035
+  806 c    21 f    Ryd            0.00022
+  807 c    21 f    Ryd            0.00022
+  808 c    21 f    Ryd            0.00030
+
+  809 c    22 s    Cor(1s)        1.99902
+  810 c    22 s    Val(2s)        0.99052
+  811 c    22 s    Ryd            0.00210
+  812 c    22 s    Ryd            0.00015
+  813 c    22 s    Ryd            0.00000
+  814 c    22 p    Val(2px)       1.07167
+  815 c    22 p    Val(2py)       1.07166
+  816 c    22 p    Val(2pz)       1.17345
+  817 c    22 p    Ryd            0.00373
+  818 c    22 p    Ryd            0.00372
+  819 c    22 p    Ryd            0.00351
+  820 c    22 p    Ryd            0.00043
+  821 c    22 p    Ryd            0.00043
+  822 c    22 p    Ryd            0.00035
+  823 c    22 d    Ryd            0.00144
+  824 c    22 d    Ryd            0.00120
+  825 c    22 d    Ryd            0.00120
+  826 c    22 d    Ryd            0.00115
+  827 c    22 d    Ryd            0.00064
+  828 c    22 d    Ryd            0.00039
+  829 c    22 d    Ryd            0.00019
+  830 c    22 d    Ryd            0.00019
+  831 c    22 d    Ryd            0.00031
+  832 c    22 d    Ryd            0.00023
+  833 c    22 f    Ryd            0.00032
+  834 c    22 f    Ryd            0.00024
+  835 c    22 f    Ryd            0.00024
+  836 c    22 f    Ryd            0.00046
+  837 c    22 f    Ryd            0.00012
+  838 c    22 f    Ryd            0.00015
+  839 c    22 f    Ryd            0.00015
+
+  840 c    23 s    Cor(1s)        1.99904
+  841 c    23 s    Val(2s)        0.98947
+  842 c    23 s    Ryd            0.00195
+  843 c    23 s    Ryd            0.00011
+  844 c    23 s    Ryd            0.00000
+  845 c    23 p    Val(2px)       1.14812
+  846 c    23 p    Val(2py)       1.11399
+  847 c    23 p    Val(2pz)       1.05105
+  848 c    23 p    Ryd            0.00371
+  849 c    23 p    Ryd            0.00286
+  850 c    23 p    Ryd            0.00338
+  851 c    23 p    Ryd            0.00051
+  852 c    23 p    Ryd            0.00022
+  853 c    23 p    Ryd            0.00019
+  854 c    23 d    Ryd            0.00065
+  855 c    23 d    Ryd            0.00149
+  856 c    23 d    Ryd            0.00086
+  857 c    23 d    Ryd            0.00140
+  858 c    23 d    Ryd            0.00140
+  859 c    23 d    Ryd            0.00036
+  860 c    23 d    Ryd            0.00020
+  861 c    23 d    Ryd            0.00032
+  862 c    23 d    Ryd            0.00028
+  863 c    23 d    Ryd            0.00014
+  864 c    23 f    Ryd            0.00024
+  865 c    23 f    Ryd            0.00025
+  866 c    23 f    Ryd            0.00015
+  867 c    23 f    Ryd            0.00035
+  868 c    23 f    Ryd            0.00022
+  869 c    23 f    Ryd            0.00022
+  870 c    23 f    Ryd            0.00030
+
+  871 c    24 s    Cor(1s)        1.99908
+  872 c    24 s    Val(2s)        0.98853
+  873 c    24 s    Ryd            0.00219
+  874 c    24 s    Ryd            0.00012
+  875 c    24 s    Ryd            0.00000
+  876 c    24 p    Val(2px)       1.06674
+  877 c    24 p    Val(2py)       1.13370
+  878 c    24 p    Val(2pz)       1.12663
+  879 c    24 p    Ryd            0.00351
+  880 c    24 p    Ryd            0.00288
+  881 c    24 p    Ryd            0.00405
+  882 c    24 p    Ryd            0.00033
+  883 c    24 p    Ryd            0.00023
+  884 c    24 p    Ryd            0.00039
+  885 c    24 d    Ryd            0.00147
+  886 c    24 d    Ryd            0.00139
+  887 c    24 d    Ryd            0.00098
+  888 c    24 d    Ryd            0.00128
+  889 c    24 d    Ryd            0.00076
+  890 c    24 d    Ryd            0.00019
+  891 c    24 d    Ryd            0.00028
+  892 c    24 d    Ryd            0.00045
+  893 c    24 d    Ryd            0.00015
+  894 c    24 d    Ryd            0.00024
+  895 c    24 f    Ryd            0.00011
+  896 c    24 f    Ryd            0.00033
+  897 c    24 f    Ryd            0.00033
+  898 c    24 f    Ryd            0.00023
+  899 c    24 f    Ryd            0.00025
+  900 c    24 f    Ryd            0.00026
+  901 c    24 f    Ryd            0.00022
+
+  902 c    25 s    Cor(1s)        1.99908
+  903 c    25 s    Val(2s)        0.98852
+  904 c    25 s    Ryd            0.00219
+  905 c    25 s    Ryd            0.00012
+  906 c    25 s    Ryd            0.00000
+  907 c    25 p    Val(2px)       1.13368
+  908 c    25 p    Val(2py)       1.06673
+  909 c    25 p    Val(2pz)       1.12661
+  910 c    25 p    Ryd            0.00288
+  911 c    25 p    Ryd            0.00351
+  912 c    25 p    Ryd            0.00405
+  913 c    25 p    Ryd            0.00023
+  914 c    25 p    Ryd            0.00033
+  915 c    25 p    Ryd            0.00039
+  916 c    25 d    Ryd            0.00147
+  917 c    25 d    Ryd            0.00099
+  918 c    25 d    Ryd            0.00139
+  919 c    25 d    Ryd            0.00128
+  920 c    25 d    Ryd            0.00076
+  921 c    25 d    Ryd            0.00019
+  922 c    25 d    Ryd            0.00045
+  923 c    25 d    Ryd            0.00028
+  924 c    25 d    Ryd            0.00015
+  925 c    25 d    Ryd            0.00024
+  926 c    25 f    Ryd            0.00011
+  927 c    25 f    Ryd            0.00033
+  928 c    25 f    Ryd            0.00033
+  929 c    25 f    Ryd            0.00023
+  930 c    25 f    Ryd            0.00025
+  931 c    25 f    Ryd            0.00022
+  932 c    25 f    Ryd            0.00026
+
+  933 c    26 s    Cor(1s)        1.99904
+  934 c    26 s    Val(2s)        0.98947
+  935 c    26 s    Ryd            0.00195
+  936 c    26 s    Ryd            0.00011
+  937 c    26 s    Ryd            0.00000
+  938 c    26 p    Val(2px)       1.11400
+  939 c    26 p    Val(2py)       1.14812
+  940 c    26 p    Val(2pz)       1.05106
+  941 c    26 p    Ryd            0.00286
+  942 c    26 p    Ryd            0.00371
+  943 c    26 p    Ryd            0.00338
+  944 c    26 p    Ryd            0.00022
+  945 c    26 p    Ryd            0.00051
+  946 c    26 p    Ryd            0.00019
+  947 c    26 d    Ryd            0.00065
+  948 c    26 d    Ryd            0.00086
+  949 c    26 d    Ryd            0.00149
+  950 c    26 d    Ryd            0.00140
+  951 c    26 d    Ryd            0.00140
+  952 c    26 d    Ryd            0.00036
+  953 c    26 d    Ryd            0.00032
+  954 c    26 d    Ryd            0.00020
+  955 c    26 d    Ryd            0.00028
+  956 c    26 d    Ryd            0.00014
+  957 c    26 f    Ryd            0.00024
+  958 c    26 f    Ryd            0.00015
+  959 c    26 f    Ryd            0.00025
+  960 c    26 f    Ryd            0.00035
+  961 c    26 f    Ryd            0.00022
+  962 c    26 f    Ryd            0.00030
+  963 c    26 f    Ryd            0.00022
+
+  964 c    27 s    Cor(1s)        1.99902
+  965 c    27 s    Val(2s)        0.99052
+  966 c    27 s    Ryd            0.00210
+  967 c    27 s    Ryd            0.00015
+  968 c    27 s    Ryd            0.00000
+  969 c    27 p    Val(2px)       1.07168
+  970 c    27 p    Val(2py)       1.07168
+  971 c    27 p    Val(2pz)       1.17345
+  972 c    27 p    Ryd            0.00373
+  973 c    27 p    Ryd            0.00373
+  974 c    27 p    Ryd            0.00351
+  975 c    27 p    Ryd            0.00043
+  976 c    27 p    Ryd            0.00043
+  977 c    27 p    Ryd            0.00035
+  978 c    27 d    Ryd            0.00144
+  979 c    27 d    Ryd            0.00120
+  980 c    27 d    Ryd            0.00120
+  981 c    27 d    Ryd            0.00115
+  982 c    27 d    Ryd            0.00064
+  983 c    27 d    Ryd            0.00039
+  984 c    27 d    Ryd            0.00019
+  985 c    27 d    Ryd            0.00019
+  986 c    27 d    Ryd            0.00031
+  987 c    27 d    Ryd            0.00023
+  988 c    27 f    Ryd            0.00032
+  989 c    27 f    Ryd            0.00024
+  990 c    27 f    Ryd            0.00024
+  991 c    27 f    Ryd            0.00046
+  992 c    27 f    Ryd            0.00012
+  993 c    27 f    Ryd            0.00015
+  994 c    27 f    Ryd            0.00015
+
+  995 h    28 s    Val(1s)        0.76349
+  996 h    28 s    Ryd            0.00034
+  997 h    28 s    Ryd            0.00013
+  998 h    28 p    Ryd            0.00027
+  999 h    28 p    Ryd            0.00039
+ 1000 h    28 p    Ryd            0.00012
+
+ 1001 h    29 s    Val(1s)        0.76617
+ 1002 h    29 s    Ryd            0.00033
+ 1003 h    29 s    Ryd            0.00014
+ 1004 h    29 p    Ryd            0.00031
+ 1005 h    29 p    Ryd            0.00011
+ 1006 h    29 p    Ryd            0.00036
+
+ 1007 h    30 s    Val(1s)        0.76038
+ 1008 h    30 s    Ryd            0.00046
+ 1009 h    30 s    Ryd            0.00018
+ 1010 h    30 p    Ryd            0.00013
+ 1011 h    30 p    Ryd            0.00013
+ 1012 h    30 p    Ryd            0.00052
+
+ 1013 h    31 s    Val(1s)        0.76614
+ 1014 h    31 s    Ryd            0.00033
+ 1015 h    31 s    Ryd            0.00014
+ 1016 h    31 p    Ryd            0.00011
+ 1017 h    31 p    Ryd            0.00031
+ 1018 h    31 p    Ryd            0.00036
+
+ 1019 h    32 s    Val(1s)        0.76348
+ 1020 h    32 s    Ryd            0.00034
+ 1021 h    32 s    Ryd            0.00013
+ 1022 h    32 p    Ryd            0.00039
+ 1023 h    32 p    Ryd            0.00027
+ 1024 h    32 p    Ryd            0.00012
+
+ 1025 h    33 s    Val(1s)        0.76619
+ 1026 h    33 s    Ryd            0.00033
+ 1027 h    33 s    Ryd            0.00014
+ 1028 h    33 p    Ryd            0.00031
+ 1029 h    33 p    Ryd            0.00011
+ 1030 h    33 p    Ryd            0.00036
+
+ 1031 h    34 s    Val(1s)        0.76349
+ 1032 h    34 s    Ryd            0.00034
+ 1033 h    34 s    Ryd            0.00013
+ 1034 h    34 p    Ryd            0.00027
+ 1035 h    34 p    Ryd            0.00039
+ 1036 h    34 p    Ryd            0.00012
+
+ 1037 h    35 s    Val(1s)        0.76038
+ 1038 h    35 s    Ryd            0.00046
+ 1039 h    35 s    Ryd            0.00018
+ 1040 h    35 p    Ryd            0.00013
+ 1041 h    35 p    Ryd            0.00013
+ 1042 h    35 p    Ryd            0.00052
+
+ 1043 h    36 s    Val(1s)        0.76349
+ 1044 h    36 s    Ryd            0.00034
+ 1045 h    36 s    Ryd            0.00013
+ 1046 h    36 p    Ryd            0.00039
+ 1047 h    36 p    Ryd            0.00027
+ 1048 h    36 p    Ryd            0.00012
+
+ 1049 h    37 s    Val(1s)        0.76615
+ 1050 h    37 s    Ryd            0.00033
+ 1051 h    37 s    Ryd            0.00014
+ 1052 h    37 p    Ryd            0.00011
+ 1053 h    37 p    Ryd            0.00031
+ 1054 h    37 p    Ryd            0.00036
+
+ 1055 h    38 s    Val(1s)        0.76349
+ 1056 h    38 s    Ryd            0.00034
+ 1057 h    38 s    Ryd            0.00013
+ 1058 h    38 p    Ryd            0.00027
+ 1059 h    38 p    Ryd            0.00039
+ 1060 h    38 p    Ryd            0.00012
+
+ 1061 h    39 s    Val(1s)        0.76038
+ 1062 h    39 s    Ryd            0.00046
+ 1063 h    39 s    Ryd            0.00018
+ 1064 h    39 p    Ryd            0.00013
+ 1065 h    39 p    Ryd            0.00013
+ 1066 h    39 p    Ryd            0.00052
+
+ 1067 h    40 s    Val(1s)        0.76348
+ 1068 h    40 s    Ryd            0.00034
+ 1069 h    40 s    Ryd            0.00013
+ 1070 h    40 p    Ryd            0.00039
+ 1071 h    40 p    Ryd            0.00027
+ 1072 h    40 p    Ryd            0.00012
+
+ 1073 h    41 s    Val(1s)        0.76615
+ 1074 h    41 s    Ryd            0.00033
+ 1075 h    41 s    Ryd            0.00014
+ 1076 h    41 p    Ryd            0.00011
+ 1077 h    41 p    Ryd            0.00031
+ 1078 h    41 p    Ryd            0.00036
+
+ 1079 h    42 s    Val(1s)        0.76618
+ 1080 h    42 s    Ryd            0.00033
+ 1081 h    42 s    Ryd            0.00014
+ 1082 h    42 p    Ryd            0.00031
+ 1083 h    42 p    Ryd            0.00011
+ 1084 h    42 p    Ryd            0.00036
+
+ 1085 h    43 s    Val(1s)        0.76617
+ 1086 h    43 s    Ryd            0.00033
+ 1087 h    43 s    Ryd            0.00014
+ 1088 h    43 p    Ryd            0.00031
+ 1089 h    43 p    Ryd            0.00011
+ 1090 h    43 p    Ryd            0.00036
+
+ 1091 h    44 s    Val(1s)        0.76349
+ 1092 h    44 s    Ryd            0.00034
+ 1093 h    44 s    Ryd            0.00013
+ 1094 h    44 p    Ryd            0.00027
+ 1095 h    44 p    Ryd            0.00039
+ 1096 h    44 p    Ryd            0.00012
+
+ 1097 h    45 s    Val(1s)        0.76037
+ 1098 h    45 s    Ryd            0.00046
+ 1099 h    45 s    Ryd            0.00018
+ 1100 h    45 p    Ryd            0.00013
+ 1101 h    45 p    Ryd            0.00013
+ 1102 h    45 p    Ryd            0.00052
+
+ 1103 h    46 s    Val(1s)        0.76620
+ 1104 h    46 s    Ryd            0.00033
+ 1105 h    46 s    Ryd            0.00014
+ 1106 h    46 p    Ryd            0.00011
+ 1107 h    46 p    Ryd            0.00031
+ 1108 h    46 p    Ryd            0.00036
+
+ 1109 h    47 s    Val(1s)        0.76348
+ 1110 h    47 s    Ryd            0.00034
+ 1111 h    47 s    Ryd            0.00013
+ 1112 h    47 p    Ryd            0.00039
+ 1113 h    47 p    Ryd            0.00027
+ 1114 h    47 p    Ryd            0.00012
+
+Summary of Natural Population Analysis:
+                                      Natural Population
+                 Natural   -----------------------------------
+Atom No          Charge       Core        Valence     Rydberg     Total
+               ----------------------------------------------------------
+  1  mo           0.15797     7.96847     5.79424     0.07932    13.84203
+  2  dy           1.09047    25.97805    10.74420     0.18727    36.90953
+  3  dy           1.09040    25.97805    10.74427     0.18728    36.90960
+  4  s           -0.35809     9.99893     6.32600     0.03317    16.35809
+  5  s           -0.35809     9.99893     6.32600     0.03317    16.35809
+  6  s           -0.35740     9.99893     6.32530     0.03317    16.35740
+  7  s           -0.35741     9.99893     6.32531     0.03317    16.35741
+  8  c           -0.32341     1.99904     4.30262     0.02176     6.32341
+  9  c           -0.32940     1.99902     4.30734     0.02304     6.32940
+ 10  c           -0.32344     1.99904     4.30264     0.02176     6.32344
+ 11  c           -0.33731     1.99908     4.31559     0.02263     6.33731
+ 12  c           -0.33732     1.99908     4.31560     0.02263     6.33732
+ 13  c           -0.32342     1.99904     4.30262     0.02176     6.32342
+ 14  c           -0.32940     1.99902     4.30733     0.02305     6.32940
+ 15  c           -0.32339     1.99904     4.30259     0.02176     6.32339
+ 16  c           -0.33733     1.99908     4.31561     0.02263     6.33733
+ 17  c           -0.33727     1.99908     4.31556     0.02263     6.33727
+ 18  c           -0.32344     1.99904     4.30264     0.02176     6.32344
+ 19  c           -0.33730     1.99908     4.31558     0.02263     6.33730
+ 20  c           -0.33732     1.99908     4.31560     0.02263     6.33732
+ 21  c           -0.32343     1.99904     4.30263     0.02175     6.32343
+ 22  c           -0.32937     1.99902     4.30731     0.02304     6.32937
+ 23  c           -0.32342     1.99904     4.30263     0.02175     6.32342
+ 24  c           -0.33732     1.99908     4.31561     0.02263     6.33732
+ 25  c           -0.33726     1.99908     4.31554     0.02264     6.33726
+ 26  c           -0.32344     1.99904     4.30264     0.02176     6.32344
+ 27  c           -0.32940     1.99902     4.30733     0.02304     6.32940
+ 28  h            0.23526     0.00000     0.76349     0.00125     0.76474
+ 29  h            0.23257     0.00000     0.76617     0.00125     0.76743
+ 30  h            0.23820     0.00000     0.76038     0.00142     0.76180
+ 31  h            0.23260     0.00000     0.76614     0.00125     0.76740
+ 32  h            0.23527     0.00000     0.76348     0.00125     0.76473
+ 33  h            0.23256     0.00000     0.76619     0.00125     0.76744
+ 34  h            0.23526     0.00000     0.76349     0.00125     0.76474
+ 35  h            0.23820     0.00000     0.76038     0.00142     0.76180
+ 36  h            0.23526     0.00000     0.76349     0.00125     0.76474
+ 37  h            0.23260     0.00000     0.76615     0.00125     0.76740
+ 38  h            0.23526     0.00000     0.76349     0.00125     0.76474
+ 39  h            0.23820     0.00000     0.76038     0.00142     0.76180
+ 40  h            0.23527     0.00000     0.76348     0.00125     0.76473
+ 41  h            0.23259     0.00000     0.76615     0.00125     0.76741
+ 42  h            0.23256     0.00000     0.76618     0.00125     0.76744
+ 43  h            0.23257     0.00000     0.76617     0.00125     0.76743
+ 44  h            0.23526     0.00000     0.76349     0.00125     0.76474
+ 45  h            0.23820     0.00000     0.76037     0.00142     0.76180
+ 46  h            0.23255     0.00000     0.76620     0.00125     0.76745
+ 47  h            0.23527     0.00000     0.76348     0.00125     0.76473
+               ----------------------------------------------------------
+ * Total *       -1.00000   139.90137   154.03906     1.05957   295.00000
+
+For all atoms:
+Core                     139.90137(  99.9296% of  140)
+Valence                  154.03906(  99.3800% of  155)
+Natural Minimal Basis    293.94043(  99.6408% of  295)
+Natural Rydberg Basis      1.05957(   0.3592% of  295)
+
+ ==============================================================================
+
+atomic populations from total density:
+atom          charge    n(s)      n(p)      n(d)      n(f)      n(g)
+  1 mo         0.15797   2.40946   5.98682   5.43932   0.00643   0.00000
+  2 dy         1.09047   4.77675  12.00106  11.56788   8.56364   0.00020
+  3 dy         1.09040   4.77677  12.00106  11.56797   8.56361   0.00020
+  4 s         -0.35809   5.76592  10.56638   0.02504   0.00074   0.00000
+  5 s         -0.35809   5.76592  10.56639   0.02504   0.00074   0.00000
+  6 s         -0.35740   5.76590  10.56570   0.02505   0.00074   0.00000
+  7 s         -0.35741   5.76590  10.56571   0.02505   0.00074   0.00000
+  8 c         -0.32341   2.99057   3.32400   0.00711   0.00173   0.00000
+  9 c         -0.32940   2.99179   3.32899   0.00693   0.00169   0.00000
+ 10 c         -0.32344   2.99056   3.32403   0.00711   0.00173   0.00000
+ 11 c         -0.33731   2.98992   3.33846   0.00720   0.00173   0.00000
+ 12 c         -0.33732   2.98993   3.33846   0.00720   0.00173   0.00000
+ 13 c         -0.32342   2.99056   3.32401   0.00711   0.00173   0.00000
+ 14 c         -0.32940   2.99179   3.32899   0.00693   0.00169   0.00000
+ 15 c         -0.32339   2.99057   3.32398   0.00711   0.00173   0.00000
+ 16 c         -0.33733   2.98993   3.33846   0.00720   0.00173   0.00000
+ 17 c         -0.33727   2.98992   3.33842   0.00720   0.00173   0.00000
+ 18 c         -0.32344   2.99057   3.32403   0.00711   0.00173   0.00000
+ 19 c         -0.33730   2.98992   3.33844   0.00720   0.00173   0.00000
+ 20 c         -0.33732   2.98992   3.33847   0.00720   0.00173   0.00000
+ 21 c         -0.32343   2.99057   3.32402   0.00711   0.00173   0.00000
+ 22 c         -0.32937   2.99179   3.32896   0.00693   0.00169   0.00000
+ 23 c         -0.32342   2.99057   3.32402   0.00711   0.00173   0.00000
+ 24 c         -0.33732   2.98993   3.33846   0.00720   0.00173   0.00000
+ 25 c         -0.33726   2.98992   3.33841   0.00720   0.00173   0.00000
+ 26 c         -0.32344   2.99057   3.32403   0.00711   0.00173   0.00000
+ 27 c         -0.32940   2.99179   3.32899   0.00693   0.00169   0.00000
+ 28 h          0.23526   0.76395   0.00078   0.00000   0.00000   0.00000
+ 29 h          0.23257   0.76664   0.00078   0.00000   0.00000   0.00000
+ 30 h          0.23820   0.76103   0.00077   0.00000   0.00000   0.00000
+ 31 h          0.23260   0.76661   0.00078   0.00000   0.00000   0.00000
+ 32 h          0.23527   0.76395   0.00078   0.00000   0.00000   0.00000
+ 33 h          0.23256   0.76666   0.00078   0.00000   0.00000   0.00000
+ 34 h          0.23526   0.76396   0.00078   0.00000   0.00000   0.00000
+ 35 h          0.23820   0.76103   0.00077   0.00000   0.00000   0.00000
+ 36 h          0.23526   0.76395   0.00078   0.00000   0.00000   0.00000
+ 37 h          0.23260   0.76662   0.00078   0.00000   0.00000   0.00000
+ 38 h          0.23526   0.76396   0.00078   0.00000   0.00000   0.00000
+ 39 h          0.23820   0.76103   0.00077   0.00000   0.00000   0.00000
+ 40 h          0.23527   0.76395   0.00078   0.00000   0.00000   0.00000
+ 41 h          0.23259   0.76662   0.00078   0.00000   0.00000   0.00000
+ 42 h          0.23256   0.76665   0.00078   0.00000   0.00000   0.00000
+ 43 h          0.23257   0.76664   0.00078   0.00000   0.00000   0.00000
+ 44 h          0.23526   0.76395   0.00078   0.00000   0.00000   0.00000
+ 45 h          0.23820   0.76102   0.00077   0.00000   0.00000   0.00000
+ 46 h          0.23255   0.76667   0.00078   0.00000   0.00000   0.00000
+ 47 h          0.23527   0.76394   0.00078   0.00000   0.00000   0.00000
+
+ ==============================================================================
+
+ 
+ moments (from total density versus population analysis)
+ <charge> =            -1.000000           -1.000000
+ <x   >   =            -0.000267           -0.000140
+ <y   >   =             0.000375            0.000192
+ <z   >   =             0.001159            0.002486
+
+
+nbfiat:  1  6 12 15  7  0  0  0  0  0  0  0
+nbfiat:  2 10 21 25 28  9  0  0  0  0  0  0
+nbfiat:  3 10 21 25 28  9  0  0  0  0  0  0
+nbfiat:  4  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  5  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  6  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  7  5 15 10  7  0  0  0  0  0  0  0
+nbfiat:  8  5  9 10  7  0  0  0  0  0  0  0
+nbfiat:  9  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 10  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 11  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 12  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 13  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 14  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 15  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 16  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 17  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 18  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 19  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 20  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 21  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 22  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 23  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 24  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 25  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 26  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 27  5  9 10  7  0  0  0  0  0  0  0
+nbfiat: 28  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 29  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 30  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 31  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 32  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 33  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 34  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 35  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 36  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 37  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 38  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 39  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 40  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 41  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 42  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 43  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 44  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 45  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 46  3  3  0  0  0  0  0  0  0  0  0
+nbfiat: 47  3  3  0  0  0  0  0  0  0  0  0
+***********************************
+*** Spin density (Dalpha-Dbeta) ***
+***********************************
+
+ ==============================================================================
+
+atomic populations from spin  density:
+atom          sum       n(s)      n(p)      n(d)      n(f)      n(g)
+  1 mo        -0.65459  -0.00479   0.00798  -0.65742  -0.00037   0.00000
+  2 dy         4.95481  -0.53081   0.02933   0.04350   5.41283  -0.00004
+  3 dy         4.95499  -0.53076   0.02932   0.04357   5.41289  -0.00004
+  4 s         -0.02726   0.00041  -0.01905  -0.00853  -0.00008   0.00000
+  5 s         -0.02726   0.00041  -0.01905  -0.00853  -0.00008   0.00000
+  6 s         -0.02723   0.00042  -0.01905  -0.00851  -0.00008   0.00000
+  7 s         -0.02723   0.00042  -0.01905  -0.00851  -0.00008   0.00000
+  8 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+  9 c         -0.01119  -0.00129  -0.00892  -0.00095  -0.00002   0.00000
+ 10 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 11 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 12 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 13 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 14 c         -0.01119  -0.00129  -0.00892  -0.00095  -0.00002   0.00000
+ 15 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 16 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 17 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 18 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 19 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 20 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 21 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 22 c         -0.01119  -0.00129  -0.00892  -0.00095  -0.00002   0.00000
+ 23 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 24 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 25 c         -0.00707  -0.00140  -0.00511  -0.00053  -0.00002   0.00000
+ 26 c         -0.00619  -0.00144  -0.00400  -0.00074  -0.00002   0.00000
+ 27 c         -0.01119  -0.00129  -0.00892  -0.00095  -0.00002   0.00000
+ 28 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 29 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 30 h          0.00048   0.00049  -0.00001   0.00000   0.00000   0.00000
+ 31 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 32 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 33 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 34 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 35 h          0.00048   0.00049  -0.00001   0.00000   0.00000   0.00000
+ 36 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 37 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 38 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 39 h          0.00048   0.00049  -0.00001   0.00000   0.00000   0.00000
+ 40 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 41 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 42 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 43 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 44 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 45 h          0.00048   0.00049  -0.00001   0.00000   0.00000   0.00000
+ 46 h          0.00004   0.00005  -0.00001   0.00000   0.00000   0.00000
+ 47 h          0.00029   0.00030  -0.00001   0.00000   0.00000   0.00000
+ 
+ ==============================================================================
+ 
+HOMO-LUMO Separation
+ HOMO         :   -0.13509694 H =     -3.67618 eV
+ LUMO         :   -0.08826038 H =     -2.40169 eV
+ HOMO-LUMO gap:    0.04683657 H =     +1.27449 eV
+ 
+ ==============================================================================
+
+
+    ------------------------------------------------------------------------
+         total  cpu-time : 20 hours  1 minutes and 10 seconds
+         total wall-time :  1 hours  2 minutes and 23 seconds
+    ------------------------------------------------------------------------
+
+   ****  ridft : all done  ****
+
+
+    2020-07-29 18:21:05.539 
+

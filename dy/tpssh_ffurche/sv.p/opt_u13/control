@@ -1,0 +1,147 @@
+$pointval mo 223,224 fmt=cub
+$pop nbo
+ lall
+$title
+$symmetry d2d
+$redundant    file=coord
+$user-defined bonds    file=coord
+$coord    file=coord
+$optimize
+ internal   off
+ redundant  off
+ cartesian  on
+ global     off
+ basis      off
+$atoms
+mo 1                                                                           \
+   basis =mo def2-SV(P)                                                        \
+   ecp   =mo def2-ecp                                                          \
+   jbas  =mo def2-SV(P)
+dy 2-3                                                                         \
+   basis =dy def2-SV(P)                                                        \
+   ecp   =dy def2-ecp                                                          \
+   jbas  =dy def2-SV(P)
+s  4-7                                                                         \
+   basis =s def2-SV(P)                                                         \
+   jbas  =s universal
+c  8-27                                                                        \
+   basis =c def2-SV(P)                                                         \
+   jbas  =c universal
+h  28-47                                                                       \
+   basis =h def2-SV(P)                                                         \
+   jbas  =h universal
+$basis    file=basis
+$ecp    file=basis
+$uhfmo_alpha   file=alpha
+$uhfmo_beta   file=beta
+$uhf
+$scfiterlimit       300
+$thize     0.10000000E-04
+$thime        5
+$scfdamp   start=1.000  step=0.050  min=0.020
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$dft
+   functional tpssh
+   gridsize   4
+   weight derivatives
+$disp3 bj
+$ricore      15000
+$rij
+$jbas    file=auxbasis
+$rundimensions
+   natoms=47
+   nbf(CAO)=606
+   nbf(AO)=554
+$last SCF energy change = -.99341196E-06
+$ssquare from ridft
+         48.864 (not to be modified here)
+$charge from ridft
+         -1.000 (not to be modified here)
+$optinfo       file=optinfo
+$hessapprox   file=hessapprox
+#$maxcor    2000 MiB  per_core
+$newecp
+$maxcor   2000 MiB  per_core
+$forceapprox    file=forceapprox
+$scfconv   6
+$scforbitalshift  closedshell=1.5
+$marij
+$energy    file=energy
+$grad    file=gradient
+$dipole from ridft
+  x    -0.00000000000002    y    -0.00000000000035    z    -0.00000000000124    a.u.
+   | dipole | =    0.0000000000  debye
+$alpha shells
+ a1      1-28                                   ( 1 )
+ a2      1-11                                   ( 1 )
+ b1      1-11                                   ( 1 )
+ b2      1-28                                   ( 1 )
+ e       1-38                                   ( 1 )
+$beta shells
+ a1      1-27                                   ( 1 )
+ a2      1-10                                   ( 1 )
+ b1      1-10                                   ( 1 )
+ b2      1-26                                   ( 1 )
+ e       1-34                                   ( 1 )
+$last step     ridft
+$orbital_max_rnorm 0.13329268962502E-03
+$subenergy  Etot         E1                  Ej                Ex                 Ec                 En                 Disp
+-4205.153643089    -16645.25311246     7682.056196107    -289.4429152690    -11.84671900127     5059.441178135    -.1082705981448
+$dipgrad    file=dipgrad
+$hessian (projected)    file=hessian
+$vibrational normal modes    file=vib_normal_modes
+$vibrational reduced masses
+  14.1837616741  13.0695028077  10.4980907133   9.4043138798  12.9389385847
+  10.9959724183   3.5273444010   3.5173767719   8.5669655218   8.5669998775
+   3.5861790827   3.5861858079   5.5372706040   8.4923259193   8.2599166641
+   8.2599186128  15.5093859268  11.6483547938  11.6483510914   6.9189534915
+   9.4100027773  17.9125828392  29.0220299808  29.0220343180  27.1851928616
+  19.8199300309  19.8199444834   5.8598699531   5.4556816965   3.6663955404
+   3.6663959891  17.0207978421  31.8375062501   3.4956768227   3.5701202472
+   4.4320901366   4.4320866177   4.6527543244   8.1539321999   8.1539202997
+   5.1526966679  31.8792330264  40.5380661823  40.5380666930  41.7917274474
+   4.7979204230   4.7987154284   4.8819629377   4.8819626915   4.4147870136
+   4.4147872625   4.3938906445   4.3892750591   1.2447375815   1.2447375313
+   1.2896823700   1.2894217199   1.2363801783   1.2480057552   1.2798207544
+   1.2798225169   1.1454821680   1.1454835272   1.1422625026   1.1362608191
+   4.5055943746   4.5055943397   4.5032642085   4.5061926205   4.6239681033
+   4.6227256637   4.3889736803   4.3889736459   1.1584393345   1.1584157856
+   1.1673410601   1.1673410727   1.1792731301   1.1792731382   1.1805787409
+   1.1808698947   1.4056031157   1.4057112832   1.3960895552   1.3960893011
+   1.4080694717   1.4080692151   1.3961696740   1.3962209118   1.1980258391
+   1.1980258413   1.1967975051   1.1969497750   1.1918586642   1.1921863713
+   1.1898791934   1.1898791950   5.7591279118   5.7591279060   5.7721308657
+   5.7693135076   1.2821290790   1.2821416353   1.2817348153   1.2817348142
+   5.6568836979   5.6489297000   5.7219258551   5.7219257251   5.7927120796
+   5.7927119440   5.7738053118   5.7754490852   2.6715688745   2.6718993406
+   2.6655622612   2.6655622488   2.7042973154   2.7042973064   2.7124020227
+   2.7123089740   1.0864744455   1.0864732032   1.0860647497   1.0860647496
+   1.0880388589   1.0880388591   1.0875427283   1.0875342872   1.0970517719
+   1.0970522632   1.0969651013   1.0969650978   1.0981231357   1.0981231323
+   1.0978687435   1.0978523549   1.1054562148   1.1054562149   1.1056827874
+   1.1057066612
+$nvibro      141
+$vibrational spectrum    file=vibspectrum
+$end

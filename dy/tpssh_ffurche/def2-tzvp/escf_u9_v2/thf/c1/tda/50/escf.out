@@ -1,0 +1,4767 @@
+           SMPCPUS    set: Shared-memory Parallelization with  20 CPUs.
+
+           SMP Parallelization Reference:
+           C. van Wullen, J. Comput. Chem. 32 (2011) 1195--1201
+
+ escf (hpc3-15-13) : TURBOMOLE rev. V7.5.0 compiled 13 Jun 2020 at 23:29:25
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-07-30 12:33:39.326 
+
+
+
+
+                                e s c f
+
+                             TURBOMOLE GmbH
+
+
+          integral direct evaluation of 
+
+                    * excitation energies and transition moments 
+                    * dynamic response properties 
+                    * stabilities
+
+
+
+          references (see also programs dscf and ridft) 
+
+          implementation and benchmarks (review) 
+          F. Furche and D. Rappoport,  
+          "Density functional methods for excited states: 
+          equilibrium structure and electronic spectra",
+          ch. III of "Computational Photochemistry", ed. by 
+          M. Olivucci, vol. 16 of "Theoretical and Computational 
+          Chemistry", Elsevier, Amsterdam, 2005.
+
+          Bethe-Salpeter equation
+          K. Krause and W. Klopper,
+          J. Comput. Chem. 38 (2017) 383.
+
+          2c BSE, GW and hybrid TD-DFT
+          C. Holzer and W. Klopper
+          J. Chem. Phys. 150, 204116 (2019)
+
+          nonorthonormal Krylov space methods 
+          F. Furche, B. T. Krull, B. D. Nguyen, and J. Kwon, 
+          J. Chem. Phys. 144 (2016), 174105.
+
+          two-component GW quasi particle energies 
+          M. Kuehn and F. Weigend, 
+          J. Chem. Theory Comput. 11 (2015), 969.
+
+          two-component TDDFT with spin-orbit coupling 
+          M. Kuehn and F. Weigend, 
+          J. Chem. Theory Comput. 9 (2013), 5341.
+          M. Kuehn and F. Weigend, 
+          J. Chem. Phys. 142 (2015), 034116.
+
+          GW quasi particle energies
+          M. J. van Setten, F. Weigend, and F. Evers,
+          J. Chem. Theory Comput. 9 (2013), 232.
+
+          Fast GW methods: RIGW, contour deformation
+          J. Chem. Phys. 150, 204116 (2019)
+
+          current-density dependent meta-GGA Linear Response
+          J. E. Bates and F. Furche, 
+          J. Chem. Phys. 137 (2012), 164105.
+
+          spin-flip method 
+          M. Kuehn and F. Weigend, 
+          Chem. Phys. Chem. 12 (2011), 3331.
+
+          RI-J method 
+          R. Bauernschmitt, M. Haeser, O. Treutler, and R. Ahlrichs,
+          Chem. Phys. Lett. 264 (1997), 573.
+
+          density functional implementation               
+          R. Bauernschmitt and R. Ahlrichs,
+          Chem. Phys. Lett. 256 (1996), 454.
+          R. Bauernschmitt and R. Ahlrichs,
+          J. Chem. Phys. 104 (1996), 9047.
+
+          UHF extension (RPA and CIS)
+          C. Ochsenfeld, J. Gauss, and R. Ahlrichs, 
+          J. Chem. Phys. 103 (1995), 7401.
+
+          integral direct algorithm                 
+          H. Weiss, R. Ahlrichs, and M. Haeser, 
+          J. Chem. Phys. 99 (1993), 1262.
+
+          Seminumerical and pseudospectral algorithms
+          C. Holzer, in preparation (2020)
+
+          Two-component static/dynamic polarizabilities,
+          and relativistic damped-response approach,
+          polarizabilities and damped response at GW-BSE level
+          M. Kehry, Y. J. Franzke, C. Holzer, and W. Klopper,
+          Mol. Phys. (2020)
+                                     
+
+
+
+ UHF mode switched on !
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.38172021    dy    66.000     0
+          0.00000000    0.00000000    6.38172021    dy    66.000     0
+          2.38781909    2.38781909   -2.50242622    s     16.000     0
+         -2.38781909   -2.38781909   -2.50242622    s     16.000     0
+          2.38781909   -2.38781909    2.50242622    s     16.000     0
+         -2.38781909    2.38781909    2.50242622    s     16.000     0
+          4.63803045   -1.58454338   -7.62263773    c      6.000     0
+          3.57724811   -3.57724811   -6.19747849    c      6.000     0
+          1.58454338   -4.63803045   -7.62263773    c      6.000     0
+          1.40417655   -3.29726553   -9.92836817    c      6.000     0
+          3.29726553   -1.40417655   -9.92836817    c      6.000     0
+         -1.58454338    4.63803045   -7.62263773    c      6.000     0
+         -3.57724811    3.57724811   -6.19747849    c      6.000     0
+         -4.63803045    1.58454338   -7.62263773    c      6.000     0
+         -3.29726553    1.40417655   -9.92836817    c      6.000     0
+         -1.40417655    3.29726553   -9.92836817    c      6.000     0
+          1.58454338    4.63803045    7.62263773    c      6.000     0
+          1.40417655    3.29726553    9.92836817    c      6.000     0
+          3.29726553    1.40417655    9.92836817    c      6.000     0
+          4.63803045    1.58454338    7.62263773    c      6.000     0
+          3.57724811    3.57724811    6.19747849    c      6.000     0
+         -4.63803045   -1.58454338    7.62263773    c      6.000     0
+         -3.29726553   -1.40417655    9.92836817    c      6.000     0
+         -1.40417655   -3.29726553    9.92836817    c      6.000     0
+         -1.58454338   -4.63803045    7.62263773    c      6.000     0
+         -3.57724811   -3.57724811    6.19747849    c      6.000     0
+          0.37864544   -6.17324022   -7.02324217    h      1.000     0
+          0.06846253   -3.65902882  -11.43096438    h      1.000     0
+          4.12526209   -4.12526209   -4.30900819    h      1.000     0
+          3.65902882   -0.06846253  -11.43096438    h      1.000     0
+          6.17324022   -0.37864544   -7.02324217    h      1.000     0
+         -0.06846253    3.65902882  -11.43096438    h      1.000     0
+         -0.37864544    6.17324022   -7.02324217    h      1.000     0
+         -4.12526209    4.12526209   -4.30900819    h      1.000     0
+         -6.17324022    0.37864544   -7.02324217    h      1.000     0
+         -3.65902882    0.06846253  -11.43096438    h      1.000     0
+         -0.37864544   -6.17324022    7.02324217    h      1.000     0
+         -4.12526209   -4.12526209    4.30900819    h      1.000     0
+         -6.17324022   -0.37864544    7.02324217    h      1.000     0
+         -3.65902882   -0.06846253   11.43096438    h      1.000     0
+         -0.06846253   -3.65902882   11.43096438    h      1.000     0
+          0.06846253    3.65902882   11.43096438    h      1.000     0
+          0.37864544    6.17324022    7.02324217    h      1.000     0
+          4.12526209    4.12526209    4.30900819    h      1.000     0
+          3.65902882    0.06846253   11.43096438    h      1.000     0
+          6.17324022    0.37864544    7.02324217    h      1.000     0
+ 
+       center of nuclear mass  :   -0.00000000    0.00000000   -0.00000000
+       center of nuclear charge:    0.00000000   -0.00000000    0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     60     40   def2-TZVP   [6s4p3d1f|7s7p5d1f]
+    dy       2    171     93   def2-TZVP   [10s7p5d4f1g|14s14p10d8f1g]
+    s        4     63     37   def2-TZVP   [5s5p2d1f|14s9p3d1f]
+    c       20     46     31   def2-TZVP   [5s3p2d1f|11s6p2d1f]
+    h       20      8      6   def2-TZVP   [3s1p|5s1p]
+   ---------------------------------------------------------------------------
+   total:   47   1734   1114
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  120
+   total number of contracted shells         :  420
+   total number of cartesian basis functions : 1286
+   total number of SCF-basis functions       : 1114
+
+ number of unique ecp types :                     2
+
+ residuum convergence criterium   :  0.10E-03
+
+ COSMO is enabled, use tighter integral                screening thresholds 
+                     7
+
+ integral neglect threshold       :  0.10E-14
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ 
+             FOUND RI-J FLAG !
+ 
+  
+ AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     99     89   def2-TZVP   [8s5p5d2f3g|11s5p5d3f3g]
+    dy       2    263    200   def2-TZVP   [14s7p6d6f5g2h2i|18s7p6d6f6g3h5i]
+    s        4     77     51   def2-TZVP   [8s4p3d1f1g|14s5p5d2f1g]
+    c       20     70     49   def2-TZVP   [6s4p3d1f1g|12s5p4d2f1g]
+    h       20     16     11   def2-TZVP   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   47   2653   1893
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  137
+   total number of contracted shells         :  575
+   total number of cartesian basis functions : 2438
+   total number of SCF-basis functions       : 1893
+
+ CI SINGLES UHF-CALCULATION (spin-conserved)
+ (TAMM-DANCOFF-APPROXIMATION)
+ 
+             FOUND DFT-FLAG !
+ 
+
+ symmetry group of the molecule :   c1 
+
+ the group has the following generators :
+   c1(z)
+
+    1 symmetry operations found
+
+ there are 1 real representations :   a   
+
+ maximum number of shells which are related by symmetry :  1
+
+ IRREPs of excited states :   a   
+
+    mo occupation :
+   irrep   mo's   occupied
+    a     1114      152
+ 
+ number of basis functions   :  1114
+ number of occupied orbitals :   152
+ 
+ ALPHA-Occupation:                   152
+ BETA-Occupation :                   143
+ COSMO: symmetry in response calc. w/out guarantee
+ ==============================================================================
+                      COSMO switched on
+ ==============================================================================
+ COSMO stati: segments per atom: H   32 other atoms   92
+ COSMO statistics: nps   1587 npspher:    651
+ COSMO surface:
+   number of segments: 1587
+   area (bohr**2):     1485.534441
+   volume (bohr**3):   3846.307144
+ COSMO: check number of disjunct cavities:
+
+       ... OK contiguous cavity found
+ Using refractive index n                   =    1.30000000000000     
+ Screening function (n**2-1)/(n**2+0.5)     =   0.315068493150685     
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                    47
+ partition function    : becke
+ partition sharpness   :                     3
+  
+ 
+ Derivatives of quadrature weights will be included
+ 
+
+ The current-density response will be included
+ for meta-GGA functionals in TDDFT.
+
+  
+           ----------------------
+               RI - INFORMATION
+           ----------------------
+
+ biggest AO integral is expected to be    25.238462089
+
+ Threshold for integral neglect (rithr2):   0.10E-14
+ Threshold for integral neglect (rithr1):   0.10E-14
+
+ Contributions to RI integral batches: 
+  neglected integral batches:                 29965
+  direct contribution:                            0
+  memory contribution:                 58445
+ Core memory available (ricore)            100000 MiB
+ Core memory needed for (P|Q) and Cholesky 28 MiB
+ Core memory used for integrals            10227 MiB
+  
+ ****************************************
+ Memory allocated for RIDFT 10255 MiB
+ ****************************************
+                                            
+  MOs are in ASCII format !
+
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : scfconv=7
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : scfconv=7
+ preparing DFT   numerical integration ....
+          Overall gridpoints after grid construction =        480742
+ Ordering of quadrature gridpoints disabled.
+
+ Calculating ground state density on molecular grid
+
+ Integral of ground state total density: Na =   295.0014103696304    
+
+ Integral of ground state spin density:  Nb =   9.000012346076993    
+
+
+ all orbitals will be included in the transformation
+
+ number of non-frozen orbitals          :  1114
+ number of non-frozen occupied orbitals :   152
+ all orbitals will be included in the transformation
+
+ number of non-frozen orbitals          :  1114
+ number of non-frozen occupied orbitals :   143
+
+ dimension of super-tensorspace: 1
+
+          IRREP   tensor space dimension   number of roots
+
+           a            285077                  50
+
+ maximum number of Davidson iterations set to   35
+
+
+ machine precision: 2.22D-16
+
+
+ logfile ucis_a    will be constructed
+
+
+                       Nonorthonormal Krylov Space Iteration
+
+
+ total number of roots to be determined: 50
+
+
+ maximum core memory set to       110000 MB,
+ corresponding to     4352 vectors in CAO basis
+
+
+ maximum number of simultaneously treated vectors (including degeneracy):       58
+
+
+ Iteration IRREP Converged      Max. Euclidean
+                 roots          residual norm
+
+    1       a        0        2.475154548350838D-01
+ 
+    2       a        0        1.239996449218140D-01
+ 
+    3       a        0        1.113733478069986D-01
+ 
+    4       a        0        1.483566755162901D-01
+ 
+    5       a        2        6.922165681451518D-02
+ 
+    6       a       24        9.452972646898167D-03
+ 
+    7       a       37        1.652684262602931D-03
+ 
+    8       a       47        2.707065291305810D-04
+ 
+    9       a       50        9.727061897512182D-05
+ 
+
+ converged!
+
+ Eigenpairs written on logfile ucis_a   
+
+
+
+ IRREP   Vector     Eigenvalue           Euclidean residual norm
+
+  a         1    1.453822133439320D-02    5.168549071738550D-05
+            2    1.455027358229721D-02    6.352169451878588D-05
+            3    1.549941889565551D-02    8.488250571058080D-05
+            4    1.551738909283342D-02    6.922121228400105D-05
+            5    1.833767408223377D-02    4.645066217171947D-05
+            6    1.834451107043878D-02    4.214651115097792D-05
+            7    2.267755261033344D-02    7.819758308505121D-05
+            8    2.268294704956294D-02    7.206445255044985D-05
+            9    2.300605048910335D-02    1.846312079036185D-05
+           10    2.370929678463468D-02    5.461175369335445D-05
+           11    2.383803516180284D-02    2.026636289817103D-05
+           12    2.706450425692971D-02    4.333313858172435D-05
+           13    2.708119598687837D-02    4.113718035913241D-05
+           14    2.723116665627187D-02    2.407128657831623D-05
+           15    2.732013829258997D-02    8.615302388250474D-05
+           16    2.769819608646105D-02    5.801694540836862D-05
+           17    2.858136861507405D-02    2.901685632627424D-05
+           18    3.336908847993314D-02    8.320114599320101D-05
+           19    5.573737413280922D-02    1.791682338229567D-05
+           20    5.574065455331868D-02    1.851589965168880D-05
+           21    5.759925107465422D-02    6.086504698911404D-05
+           22    5.775280403327310D-02    1.558733541502594D-05
+           23    6.416132485876423D-02    3.902123140861952D-05
+           24    6.431915182209304D-02    9.727061897512182D-05
+           25    6.656194581778756D-02    2.685388389695621D-05
+           26    6.656865904824119D-02    2.558706153070070D-05
+           27    6.732263521926714D-02    9.206840308480823D-05
+           28    6.785049860146820D-02    3.264989377763584D-05
+           29    7.009520423753639D-02    2.954420111367330D-05
+           30    7.010998655780475D-02    2.773291735489231D-05
+           31    7.053583311170575D-02    1.713082877547378D-05
+           32    7.054384591050532D-02    1.689122630381159D-05
+           33    7.897654051012892D-02    3.139349888945511D-05
+           34    7.935395595187569D-02    7.406259016516158D-05
+           35    7.986881321408493D-02    3.557843512019607D-05
+           36    8.040676809460461D-02    2.880736525012559D-05
+           37    8.293216191756032D-02    3.260632037073327D-05
+           38    8.296232776480378D-02    3.763126815314128D-05
+           39    8.622258692616463D-02    2.242471636604129D-05
+           40    8.626011315886878D-02    2.203784674547595D-05
+           41    8.998239565336738D-02    9.407225431600954D-05
+           42    9.371332760843509D-02    3.893927736104522D-05
+           43    9.373001876057231D-02    4.070723358277677D-05
+           44    9.398105056852321D-02    4.169705927942066D-05
+           45    9.685117955578043D-02    8.619193031293551D-05
+           46    9.691426765408728D-02    9.074543223256330D-05
+           47    9.692839327229989D-02    2.284695329324132D-05
+           48    9.751781863125086D-02    3.147371028214252D-05
+           49    9.754639513892785D-02    3.137305748269767D-05
+           50    9.773238601993550D-02    3.415589687604373D-05
+ 
+
+
+
+
+                    Selection rules for point group c1  
+
+
+ Subduction with respect to c1  :
+
+    Polar vector representation: a                           
+
+    Axial vector representation: a                           
+
+    Symmetric second rank tensor representation: a                           
+
+
+
+
+                            Ground state
+
+
+ Total energy:                           -4206.696601058000    
+
+ Charge:
+
+               elec          nuc         total
+
+          -295.000000   294.000000    -1.000000
+
+
+ Electric dipole moment:
+
+               elec          nuc         total   
+
+    x       -0.000267    -0.000000    -0.000267    Norm:              0.001503
+    y        0.000375    -0.000000     0.000375
+    z       -0.001431    -0.000000    -0.001431    Norm / debye:      0.003820
+
+
+ Electric quadrupole moment:
+
+               elec          nuc         total   
+
+   xx    -2038.478787  1831.459972  -207.018815
+   yy    -2038.478956  1831.459972  -207.018984    1/3*trace:      -209.287849
+   zz   -13666.329134 13452.503385  -213.825749
+   xy       -0.010071    -0.000000    -0.010071
+   xz       -0.000147    -0.000000    -0.000147    Anisotropy:        6.806875
+   yz       -0.002996    -0.000000    -0.002996
+
+
+
+ ==============================================================================
+
+                              I R R E P   a   
+
+ ==============================================================================
+
+
+ Excitation is electric dipole allowed
+
+ Excitation is magnetic dipole allowed
+
+ Excitation is electric quadrupole allowed
+
+
+
+
+                             1 a excitation
+
+
+ Total energy:                           -4206.682062836666    
+
+ Excitation energy:                      0.1453822133439320E-01
+
+ Excitation energy / eV:                 0.3956053003373194    
+
+ Excitation energy / nm:                  3134.039000507605    
+
+ Excitation energy / cm^(-1):             3190.770758400809    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6458832315382830E-02
+
+    length representation:               0.4699012771492818E-05
+
+    mixed representation:                0.1742129025005219E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.9803563496216359E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.6333574198000723E-01
+
+    length representation:               0.1711114973113764E-07
+
+    length rep. / 10^(-40)erg*cm^3:      0.1105462686880001E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      138 a   beta            -5.39    155 a   beta            -0.97       18.2
+      138 a   beta            -5.39    154 a   beta            -0.98       16.7
+      139 a   beta            -5.31    151 a   beta            -1.18       13.1
+      134 a   beta            -5.44    151 a   beta            -1.18       11.2
+      142 a   beta            -5.00    155 a   beta            -0.97        8.9
+      142 a   beta            -5.00    154 a   beta            -0.98        8.2
+      135 a   beta            -5.44    155 a   beta            -0.97        4.7
+      135 a   beta            -5.44    154 a   beta            -0.98        4.3
+      143 a   beta            -3.68    151 a   beta            -1.18        3.4
+      138 a   beta            -5.39    146 a   beta            -1.56        2.0
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.577300        Norm:                  0.816332
+    y        0.577168
+    z        0.000036        Norm / debye:          2.074925
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.015571        Norm:                  0.022019
+    y       -0.015569
+    z       -0.000002        Norm / debye:          0.055967
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.005616        Norm:                  0.007942
+    y        0.005616
+    z       -0.000000        Norm / Bohr mag.:      2.176650
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000004
+   yy       -0.000000        1/3*trace:            -0.000001
+   zz       -0.000000
+   xy       -0.000003
+   xz       -0.072032        Anisotropy:            0.176477
+   yz       -0.072061
+
+
+
+
+                             2 a excitation
+
+
+ Total energy:                           -4206.682050784418    
+
+ Excitation energy:                      0.1455027358229721E-01
+
+ Excitation energy / eV:                 0.3959332588297746    
+
+ Excitation energy / nm:                  3131.443020798954    
+
+ Excitation energy / cm^(-1):             3193.415921058647    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6497506323982102E-02
+
+    length representation:               0.4687612750940808E-05
+
+    mixed representation:                0.1745216131913015E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.4397072993174843E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.2840720934489409E-01
+
+    length representation:              -0.1570517283528822E-07
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1014629807652220E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      137 a   beta            -5.39    154 a   beta            -0.98       18.8
+      137 a   beta            -5.39    155 a   beta            -0.97       15.9
+      139 a   beta            -5.31    150 a   beta            -1.19       12.6
+      134 a   beta            -5.44    150 a   beta            -1.19       11.6
+      141 a   beta            -5.00    154 a   beta            -0.98        9.2
+      141 a   beta            -5.00    155 a   beta            -0.97        7.8
+      136 a   beta            -5.44    154 a   beta            -0.98        5.0
+      136 a   beta            -5.44    155 a   beta            -0.97        4.3
+      143 a   beta            -3.68    150 a   beta            -1.19        3.4
+      137 a   beta            -5.39    146 a   beta            -1.56        2.0
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.578709        Norm:                  0.818434
+    y        0.578731
+    z        0.000053        Norm / debye:          2.080266
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.015544        Norm:                  0.021983
+    y       -0.015545
+    z       -0.000002        Norm / debye:          0.055876
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.005611        Norm:                  0.007936
+    y        0.005612
+    z       -0.000000        Norm / Bohr mag.:      2.174923
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000001
+   yy        0.000004        1/3*trace:             0.000002
+   zz        0.000004
+   xy       -0.000001
+   xz       -0.071734        Anisotropy:            0.175701
+   yz        0.071725
+
+
+
+
+                             3 a excitation
+
+
+ Total energy:                           -4206.681101639104    
+
+ Excitation energy:                      0.1549941889565551E-01
+
+ Excitation energy / eV:                 0.4217608279744661    
+
+ Excitation energy / nm:                  2939.681349780888    
+
+ Excitation energy / cm^(-1):             3401.729238188595    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1250650171150993E-02
+
+    length representation:               0.2871201959609440E-05
+
+    mixed representation:                0.5992386174413464E-04
+
+
+ Rotatory strength:
+
+    velocity representation:             0.1355454906545922E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.8756891538435002E-02
+
+    length representation:              -0.4004692860543342E-09
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2587224470188227E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    148 a   beta            -1.56       38.4
+      134 a   beta            -5.44    148 a   beta            -1.56       33.0
+      143 a   beta            -3.68    148 a   beta            -1.56        9.9
+      139 a   beta            -5.31    159 a   beta            -0.08        3.4
+      134 a   beta            -5.44    159 a   beta            -0.08        2.9
+      131 a   beta            -5.73    148 a   beta            -1.56        2.1
+      138 a   beta            -5.39    157 a   beta            -0.28        1.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.246007        Norm:                  0.347901
+    y       -0.246000
+    z       -0.000016        Norm / debye:          0.884283
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.011786        Norm:                  0.016669
+    y        0.011788
+    z        0.000001        Norm / debye:          0.042370
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.003890        Norm:                  0.005501
+    y        0.003889
+    z        0.000000        Norm / Bohr mag.:      1.507548
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000003
+   yy        0.000005        1/3*trace:             0.000003
+   zz       -0.000000
+   xy        0.000004
+   xz       -0.063987        Anisotropy:            0.156755
+   yz        0.064003
+
+
+
+
+                             4 a excitation
+
+
+ Total energy:                           -4206.681083668907    
+
+ Excitation energy:                      0.1551738909283342E-01
+
+ Excitation energy / eV:                 0.4222498221291272    
+
+ Excitation energy / nm:                  2936.276997851594    
+
+ Excitation energy / cm^(-1):             3405.673240577823    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1254137072228229E-02
+
+    length representation:               0.2879153967563453E-05
+
+    mixed representation:                0.6009037958449357E-04
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.8907914873772874E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.5754942049826002E-02
+
+    length representation:               0.8332965654495158E-08
+
+    length rep. / 10^(-40)erg*cm^3:      0.5383497162282466E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    147 a   beta            -1.56       37.1
+      134 a   beta            -5.44    147 a   beta            -1.56       34.3
+      143 a   beta            -3.68    147 a   beta            -1.56        9.9
+      139 a   beta            -5.31    158 a   beta            -0.08        3.3
+      134 a   beta            -5.44    158 a   beta            -0.08        3.0
+      131 a   beta            -5.73    147 a   beta            -1.56        2.3
+      137 a   beta            -5.39    156 a   beta            -0.29        1.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.246203        Norm:                  0.348184
+    y       -0.246204
+    z       -0.000032        Norm / debye:          0.885002
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.011796        Norm:                  0.016683
+    y        0.011797
+    z        0.000001        Norm / debye:          0.042404
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.003890        Norm:                  0.005501
+    y        0.003890
+    z       -0.000000        Norm / Bohr mag.:      1.507698
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000003
+   yy       -0.000002        1/3*trace:            -0.000005
+   zz       -0.000011
+   xy        0.000002
+   xz       -0.063964        Anisotropy:            0.156690
+   yz       -0.063973
+
+
+
+
+                             5 a excitation
+
+
+ Total energy:                           -4206.678263383918    
+
+ Excitation energy:                      0.1833767408223377E-01
+
+ Excitation energy / eV:                 0.4989937142880042    
+
+ Excitation energy / nm:                  2484.685487138388    
+
+ Excitation energy / cm^(-1):             4024.654247095218    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6538342276729762E-03
+
+    length representation:               0.2471438657567774E-05
+
+    mixed representation:                0.4019839748043799E-04
+
+
+ Rotatory strength:
+
+    velocity representation:             0.2227422528877234E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.1439022235372588    
+
+    length representation:               0.1383977993642349E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.8941164418955420E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    150 a   beta            -1.19       19.8
+      134 a   beta            -5.44    150 a   beta            -1.19       18.3
+      137 a   beta            -5.39    146 a   beta            -1.56       10.9
+      137 a   beta            -5.39    144 a   beta            -2.40        7.9
+      137 a   beta            -5.39    149 a   beta            -1.42        6.9
+      141 a   beta            -5.00    146 a   beta            -1.56        6.0
+      141 a   beta            -5.00    144 a   beta            -2.40        4.9
+      143 a   beta            -3.68    150 a   beta            -1.19        4.3
+      141 a   beta            -5.00    149 a   beta            -1.42        3.7
+      136 a   beta            -5.44    146 a   beta            -1.56        2.9
+      136 a   beta            -5.44    144 a   beta            -2.40        2.1
+      137 a   beta            -5.39    154 a   beta            -0.98        2.0
+      136 a   beta            -5.44    149 a   beta            -1.42        1.8
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.164068        Norm:                  0.231264
+    y       -0.162986
+    z       -0.000000        Norm / debye:          0.587818
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.010088        Norm:                  0.014218
+    y       -0.010020
+    z       -0.000001        Norm / debye:          0.036140
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.001027        Norm:                  0.001448
+    y        0.001020
+    z       -0.000000        Norm / Bohr mag.:      0.396776
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000000
+   yy       -0.000000        1/3*trace:             0.000004
+   zz        0.000011
+   xy       -0.000002
+   xz       -0.090260        Anisotropy:            0.221844
+   yz        0.090873
+
+
+
+
+                             6 a excitation
+
+
+ Total energy:                           -4206.678256546929    
+
+ Excitation energy:                      0.1834451107043878E-01
+
+ Excitation energy / eV:                 0.4991797582826604    
+
+ Excitation energy / nm:                  2483.759446356843    
+
+ Excitation energy / cm^(-1):             4026.154792556612    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6438415529373549E-03
+
+    length representation:               0.2405899503218233E-05
+
+    mixed representation:                0.3935756587157321E-04
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.2199988443347927E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.1421298494783646    
+
+    length representation:              -0.1366944914236207E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.8831122522168730E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    151 a   beta            -1.18       20.6
+      134 a   beta            -5.44    151 a   beta            -1.18       17.7
+      138 a   beta            -5.39    146 a   beta            -1.56       10.8
+      138 a   beta            -5.39    144 a   beta            -2.40        7.9
+      138 a   beta            -5.39    149 a   beta            -1.42        7.0
+      142 a   beta            -5.00    146 a   beta            -1.56        5.9
+      142 a   beta            -5.00    144 a   beta            -2.40        4.8
+      143 a   beta            -3.68    151 a   beta            -1.18        4.4
+      142 a   beta            -5.00    149 a   beta            -1.42        3.7
+      135 a   beta            -5.44    146 a   beta            -1.56        2.8
+      135 a   beta            -5.44    144 a   beta            -2.40        2.0
+      138 a   beta            -5.39    154 a   beta            -0.98        1.9
+      135 a   beta            -5.44    149 a   beta            -1.42        1.8
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.161705        Norm:                  0.229447
+    y       -0.162780
+    z       -0.000010        Norm / debye:          0.583200
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.009884        Norm:                  0.014026
+    y       -0.009952
+    z       -0.000003        Norm / debye:          0.035651
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.001001        Norm:                  0.001420
+    y        0.001008
+    z        0.000000        Norm / Bohr mag.:      0.389297
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000000
+   yy        0.000002        1/3*trace:            -0.000005
+   zz       -0.000016
+   xy       -0.000001
+   xz       -0.089583        Anisotropy:            0.218671
+   yz       -0.088959
+
+
+
+
+                             7 a excitation
+
+
+ Total energy:                           -4206.673923505389    
+
+ Excitation energy:                      0.2267755261033344E-01
+
+ Excitation energy / eV:                 0.6170878682458010    
+
+ Excitation energy / nm:                  2009.182976792576    
+
+ Excitation energy / cm^(-1):             4977.147484332754    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.3119172898688985E-02
+
+    length representation:               0.9340976537169752E-05
+
+    mixed representation:                0.1706930603459847E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.4774351067285489E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.3084460741609628    
+
+    length representation:               0.2610206959603193E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.1686319414074803E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    150 a   beta            -1.19       10.3
+      137 a   beta            -5.39    144 a   beta            -2.40       10.1
+      134 a   beta            -5.44    150 a   beta            -1.19        9.5
+      137 a   beta            -5.39    154 a   beta            -0.98        8.4
+      137 a   beta            -5.39    146 a   beta            -1.56        8.3
+      137 a   beta            -5.39    155 a   beta            -0.97        7.8
+      141 a   beta            -5.00    144 a   beta            -2.40        7.1
+      141 a   beta            -5.00    146 a   beta            -1.56        5.3
+      137 a   beta            -5.39    149 a   beta            -1.42        5.1
+      141 a   beta            -5.00    154 a   beta            -0.98        4.5
+      141 a   beta            -5.00    155 a   beta            -0.97        4.1
+      141 a   beta            -5.00    149 a   beta            -1.42        3.2
+      136 a   beta            -5.44    144 a   beta            -2.40        2.6
+      143 a   beta            -3.68    150 a   beta            -1.19        2.5
+      136 a   beta            -5.44    154 a   beta            -0.98        2.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.323336        Norm:                  0.454221
+    y        0.319015
+    z       -0.000001        Norm / debye:          1.154523
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.017694        Norm:                  0.024857
+    y        0.017458
+    z       -0.000000        Norm / debye:          0.063180
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000561        Norm:                  0.000788
+    y       -0.000554
+    z        0.000000        Norm / Bohr mag.:      0.216099
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000012
+   yy       -0.000013        1/3*trace:             0.000000
+   zz        0.000001
+   xy        0.000002
+   xz        0.213847        Anisotropy:            0.527365
+   yz       -0.216735
+
+
+
+
+                             8 a excitation
+
+
+ Total energy:                           -4206.673918110951    
+
+ Excitation energy:                      0.2268294704956294E-01
+
+ Excitation energy / eV:                 0.6172346584687899    
+
+ Excitation energy / nm:                  2008.705154601060    
+
+ Excitation energy / cm^(-1):             4978.331426890481    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.3138047368913465E-02
+
+    length representation:               0.9404115240493911E-05
+
+    mixed representation:                0.1717863746570981E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.4861417176970199E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.3140709641923499    
+
+    length representation:              -0.2654536161935284E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1714958213855805E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    151 a   beta            -1.18       10.5
+      138 a   beta            -5.39    144 a   beta            -2.40       10.3
+      134 a   beta            -5.44    151 a   beta            -1.18        9.1
+      138 a   beta            -5.39    155 a   beta            -0.97        8.8
+      138 a   beta            -5.39    146 a   beta            -1.56        8.4
+      138 a   beta            -5.39    154 a   beta            -0.98        7.4
+      142 a   beta            -5.00    144 a   beta            -2.40        7.2
+      142 a   beta            -5.00    146 a   beta            -1.56        5.3
+      138 a   beta            -5.39    149 a   beta            -1.42        5.3
+      142 a   beta            -5.00    155 a   beta            -0.97        4.6
+      142 a   beta            -5.00    154 a   beta            -0.98        3.9
+      142 a   beta            -5.00    149 a   beta            -1.42        3.3
+      135 a   beta            -5.44    144 a   beta            -2.40        2.6
+      143 a   beta            -3.68    151 a   beta            -1.18        2.4
+      135 a   beta            -5.44    155 a   beta            -0.97        2.3
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.319939        Norm:                  0.455539
+    y        0.324276
+    z       -0.000002        Norm / debye:          1.157874
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.017515        Norm:                  0.024938
+    y        0.017751
+    z       -0.000003        Norm / debye:          0.063386
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000554        Norm:                  0.000790
+    y       -0.000562
+    z        0.000000        Norm / Bohr mag.:      0.216391
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000012
+   yy        0.000010        1/3*trace:            -0.000002
+   zz       -0.000003
+   xy       -0.000003
+   xz        0.217235        Anisotropy:            0.528601
+   yz        0.214357
+
+
+
+
+                             9 a excitation
+
+
+ Total energy:                           -4206.673595007511    
+
+ Excitation energy:                      0.2300605048910335E-01
+
+ Excitation energy / eV:                 0.6260267541660136    
+
+ Excitation energy / nm:                  1980.494334809043    
+
+ Excitation energy / cm^(-1):             5049.244434961513    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.8569746785798907E-11
+
+    length representation:               0.1447634728933076E-11
+
+    mixed representation:                0.2286545519017074E-11
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.6232250000316957E-10
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.4026333670683285E-05
+
+    length representation:               0.3123543791015800E-10
+
+    length rep. / 10^(-40)erg*cm^3:      0.2017959731554579E-05
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    145 a   beta            -2.27       72.7
+      138 a   beta            -5.39    159 a   beta            -0.08        4.3
+      137 a   beta            -5.39    158 a   beta            -0.08        4.3
+      139 a   beta            -5.31    156 a   beta            -0.29        3.7
+      134 a   beta            -5.44    157 a   beta            -0.28        3.3
+      141 a   beta            -5.00    158 a   beta            -0.08        2.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000014        Norm:                  0.000024
+    y       -0.000001
+    z       -0.000019        Norm / debye:          0.000060
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000002        Norm:                  0.000010
+    y       -0.000001
+    z        0.000010        Norm / debye:          0.000025
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000003
+    y        0.000000
+    z        0.000003        Norm / Bohr mag.:      0.000903
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.377357
+   yy       -0.377338        1/3*trace:            -0.000030
+   zz       -0.000108
+   xy       -0.000017
+   xz        0.000002        Anisotropy:            0.653585
+   yz        0.000032
+
+
+
+
+                            10 a excitation
+
+
+ Total energy:                           -4206.672891761215    
+
+ Excitation energy:                      0.2370929678463468E-01
+
+ Excitation energy / eV:                 0.6451630677188016    
+
+ Excitation energy / nm:                  1921.750487746575    
+
+ Excitation energy / cm^(-1):             5203.589155964395    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6533972722686042E-11
+
+    length representation:               0.9765763449610962E-13
+
+    mixed representation:                0.6902667166493083E-12
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.5564199698968220E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.3594740999995533E-02
+
+    length representation:               0.5478048487307244E-08
+
+    length rep. / 10^(-40)erg*cm^3:      0.3539083167870201E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      137 a   beta            -5.39    147 a   beta            -1.56       17.5
+      138 a   beta            -5.39    148 a   beta            -1.56       14.3
+      141 a   beta            -5.00    147 a   beta            -1.56       11.2
+      142 a   beta            -5.00    148 a   beta            -1.56        9.0
+      137 a   beta            -5.39    158 a   beta            -0.08        8.5
+      138 a   beta            -5.39    159 a   beta            -0.08        7.4
+      141 a   beta            -5.00    158 a   beta            -0.08        5.4
+      142 a   beta            -5.00    159 a   beta            -0.08        4.7
+      136 a   beta            -5.44    147 a   beta            -1.56        4.6
+      135 a   beta            -5.44    148 a   beta            -1.56        3.6
+      136 a   beta            -5.44    158 a   beta            -0.08        2.2
+      135 a   beta            -5.44    159 a   beta            -0.08        1.9
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000003        Norm:                  0.000020
+    y        0.000019
+    z        0.000006        Norm / debye:          0.000052
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000000        Norm:                  0.000002
+    y        0.000002
+    z       -0.000001        Norm / debye:          0.000006
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.009568
+    y       -0.000000
+    z       -0.009568        Norm / Bohr mag.:      2.622261
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.008726
+   yy       -0.008723        1/3*trace:            -0.000000
+   zz       -0.000003
+   xy        0.000001
+   xz        0.000011        Anisotropy:            0.015111
+   yz       -0.000005
+
+
+
+
+                            11 a excitation
+
+
+ Total energy:                           -4206.672763022838    
+
+ Excitation energy:                      0.2383803516180284E-01
+
+ Excitation energy / eV:                 0.6486662187022071    
+
+ Excitation energy / nm:                  1911.371988116243    
+
+ Excitation energy / cm^(-1):             5231.843963750293    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.7414944310090808E-11
+
+    length representation:               0.6274925468550277E-12
+
+    mixed representation:                0.2138380558802503E-11
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1041423887935436E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.6728099908115194E-03
+
+    length representation:               0.3044107542303187E-08
+
+    length rep. / 10^(-40)erg*cm^3:      0.1966640088913783E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      138 a   beta            -5.39    148 a   beta            -1.56       18.9
+      137 a   beta            -5.39    147 a   beta            -1.56       15.5
+      143 a   beta            -3.68    145 a   beta            -2.27       12.2
+      142 a   beta            -5.00    148 a   beta            -1.56       11.9
+      141 a   beta            -5.00    147 a   beta            -1.56        9.8
+      138 a   beta            -5.39    159 a   beta            -0.08        5.0
+      135 a   beta            -5.44    148 a   beta            -1.56        4.8
+      136 a   beta            -5.44    147 a   beta            -1.56        4.1
+      137 a   beta            -5.39    158 a   beta            -0.08        3.8
+      142 a   beta            -5.00    159 a   beta            -0.08        3.3
+      141 a   beta            -5.00    158 a   beta            -0.08        2.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000001        Norm:                  0.000022
+    y        0.000003
+    z        0.000021        Norm / debye:          0.000055
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000000        Norm:                  0.000006
+    y       -0.000000
+    z       -0.000006        Norm / debye:          0.000016
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000486
+    y        0.000000
+    z       -0.000486        Norm / Bohr mag.:      0.133265
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.166007
+   yy        0.166001        1/3*trace:             0.000017
+   zz        0.000058
+   xy        0.000007
+   xz       -0.000001        Anisotropy:            0.287527
+   yz        0.000017
+
+
+
+
+                            12 a excitation
+
+
+ Total energy:                           -4206.669536553743    
+
+ Excitation energy:                      0.2706450425692971E-01
+
+ Excitation energy / eV:                 0.7364629474799658    
+
+ Excitation energy / nm:                  1683.509597199947    
+
+ Excitation energy / cm^(-1):             5939.972076868226    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.5401835432545298E-02
+
+    length representation:               0.1239389155295827E-06
+
+    mixed representation:                0.2587463879698838E-04
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1770302916671002E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.1143700949149790    
+
+    length representation:              -0.8260503782806074E-08
+
+    length rep. / 10^(-40)erg*cm^3:     -0.5336683303113200E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      138 a   beta            -5.39    157 a   beta            -0.28       19.5
+      138 a   beta            -5.39    156 a   beta            -0.29       18.3
+      142 a   beta            -5.00    157 a   beta            -0.28       10.9
+      142 a   beta            -5.00    156 a   beta            -0.29       10.3
+      139 a   beta            -5.31    159 a   beta            -0.08        7.5
+      134 a   beta            -5.44    159 a   beta            -0.08        6.3
+      135 a   beta            -5.44    157 a   beta            -0.28        5.0
+      135 a   beta            -5.44    156 a   beta            -0.29        4.7
+      139 a   beta            -5.31    148 a   beta            -1.56        3.8
+      134 a   beta            -5.44    148 a   beta            -1.56        3.3
+      143 a   beta            -3.68    159 a   beta            -0.08        2.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.386821        Norm:                  0.547162
+    y        0.386984
+    z       -0.000016        Norm / debye:          1.390759
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.001853        Norm:                  0.002621
+    y        0.001854
+    z       -0.000003        Norm / debye:          0.006662
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.005536        Norm:                  0.007831
+    y       -0.005538
+    z        0.000000        Norm / Bohr mag.:      2.146188
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000002
+   yy        0.000003        1/3*trace:            -0.000006
+   zz       -0.000023
+   xy       -0.000002
+   xz       -0.021633        Anisotropy:            0.052985
+   yz        0.021629
+
+
+
+
+                            13 a excitation
+
+
+ Total energy:                           -4206.669519862013    
+
+ Excitation energy:                      0.2708119598687837E-01
+
+ Excitation energy / eV:                 0.7369171527563614    
+
+ Excitation energy / nm:                  1682.471951463177    
+
+ Excitation energy / cm^(-1):             5943.635488134451    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.5403852537527083E-02
+
+    length representation:               0.1232499076940084E-06
+
+    mixed representation:                0.2580737999708678E-04
+
+
+ Rotatory strength:
+
+    velocity representation:             0.1784860614302221E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.1153105922977416    
+
+    length representation:               0.1034613981573089E-07
+
+    length rep. / 10^(-40)erg*cm^3:      0.6684104633086876E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      137 a   beta            -5.39    156 a   beta            -0.29       19.7
+      137 a   beta            -5.39    157 a   beta            -0.28       17.8
+      141 a   beta            -5.00    156 a   beta            -0.29       11.2
+      141 a   beta            -5.00    157 a   beta            -0.28       10.1
+      139 a   beta            -5.31    158 a   beta            -0.08        7.2
+      134 a   beta            -5.44    158 a   beta            -0.08        6.6
+      136 a   beta            -5.44    156 a   beta            -0.29        5.2
+      136 a   beta            -5.44    157 a   beta            -0.28        4.7
+      139 a   beta            -5.31    147 a   beta            -1.56        3.6
+      134 a   beta            -5.44    147 a   beta            -1.56        3.4
+      143 a   beta            -3.68    158 a   beta            -0.08        2.2
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.386936        Norm:                  0.547096
+    y       -0.386774
+    z       -0.000010        Norm / debye:          1.390590
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.001848        Norm:                  0.002613
+    y       -0.001847
+    z        0.000006        Norm / debye:          0.006641
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.005538        Norm:                  0.007830
+    y        0.005535
+    z       -0.000000        Norm / Bohr mag.:      2.145904
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000004
+   yy       -0.000001        1/3*trace:            -0.000002
+   zz       -0.000009
+   xy        0.000002
+   xz        0.021538        Anisotropy:            0.052774
+   yz        0.021552
+
+
+
+
+                            14 a excitation
+
+
+ Total energy:                           -4206.669369891344    
+
+ Excitation energy:                      0.2723116665627187E-01
+
+ Excitation energy / eV:                 0.7409980640551083    
+
+ Excitation energy / nm:                  1673.206044938433    
+
+ Excitation energy / cm^(-1):             5976.550245415424    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6106185182033421E-02
+
+    length representation:               0.3929832700992394E-03
+
+    mixed representation:                0.1549073468350820E-02
+
+
+ Rotatory strength:
+
+    velocity representation:             0.9704570800897230E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.6269620148934200E-02
+
+    length representation:              -0.2462055520714815E-07
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1590606448977749E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    155 a   beta            -0.97       20.9
+      134 a   beta            -5.44    154 a   beta            -0.98       18.9
+      138 a   beta            -5.39    151 a   beta            -1.18       16.3
+      137 a   beta            -5.39    150 a   beta            -1.19       10.9
+      142 a   beta            -5.00    151 a   beta            -1.18        8.4
+      141 a   beta            -5.00    150 a   beta            -1.19        5.7
+      135 a   beta            -5.44    151 a   beta            -1.18        4.2
+      143 a   beta            -3.68    154 a   beta            -0.98        3.8
+      136 a   beta            -5.44    150 a   beta            -1.19        2.9
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000019        Norm:                  0.579959
+    y        0.000030
+    z        0.579959        Norm / debye:          1.474121
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000001        Norm:                  0.147129
+    y        0.000000
+    z       -0.147129        Norm / debye:          0.373969
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000000
+    y       -0.000000
+    z        0.000000        Norm / Bohr mag.:      0.000111
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.001051
+   yy        0.001071        1/3*trace:             0.011532
+   zz        0.032473
+   xy        0.041437
+   xz       -0.000006        Anisotropy:            0.078344
+   yz        0.000008
+
+
+
+
+                            15 a excitation
+
+
+ Total energy:                           -4206.669280919707    
+
+ Excitation energy:                      0.2732013829258997E-01
+
+ Excitation energy / eV:                 0.7434191064988531    
+
+ Excitation energy / nm:                  1667.757028607653    
+
+ Excitation energy / cm^(-1):             5996.077262439113    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.5764352085484433E-04
+
+    length representation:               0.3997626430005911E-05
+
+    mixed representation:                0.1518015865515245E-04
+
+
+ Rotatory strength:
+
+    velocity representation:             0.3152210831841521E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.2036480020649140E-02
+
+    length representation:              -0.8299120117716452E-08
+
+    length rep. / 10^(-40)erg*cm^3:     -0.5361631315384873E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    154 a   beta            -0.98       21.7
+      134 a   beta            -5.44    155 a   beta            -0.97       18.9
+      137 a   beta            -5.39    150 a   beta            -1.19       16.5
+      138 a   beta            -5.39    151 a   beta            -1.18       11.2
+      141 a   beta            -5.00    150 a   beta            -1.19        8.3
+      142 a   beta            -5.00    151 a   beta            -1.18        5.5
+      136 a   beta            -5.44    150 a   beta            -1.19        4.4
+      143 a   beta            -3.68    155 a   beta            -0.97        3.9
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000025        Norm:                  0.056257
+    y       -0.000005
+    z        0.056257        Norm / debye:          0.142993
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000000        Norm:                  0.014815
+    y        0.000000
+    z       -0.014815        Norm / debye:          0.037657
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000001
+    y        0.000000
+    z        0.000001        Norm / Bohr mag.:      0.000184
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.010862
+   yy       -0.010857        1/3*trace:            -0.117818
+   zz       -0.331736
+   xy        0.003940
+   xz        0.000001        Anisotropy:            0.320949
+   yz        0.000001
+
+
+
+
+                            16 a excitation
+
+
+ Total energy:                           -4206.668902861914    
+
+ Excitation energy:                      0.2769819608646105E-01
+
+ Excitation energy / eV:                 0.7537065869030354    
+
+ Excitation energy / nm:                  1644.993504911732    
+
+ Excitation energy / cm^(-1):             6079.051357132225    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2107828983956953E-10
+
+    length representation:               0.1571887196745761E-11
+
+    mixed representation:                0.3417126512748472E-11
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1770057765001948E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.1143542569364081E-01
+
+    length representation:               0.8912418295550783E-07
+
+    length rep. / 10^(-40)erg*cm^3:      0.5757851477197620E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    157 a   beta            -0.28       15.5
+      134 a   beta            -5.44    156 a   beta            -0.29       13.9
+      138 a   beta            -5.39    159 a   beta            -0.08        8.6
+      137 a   beta            -5.39    158 a   beta            -0.08        8.5
+      138 a   beta            -5.39    148 a   beta            -1.56        7.9
+      137 a   beta            -5.39    147 a   beta            -1.56        7.7
+      143 a   beta            -3.68    156 a   beta            -0.29        5.5
+      142 a   beta            -5.00    148 a   beta            -1.56        4.9
+      141 a   beta            -5.00    147 a   beta            -1.56        4.8
+      142 a   beta            -5.00    159 a   beta            -0.08        4.5
+      141 a   beta            -5.00    158 a   beta            -0.08        4.4
+      136 a   beta            -5.44    158 a   beta            -0.08        2.3
+      135 a   beta            -5.44    159 a   beta            -0.08        2.2
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000017        Norm:                  0.000034
+    y        0.000023
+    z        0.000018        Norm / debye:          0.000086
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000000        Norm:                  0.000009
+    y       -0.000001
+    z       -0.000009        Norm / debye:          0.000023
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.009682
+    y       -0.000000
+    z       -0.009682        Norm / Bohr mag.:      2.653637
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000929
+   yy        0.000930        1/3*trace:            -0.000005
+   zz       -0.000016
+   xy        0.000002
+   xz       -0.000002        Anisotropy:            0.001610
+   yz        0.000001
+
+
+
+
+                            17 a excitation
+
+
+ Total energy:                           -4206.668019689385    
+
+ Excitation energy:                      0.2858136861507405E-01
+
+ Excitation energy / eV:                 0.7777389444655843    
+
+ Excitation energy / nm:                  1594.162731450498    
+
+ Excitation energy / cm^(-1):             6272.885321693949    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2748355727277769E-10
+
+    length representation:               0.4153937174959194E-11
+
+    mixed representation:                0.1569262875236041E-11
+
+
+ Rotatory strength:
+
+    velocity representation:             0.2079690305228124E-09
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.1343580103511210E-04
+
+    length representation:              -0.5000962318092657E-09
+
+    length rep. / 10^(-40)erg*cm^3:     -0.3230862524149505E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    145 a   beta            -2.27       14.2
+      139 a   beta            -5.31    156 a   beta            -0.29       13.4
+      134 a   beta            -5.44    157 a   beta            -0.28       11.5
+      137 a   beta            -5.39    158 a   beta            -0.08        8.0
+      138 a   beta            -5.39    159 a   beta            -0.08        7.9
+      137 a   beta            -5.39    147 a   beta            -1.56        6.1
+      138 a   beta            -5.39    148 a   beta            -1.56        6.1
+      143 a   beta            -3.68    157 a   beta            -0.28        4.8
+      141 a   beta            -5.00    158 a   beta            -0.08        4.2
+      142 a   beta            -5.00    159 a   beta            -0.08        4.1
+      141 a   beta            -5.00    147 a   beta            -1.56        3.9
+      142 a   beta            -5.00    148 a   beta            -1.56        3.8
+      136 a   beta            -5.44    158 a   beta            -0.08        2.1
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000036        Norm:                  0.000038
+    y       -0.000012
+    z        0.000006        Norm / debye:          0.000097
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000000        Norm:                  0.000015
+    y        0.000000
+    z       -0.000015        Norm / debye:          0.000038
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000034
+    y        0.000000
+    z        0.000034        Norm / Bohr mag.:      0.009287
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.211184
+   yy        0.211173        1/3*trace:             0.000019
+   zz        0.000068
+   xy        0.000008
+   xz       -0.000003        Anisotropy:            0.365771
+   yz       -0.000008
+
+
+
+
+                            18 a excitation
+
+
+ Total energy:                           -4206.663231969520    
+
+ Excitation energy:                      0.3336908847993314E-01
+
+ Excitation energy / eV:                 0.9080194864592438    
+
+ Excitation energy / nm:                  1365.435938934922    
+
+ Excitation energy / cm^(-1):             7323.668370928951    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2493386562854720E-01
+
+    length representation:               0.5084050170287283E-01
+
+    mixed representation:                0.3560407609688791E-01
+
+
+ Rotatory strength:
+
+    velocity representation:             0.9762141653623219E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.6306813692641339E-02
+
+    length representation:              -0.1393922785906728E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.9005412566799266E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    144 a   beta            -2.40       86.6
+      143 a   beta            -3.68    149 a   beta            -1.42        7.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000049        Norm:                  1.058689
+    y       -0.000016
+    z       -1.058689        Norm / debye:          2.690939
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000002        Norm:                  1.511744
+    y       -0.000001
+    z        1.511744        Norm / debye:          3.842500
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000000
+    y        0.000000
+    z       -0.000000        Norm / Bohr mag.:      0.000035
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000102
+   yy        0.000034        1/3*trace:             0.000248
+   zz        0.000609
+   xy        0.257459
+   xz        0.000062        Anisotropy:            0.445933
+   yz       -0.000063
+
+
+
+
+                            19 a excitation
+
+
+ Total energy:                           -4206.640863683867    
+
+ Excitation energy:                      0.5573737413280922E-01
+
+ Excitation energy / eV:                  1.516691769003382    
+
+ Excitation energy / nm:                  817.4650020546915    
+
+ Excitation energy / cm^(-1):             12232.93960398604    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6316010565425352E-04
+
+    length representation:               0.3843737634906186E-04
+
+    mixed representation:                0.4927178349160568E-04
+
+
+ Rotatory strength:
+
+    velocity representation:             0.4024662289530134E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.2600125683122521E-01
+
+    length representation:               0.3194029279521910E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.2063496751996999E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    147 a   beta            -1.56       84.2
+      134 a   beta            -5.44    147 a   beta            -1.56        5.8
+      139 a   beta            -5.31    147 a   beta            -1.56        4.3
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.029301        Norm:                  0.041228
+    y       -0.029004
+    z       -0.000000        Norm / debye:          0.104792
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.022862        Norm:                  0.032162
+    y       -0.022622
+    z       -0.000003        Norm / debye:          0.081749
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000674        Norm:                  0.000949
+    y        0.000667
+    z       -0.000000        Norm / Bohr mag.:      0.259963
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000006
+   yy       -0.000002        1/3*trace:            -0.000000
+   zz       -0.000006
+   xy       -0.000002
+   xz        0.055495        Anisotropy:            0.136626
+   yz        0.056059
+
+
+
+
+                            20 a excitation
+
+
+ Total energy:                           -4206.640860403447    
+
+ Excitation energy:                      0.5574065455331868E-01
+
+ Excitation energy / eV:                  1.516781033825469    
+
+ Excitation energy / nm:                  817.4168930222448    
+
+ Excitation energy / cm^(-1):             12233.65957306589    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6275248268110948E-04
+
+    length representation:               0.3853562340991617E-04
+
+    mixed representation:                0.4917525261329521E-04
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.4203589045853639E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.2715720985546980E-01
+
+    length representation:              -0.3158629956968810E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2040627084652513E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    148 a   beta            -1.56       84.2
+      134 a   beta            -5.44    148 a   beta            -1.56        5.6
+      139 a   beta            -5.31    148 a   beta            -1.56        4.5
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.028895        Norm:                  0.041094
+    y       -0.029220
+    z        0.000001        Norm / debye:          0.104451
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.022653        Norm:                  0.032203
+    y       -0.022888
+    z       -0.000005        Norm / debye:          0.081851
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000669        Norm:                  0.000951
+    y        0.000676
+    z       -0.000000        Norm / Bohr mag.:      0.260623
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000003
+   yy       -0.000000        1/3*trace:            -0.000001
+   zz        0.000002
+   xy       -0.000006
+   xz        0.055987        Anisotropy:            0.136457
+   yz       -0.055427
+
+
+
+
+                            21 a excitation
+
+
+ Total energy:                           -4206.639001806925    
+
+ Excitation energy:                      0.5759925107465422E-01
+
+ Excitation energy / eV:                  1.567356040087714    
+
+ Excitation energy / nm:                  791.0407133756909    
+
+ Excitation energy / cm^(-1):             12641.57435820631    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.3293681593689540E-04
+
+    length representation:               0.2028311145149422E-05
+
+    mixed representation:                0.8173499150930412E-05
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.3854372768216300E-10
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.2490110450518637E-05
+
+    length representation:              -0.9581473270402644E-11
+
+    length rep. / 10^(-40)erg*cm^3:     -0.6190093215357545E-06
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    154 a   beta            -0.98       19.9
+      134 a   beta            -5.44    155 a   beta            -0.97       17.5
+      138 a   beta            -5.39    151 a   beta            -1.18       12.7
+      142 a   beta            -5.00    151 a   beta            -1.18       11.2
+      137 a   beta            -5.39    150 a   beta            -1.19        9.7
+      141 a   beta            -5.00    150 a   beta            -1.19        8.6
+      143 a   beta            -3.68    155 a   beta            -0.97        5.5
+      135 a   beta            -5.44    151 a   beta            -1.18        3.1
+      143 a   beta            -3.68    146 a   beta            -1.56        3.0
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000008        Norm:                  0.029287
+    y       -0.000003
+    z        0.029287        Norm / debye:          0.074441
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000002        Norm:                  0.007268
+    y       -0.000001
+    z        0.007268        Norm / debye:          0.018473
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000000
+    y        0.000000
+    z       -0.000000        Norm / Bohr mag.:      0.000007
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.015746
+   yy        0.015756        1/3*trace:             0.533957
+   zz        1.570370
+   xy        0.026951
+   xz        0.000006        Anisotropy:            1.555320
+   yz        0.000004
+
+
+
+
+                            22 a excitation
+
+
+ Total energy:                           -4206.638848253967    
+
+ Excitation energy:                      0.5775280403327310E-01
+
+ Excitation energy / eV:                  1.571534430477768    
+
+ Excitation energy / nm:                  788.9374970217827    
+
+ Excitation energy / cm^(-1):             12675.27533709209    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.8111640738856951E-02
+
+    length representation:               0.5536709095982563E-03
+
+    mixed representation:                0.2119240312865630E-02
+
+
+ Rotatory strength:
+
+    velocity representation:             0.7605231339379202E-08
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.4913345744076521E-03
+
+    length representation:               0.1986945098199216E-08
+
+    length rep. / 10^(-40)erg*cm^3:      0.1283662232784587E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    155 a   beta            -0.97       19.7
+      134 a   beta            -5.44    154 a   beta            -0.98       18.5
+      137 a   beta            -5.39    150 a   beta            -1.19       12.9
+      141 a   beta            -5.00    150 a   beta            -1.19       11.0
+      138 a   beta            -5.39    151 a   beta            -1.18       10.1
+      142 a   beta            -5.00    151 a   beta            -1.18        8.5
+      143 a   beta            -3.68    154 a   beta            -0.98        5.6
+      136 a   beta            -5.44    150 a   beta            -1.19        3.3
+      135 a   beta            -5.44    151 a   beta            -1.18        2.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000010        Norm:                  0.459001
+    y       -0.000008
+    z       -0.459001        Norm / debye:          1.166672
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000001        Norm:                  0.119918
+    y        0.000000
+    z       -0.119918        Norm / debye:          0.304804
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000000
+    y        0.000000
+    z       -0.000000        Norm / Bohr mag.:      0.000005
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000905
+   yy        0.000915        1/3*trace:             0.035954
+   zz        0.106043
+   xy       -0.433832
+   xz        0.000022        Anisotropy:            0.758738
+   yz        0.000008
+
+
+
+
+                            23 a excitation
+
+
+ Total energy:                           -4206.632439733141    
+
+ Excitation energy:                      0.6416132485876423E-01
+
+ Excitation energy / eV:                  1.745919229523903    
+
+ Excitation energy / nm:                  710.1373414638304    
+
+ Excitation energy / cm^(-1):             14081.78307860001    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6337211257877609E-11
+
+    length representation:               0.2480292339625363E-12
+
+    mixed representation:                0.9255595433273506E-12
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.2296999155247211E-08
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.1483972087100574E-03
+
+    length representation:              -0.2237298981040570E-09
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1445402899160162E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    157 a   beta            -0.28       23.8
+      134 a   beta            -5.44    156 a   beta            -0.29       21.8
+      138 a   beta            -5.39    159 a   beta            -0.08       10.8
+      137 a   beta            -5.39    158 a   beta            -0.08        7.5
+      142 a   beta            -5.00    159 a   beta            -0.08        6.3
+      141 a   beta            -5.00    158 a   beta            -0.08        4.5
+      143 a   beta            -3.68    156 a   beta            -0.29        4.0
+      139 a   beta            -5.31    145 a   beta            -2.27        3.9
+      135 a   beta            -5.44    159 a   beta            -0.08        2.7
+      138 a   beta            -5.39    148 a   beta            -1.56        2.1
+      136 a   beta            -5.44    158 a   beta            -0.08        2.0
+      137 a   beta            -5.39    147 a   beta            -1.56        1.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000004        Norm:                  0.000012
+    y       -0.000011
+    z       -0.000005        Norm / debye:          0.000031
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000000        Norm:                  0.000002
+    y        0.000002
+    z       -0.000000        Norm / debye:          0.000006
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000485
+    y        0.000000
+    z        0.000485        Norm / Bohr mag.:      0.132883
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.009331
+   yy        0.009334        1/3*trace:             0.000005
+   zz        0.000012
+   xy       -0.000003
+   xz       -0.000003        Anisotropy:            0.016165
+   yz        0.000001
+
+
+
+
+                            24 a excitation
+
+
+ Total energy:                           -4206.632281906178    
+
+ Excitation energy:                      0.6431915182209304E-01
+
+ Excitation energy / eV:                  1.750213921549351    
+
+ Excitation energy / nm:                  708.3947995152107    
+
+ Excitation energy / cm^(-1):             14116.42209309110    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1395533850653602E-10
+
+    length representation:               0.1350750782627839E-11
+
+    mixed representation:                0.2127172985860382E-11
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.3499129612446282E-09
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.2260606261937647E-04
+
+    length representation:              -0.2040801362121135E-09
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1318455973214609E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    156 a   beta            -0.29       24.7
+      134 a   beta            -5.44    157 a   beta            -0.28       21.7
+      137 a   beta            -5.39    158 a   beta            -0.08       10.6
+      138 a   beta            -5.39    159 a   beta            -0.08        7.5
+      141 a   beta            -5.00    158 a   beta            -0.08        6.3
+      142 a   beta            -5.00    159 a   beta            -0.08        4.4
+      143 a   beta            -3.68    157 a   beta            -0.28        4.1
+      134 a   beta            -5.44    145 a   beta            -2.27        3.1
+      136 a   beta            -5.44    158 a   beta            -0.08        2.8
+      137 a   beta            -5.39    147 a   beta            -1.56        2.1
+      135 a   beta            -5.44    159 a   beta            -0.08        1.9
+      138 a   beta            -5.39    148 a   beta            -1.56        1.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000015        Norm:                  0.000018
+    y       -0.000000
+    z        0.000010        Norm / debye:          0.000046
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000000        Norm:                  0.000006
+    y       -0.000000
+    z        0.000006        Norm / debye:          0.000014
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000037
+    y       -0.000000
+    z       -0.000037        Norm / Bohr mag.:      0.010006
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.108279
+   yy        0.108275        1/3*trace:             0.000002
+   zz        0.000010
+   xy        0.000011
+   xz        0.000001        Anisotropy:            0.187542
+   yz        0.000016
+
+
+
+
+                            25 a excitation
+
+
+ Total energy:                           -4206.630039112182    
+
+ Excitation energy:                      0.6656194581778756E-01
+
+ Excitation energy / eV:                  1.811243477493892    
+
+ Excitation energy / nm:                  684.5255513522558    
+
+ Excitation energy / cm^(-1):             14608.65847703233    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1165185627751770E-04
+
+    length representation:               0.1174986481254646E-02
+
+    mixed representation:                0.1170072775478092E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.6170899603132509E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.3986698359217767E-02
+
+    length representation:              -0.3125725483094928E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2019369209716849E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    152 a   beta            -1.04       80.4
+      143 a   beta            -3.68    150 a   beta            -1.19        9.7
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.011427        Norm:                  0.016204
+    y       -0.011489
+    z       -0.000032        Norm / debye:          0.041188
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.114962        Norm:                  0.162723
+    y       -0.115163
+    z       -0.000093        Norm / debye:          0.413604
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000742        Norm:                  0.001050
+    y        0.000743
+    z        0.000000        Norm / Bohr mag.:      0.287835
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000011
+   yy        0.000005        1/3*trace:            -0.000063
+   zz       -0.000204
+   xy       -0.000150
+   xz        0.309257        Anisotropy:            0.756808
+   yz       -0.308674
+
+
+
+
+                            26 a excitation
+
+
+ Total energy:                           -4206.630032398952    
+
+ Excitation energy:                      0.6656865904824119E-01
+
+ Excitation energy / eV:                  1.811426153867346    
+
+ Excitation energy / nm:                  684.4565192004394    
+
+ Excitation energy / cm^(-1):             14610.13186080695    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1185240165146622E-04
+
+    length representation:               0.1173645579191421E-02
+
+    mixed representation:                0.1179427264618596E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.3434072084565073E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.2218575965491547E-02
+
+    length representation:               0.3119097208025857E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.2015087024777574E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    153 a   beta            -1.04       80.3
+      143 a   beta            -3.68    151 a   beta            -1.18        9.8
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.011569        Norm:                  0.016342
+    y        0.011543
+    z        0.000034        Norm / debye:          0.041538
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.115100        Norm:                  0.162622
+    y        0.114882
+    z        0.000092        Norm / debye:          0.413347
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000742        Norm:                  0.001049
+    y       -0.000741
+    z        0.000000        Norm / Bohr mag.:      0.287517
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000005
+   yy        0.000003        1/3*trace:            -0.000030
+   zz       -0.000097
+   xy        0.000154
+   xz       -0.308789        Anisotropy:            0.757034
+   yz       -0.309326
+
+
+
+
+                            27 a excitation
+
+
+ Total energy:                           -4206.629278422781    
+
+ Excitation energy:                      0.6732263521926714E-01
+
+ Excitation energy / eV:                  1.831942898159873    
+
+ Excitation energy / nm:                  676.7909858489938    
+
+ Excitation energy / cm^(-1):             14775.61050249947    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1349844965622997E-04
+
+    length representation:               0.8930620481631064E-04
+
+    mixed representation:                0.3472019384124128E-04
+
+
+ Rotatory strength:
+
+    velocity representation:             0.3139680561721623E-09
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.2028384862642973E-04
+
+    length representation:               0.8117049227265399E-09
+
+    length rep. / 10^(-40)erg*cm^3:      0.5244004750879745E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    146 a   beta            -1.56       83.4
+      143 a   beta            -3.68    155 a   beta            -0.97        4.0
+      134 a   beta            -5.44    155 a   beta            -0.97        2.0
+      139 a   beta            -5.31    154 a   beta            -0.98        1.9
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000012        Norm:                  0.017342
+    y       -0.000029
+    z       -0.017342        Norm / debye:          0.044080
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000002        Norm:                  0.044607
+    y       -0.000004
+    z       -0.044607        Norm / debye:          0.113381
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000000
+    y        0.000000
+    z       -0.000000        Norm / Bohr mag.:      0.000020
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.220082
+   yy       -0.220003        1/3*trace:             2.358886
+   zz        7.516744
+   xy       -0.079471
+   xz        0.000010        Anisotropy:            7.738011
+   yz       -0.000003
+
+
+
+
+                            28 a excitation
+
+
+ Total energy:                           -4206.628750559398    
+
+ Excitation energy:                      0.6785049860146820E-01
+
+ Excitation energy / eV:                  1.846306797776582    
+
+ Excitation energy / nm:                  671.5256866073208    
+
+ Excitation energy / cm^(-1):             14891.46312336810    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.5105001450596956E-02
+
+    length representation:               0.5067695611878748E-01
+
+    mixed representation:                0.1608433809476089E-01
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1135638503465768E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.7336771702027444E-03
+
+    length representation:              -0.3579698474904468E-07
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2312657627609363E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    149 a   beta            -1.42       79.4
+      143 a   beta            -3.68    154 a   beta            -0.98        5.2
+      143 a   beta            -3.68    144 a   beta            -2.40        5.2
+      134 a   beta            -5.44    154 a   beta            -0.98        1.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000024        Norm:                  0.335944
+    y        0.000017
+    z        0.335944        Norm / debye:          0.853891
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000002        Norm:                  1.058460
+    y       -0.000023
+    z        1.058460        Norm / debye:          2.690357
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000000
+    y        0.000000
+    z       -0.000000        Norm / Bohr mag.:      0.000048
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.009311
+   yy       -0.009368        1/3*trace:             0.102939
+   zz        0.327495
+   xy        1.856423
+   xz        0.000072        Anisotropy:            3.233014
+   yz       -0.000050
+
+
+
+
+                            29 a excitation
+
+
+ Total energy:                           -4206.626505853762    
+
+ Excitation energy:                      0.7009520423753639E-01
+
+ Excitation energy / eV:                  1.907388372124665    
+
+ Excitation energy / nm:                  650.0209701308005    
+
+ Excitation energy / cm^(-1):             15384.11906387437    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.4958679964969867E-02
+
+    length representation:               0.1041166684346246E-04
+
+    mixed representation:                0.2272179718927876E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.1894137884365882E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.1223704302675806E-01
+
+    length representation:               0.8216993073799457E-08
+
+    length rep. / 10^(-40)erg*cm^3:      0.5308573289442418E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    150 a   beta            -1.19       24.2
+      139 a   beta            -5.31    159 a   beta            -0.08       23.1
+      134 a   beta            -5.44    159 a   beta            -0.08       20.0
+      143 a   beta            -3.68    159 a   beta            -0.08        5.0
+      138 a   beta            -5.39    157 a   beta            -0.28        4.5
+      138 a   beta            -5.39    156 a   beta            -0.29        4.2
+      142 a   beta            -5.00    157 a   beta            -0.28        2.0
+      142 a   beta            -5.00    156 a   beta            -0.29        1.9
+      134 a   beta            -5.44    150 a   beta            -1.19        1.8
+      139 a   beta            -5.31    152 a   beta            -1.04        1.4
+      131 a   beta            -5.73    159 a   beta            -0.08        1.3
+      135 a   beta            -5.44    157 a   beta            -0.28        1.2
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.230196        Norm:                  0.325750
+    y        0.230484
+    z       -0.000014        Norm / debye:          0.827980
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.010549        Norm:                  0.014927
+    y        0.010561
+    z       -0.000023        Norm / debye:          0.037940
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000336        Norm:                  0.000475
+    y        0.000336
+    z        0.000000        Norm / Bohr mag.:      0.130303
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000008
+   yy       -0.000007        1/3*trace:             0.000020
+   zz        0.000073
+   xy       -0.000044
+   xz       -0.078983        Anisotropy:            0.193320
+   yz        0.078862
+
+
+
+
+                            30 a excitation
+
+
+ Total energy:                           -4206.626491071442    
+
+ Excitation energy:                      0.7010998655780475E-01
+
+ Excitation energy / eV:                  1.907790619697800    
+
+ Excitation energy / nm:                  649.8839166433676    
+
+ Excitation energy / cm^(-1):             15387.36340815616    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.5167126812450748E-02
+
+    length representation:               0.8469533512565470E-05
+
+    mixed representation:                0.2091960902116729E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1749931656470476E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.1130540133897601E-01
+
+    length representation:              -0.9994857981288030E-08
+
+    length rep. / 10^(-40)erg*cm^3:     -0.6457159648876557E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    151 a   beta            -1.18       25.5
+      139 a   beta            -5.31    158 a   beta            -0.08       21.9
+      134 a   beta            -5.44    158 a   beta            -0.08       20.3
+      143 a   beta            -3.68    158 a   beta            -0.08        4.9
+      137 a   beta            -5.39    156 a   beta            -0.29        4.5
+      137 a   beta            -5.39    157 a   beta            -0.28        4.0
+      141 a   beta            -5.00    156 a   beta            -0.29        2.0
+      134 a   beta            -5.44    151 a   beta            -1.18        1.9
+      141 a   beta            -5.00    157 a   beta            -0.28        1.8
+      131 a   beta            -5.73    158 a   beta            -0.08        1.4
+      139 a   beta            -5.31    153 a   beta            -1.04        1.4
+      136 a   beta            -5.44    156 a   beta            -0.29        1.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.235246        Norm:                  0.332491
+    y       -0.234967
+    z        0.000013        Norm / debye:          0.845115
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.009528        Norm:                  0.013461
+    y       -0.009509
+    z        0.000025        Norm / debye:          0.034215
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000354        Norm:                  0.000500
+    y       -0.000353
+    z        0.000000        Norm / Bohr mag.:      0.137062
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000008
+   yy       -0.000008        1/3*trace:             0.000026
+   zz        0.000095
+   xy        0.000042
+   xz        0.080012        Anisotropy:            0.196073
+   yz        0.080081
+
+
+
+
+                            31 a excitation
+
+
+ Total energy:                           -4206.626065224888    
+
+ Excitation energy:                      0.7053583311170575E-01
+
+ Excitation energy / eV:                  1.919378498983629    
+
+ Excitation energy / nm:                  645.9603672340910    
+
+ Excitation energy / cm^(-1):             15480.82592330845    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6909619997655143E-02
+
+    length representation:               0.2951243788843547E-03
+
+    mixed representation:                0.1428004639765485E-02
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.3343602686582081E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.2160128377020796    
+
+    length representation:               0.6941116043228568E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.4484295276272580E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    150 a   beta            -1.19       55.4
+      143 a   beta            -3.68    152 a   beta            -1.04       13.7
+      139 a   beta            -5.31    159 a   beta            -0.08        7.5
+      134 a   beta            -5.44    159 a   beta            -0.08        6.5
+      134 a   beta            -5.44    150 a   beta            -1.19        3.3
+      139 a   beta            -5.31    150 a   beta            -1.19        3.0
+      143 a   beta            -3.68    159 a   beta            -0.08        1.8
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.272094        Norm:                  0.383326
+    y        0.270007
+    z       -0.000005        Norm / debye:          0.974324
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.056235        Norm:                  0.079222
+    y       -0.055800
+    z       -0.000012        Norm / debye:          0.201363
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000804        Norm:                  0.001133
+    y        0.000798
+    z        0.000000        Norm / Bohr mag.:      0.310509
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000002
+   yy        0.000001        1/3*trace:             0.000059
+   zz        0.000175
+   xy       -0.000018
+   xz       -0.048654        Anisotropy:            0.119659
+   yz        0.049046
+
+
+
+
+                            32 a excitation
+
+
+ Total energy:                           -4206.626057212089    
+
+ Excitation energy:                      0.7054384591050532E-01
+
+ Excitation energy / eV:                  1.919596538426195    
+
+ Excitation energy / nm:                  645.8869951292910    
+
+ Excitation energy / cm^(-1):             15482.58452936586    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6708015858492637E-02
+
+    length representation:               0.2971248426211713E-03
+
+    mixed representation:                0.1411778301432133E-02
+
+
+ Rotatory strength:
+
+    velocity representation:             0.3334843094753023E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.2154469258801696    
+
+    length representation:              -0.6855445952991170E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.4428948271759641E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    151 a   beta            -1.18       54.0
+      143 a   beta            -3.68    153 a   beta            -1.04       13.8
+      139 a   beta            -5.31    158 a   beta            -0.08        7.7
+      134 a   beta            -5.44    158 a   beta            -0.08        7.2
+      134 a   beta            -5.44    151 a   beta            -1.18        3.1
+      139 a   beta            -5.31    151 a   beta            -1.18        3.1
+      143 a   beta            -3.68    158 a   beta            -0.08        1.9
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.265994        Norm:                  0.377671
+    y       -0.268109
+    z        0.000006        Norm / debye:          0.959950
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.055992        Norm:                  0.079485
+    y        0.056416
+    z        0.000018        Norm / debye:          0.202032
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000794        Norm:                  0.001127
+    y       -0.000800
+    z       -0.000000        Norm / Bohr mag.:      0.308810
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000000
+   yy       -0.000002        1/3*trace:             0.000054
+   zz        0.000163
+   xy        0.000030
+   xz        0.047039        Anisotropy:            0.114785
+   yz        0.046682
+
+
+
+
+                            33 a excitation
+
+
+ Total energy:                           -4206.617624517490    
+
+ Excitation energy:                      0.7897654051012892E-01
+
+ Excitation energy / eV:                  2.149061931957172    
+
+ Excitation energy / nm:                  576.9226198779420    
+
+ Excitation energy / cm^(-1):             17333.34706242413    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.6150847764183225E-02
+
+    length representation:               0.4833592060226863E-02
+
+    mixed representation:                0.5452585522087720E-02
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.8547666168099112E-08
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.5522204034919576E-03
+
+    length representation:              -0.7577427468603592E-08
+
+    length rep. / 10^(-40)erg*cm^3:     -0.4895383104408107E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    154 a   beta            -0.98       79.7
+      143 a   beta            -3.68    149 a   beta            -1.42        5.5
+      140 a   beta            -5.03    145 a   beta            -2.27        4.3
+      134 a   beta            -5.44    154 a   beta            -0.98        3.5
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000010        Norm:                  0.341794
+    y       -0.000006
+    z       -0.341794        Norm / debye:          0.868760
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000001        Norm:                  0.302992
+    y        0.000003
+    z       -0.302992        Norm / debye:          0.770135
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000000
+    y        0.000000
+    z        0.000000        Norm / Bohr mag.:      0.000009
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.002104
+   yy        0.002118        1/3*trace:            -0.019924
+   zz       -0.063994
+   xy       -0.586198
+   xz       -0.000020        Anisotropy:            1.017475
+   yz        0.000019
+
+
+
+
+                            34 a excitation
+
+
+ Total energy:                           -4206.617247102048    
+
+ Excitation energy:                      0.7935395595187569E-01
+
+ Excitation energy / eV:                  2.159331933063219    
+
+ Excitation energy / nm:                  574.1787175378118    
+
+ Excitation energy / cm^(-1):             17416.18017712199    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.3175091238114311E-05
+
+    length representation:               0.1071223671907484E-05
+
+    mixed representation:                0.1844242280843413E-05
+
+
+ Rotatory strength:
+
+    velocity representation:             0.1091014023351628E-10
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.7048476067527608E-06
+
+    length representation:               0.6440413300237750E-11
+
+    length rep. / 10^(-40)erg*cm^3:      0.4160817188422305E-06
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      143 a   beta            -3.68    155 a   beta            -0.97       84.5
+      143 a   beta            -3.68    146 a   beta            -1.56        5.6
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000007        Norm:                  0.007747
+    y       -0.000006
+    z       -0.007747        Norm / debye:          0.019691
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000000        Norm:                  0.004500
+    y       -0.000001
+    z       -0.004500        Norm / debye:          0.011438
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000000
+    y        0.000000
+    z       -0.000000        Norm / Bohr mag.:      0.000007
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.081548
+   yy       -0.081490        1/3*trace:             0.791036
+   zz        2.536146
+   xy       -0.010676
+   xz        0.000003        Anisotropy:            2.617731
+   yz       -0.000013
+
+
+
+
+                            35 a excitation
+
+
+ Total energy:                           -4206.616732244785    
+
+ Excitation energy:                      0.7986881321408493E-01
+
+ Excitation energy / eV:                  2.173341917996196    
+
+ Excitation energy / nm:                  570.4773969517913    
+
+ Excitation energy / cm^(-1):             17529.17828460857    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2343635223913978E-10
+
+    length representation:               0.2060049452078405E-09
+
+    mixed representation:                0.2302489877702959E-10
+
+
+ Rotatory strength:
+
+    velocity representation:             0.8729487118629870E-11
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.5639669126198070E-06
+
+    length representation:               0.9091325135652778E-10
+
+    length rep. / 10^(-40)erg*cm^3:      0.5873433912783736E-05
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      140 a   beta            -5.03    144 a   beta            -2.40       98.2
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000019        Norm:                  0.000021
+    y       -0.000002
+    z        0.000008        Norm / debye:          0.000053
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000002        Norm:                  0.000062
+    y       -0.000001
+    z        0.000062        Norm / debye:          0.000158
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000001
+    y        0.000000
+    z        0.000001        Norm / Bohr mag.:      0.000401
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.246211
+   yy       -0.246237        1/3*trace:             0.000055
+   zz        0.000190
+   xy        0.000018
+   xz        0.000014        Anisotropy:            0.426472
+   yz        0.000071
+
+
+
+
+                            36 a excitation
+
+
+ Total energy:                           -4206.616194289905    
+
+ Excitation energy:                      0.8040676809460461E-01
+
+ Excitation energy / eV:                  2.187980421371602    
+
+ Excitation energy / nm:                  566.6606647638330    
+
+ Excitation energy / cm^(-1):             17647.24573334389    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.8660477424024593E-05
+
+    length representation:               0.1921142121086808E-01
+
+    mixed representation:                0.4078968313618124E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.8635863287144095E-09
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.5579183621754189E-04
+
+    length representation:               0.4061894081207865E-07
+
+    length rep. / 10^(-40)erg*cm^3:      0.2624179213780677E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      140 a   beta            -5.03    145 a   beta            -2.27       61.8
+      150 a   alpha           -5.01    154 a   alpha           -1.94       26.8
+      143 a   beta            -3.68    154 a   beta            -0.98        3.9
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.000005        Norm:                  0.012711
+    y        0.000015
+    z        0.012711        Norm / debye:          0.032308
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000002        Norm:                  0.598658
+    y       -0.000007
+    z        0.598658        Norm / debye:          1.521649
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.000000
+    y        0.000000
+    z        0.000000        Norm / Bohr mag.:      0.000028
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000158
+   yy        0.000151        1/3*trace:             0.000528
+   zz        0.001275
+   xy        0.185874
+   xz       -0.000071        Anisotropy:            0.321946
+   yz       -0.000012
+
+
+
+
+                            37 a excitation
+
+
+ Total energy:                           -4206.613668896082    
+
+ Excitation energy:                      0.8293216191756032E-01
+
+ Excitation energy / eV:                  2.256699913173321    
+
+ Excitation energy / nm:                  549.4050993786075    
+
+ Excitation energy / cm^(-1):             18201.50561000916    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.4517221198951642E-02
+
+    length representation:               0.3164434265424759E-04
+
+    mixed representation:                0.3780799363771651E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.3775890064364849E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.2439406843784746E-02
+
+    length representation:              -0.3592732548003150E-08
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2321078266605023E-03
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      142 a   beta            -5.00    144 a   beta            -2.40       84.7
+      138 a   beta            -5.39    144 a   beta            -2.40        6.7
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.202071        Norm:                  0.285838
+    y        0.202165
+    z       -0.000016        Norm / debye:          0.726533
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.016907        Norm:                  0.023924
+    y        0.016926
+    z        0.000011        Norm / debye:          0.060809
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000038        Norm:                  0.000054
+    y       -0.000038
+    z       -0.000000        Norm / Bohr mag.:      0.014723
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000007
+   yy       -0.000003        1/3*trace:             0.000055
+   zz        0.000175
+   xy       -0.000009
+   xz       -0.034290        Anisotropy:            0.083896
+   yz       -0.034211
+
+
+
+
+                            38 a excitation
+
+
+ Total energy:                           -4206.613638730235    
+
+ Excitation energy:                      0.8296232776480378E-01
+
+ Excitation energy / eV:                  2.257520767993466    
+
+ Excitation energy / nm:                  549.2053307517000    
+
+ Excitation energy / cm^(-1):             18208.12624819267    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.4482563489466220E-02
+
+    length representation:               0.3196692873732974E-04
+
+    mixed representation:                0.3785414924621326E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.5029761839255680E-08
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.3249468401922756E-03
+
+    length representation:               0.4769566169981365E-09
+
+    length rep. / 10^(-40)erg*cm^3:      0.3081369467491071E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      141 a   beta            -5.00    144 a   beta            -2.40       84.7
+      137 a   beta            -5.39    144 a   beta            -2.40        6.6
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.201336        Norm:                  0.284687
+    y       -0.201273
+    z        0.000031        Norm / debye:          0.723609
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.017003        Norm:                  0.024041
+    y       -0.016996
+    z       -0.000020        Norm / debye:          0.061107
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000040        Norm:                  0.000056
+    y        0.000040
+    z       -0.000000        Norm / Bohr mag.:      0.015377
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000043
+   yy        0.000002        1/3*trace:             0.000094
+   zz        0.000323
+   xy        0.000037
+   xz        0.033838        Anisotropy:            0.082900
+   yz       -0.033849
+
+
+
+
+                            39 a excitation
+
+
+ Total energy:                           -4206.610378471074    
+
+ Excitation energy:                      0.8622258692616463E-01
+
+ Excitation energy / eV:                  2.346236971650129    
+
+ Excitation energy / nm:                  528.4387106016369    
+
+ Excitation energy / cm^(-1):             18923.67042361863    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1529066996294454E-02
+
+    length representation:               0.3244940493186485E-03
+
+    mixed representation:                0.7043955724458165E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.6814402456228000E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.4402432196029089E-01
+
+    length representation:              -0.3288052559511080E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2124240319413137E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      142 a   beta            -5.00    145 a   beta            -2.27       89.3
+      152 a   alpha           -5.00    154 a   alpha           -1.94        4.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.115559        Norm:                  0.163098
+    y       -0.115095
+    z       -0.000004        Norm / debye:          0.414557
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.053245        Norm:                  0.075134
+    y        0.053011
+    z        0.000006        Norm / debye:          0.190974
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000750        Norm:                  0.001059
+    y        0.000747
+    z        0.000000        Norm / Bohr mag.:      0.290105
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000010
+   yy        0.000007        1/3*trace:            -0.000010
+   zz       -0.000027
+   xy        0.000006
+   xz       -0.117514        Anisotropy:            0.288215
+   yz        0.117812
+
+
+
+
+                            40 a excitation
+
+
+ Total energy:                           -4206.610340944841    
+
+ Excitation energy:                      0.8626011315886878E-01
+
+ Excitation energy / eV:                  2.347258112835009    
+
+ Excitation energy / nm:                  528.2088208727956    
+
+ Excitation energy / cm^(-1):             18931.90647968294    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1512609830253890E-02
+
+    length representation:               0.3236118456492786E-03
+
+    mixed representation:                0.6996416605928312E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.6782910833093271E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.4382087090719550E-01
+
+    length representation:               0.3072461704866212E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.1984958243581155E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      141 a   beta            -5.00    145 a   beta            -2.27       89.4
+      151 a   alpha           -5.00    154 a   alpha           -1.94        4.1
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.114452        Norm:                  0.162183
+    y        0.114908
+    z        0.000003        Norm / debye:          0.412230
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.052943        Norm:                  0.075016
+    y       -0.053145
+    z        0.000004        Norm / debye:          0.190673
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000747        Norm:                  0.001058
+    y       -0.000750
+    z       -0.000000        Norm / Bohr mag.:      0.290007
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000017
+   yy        0.000025        1/3*trace:            -0.000011
+   zz       -0.000042
+   xy       -0.000008
+   xz        0.117823        Anisotropy:            0.287974
+   yz        0.117307
+
+
+
+
+                            41 a excitation
+
+
+ Total energy:                           -4206.606618662347    
+
+ Excitation energy:                      0.8998239565336738E-01
+
+ Excitation energy / eV:                  2.448546616449466    
+
+ Excitation energy / nm:                  506.3585196766752    
+
+ Excitation energy / cm^(-1):             19748.85305552409    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1452819516085467E-09
+
+    length representation:               0.5606750032236386E-10
+
+    mixed representation:                0.8998671915157938E-10
+
+
+ Rotatory strength:
+
+    velocity representation:             0.5307067071447737E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.3428620938065359E-02
+
+    length representation:              -0.3681160312959694E-07
+
+    length rep. / 10^(-40)erg*cm^3:     -0.2378206861807348E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      150 a   alpha           -5.01    153 a   alpha           -2.05       96.6
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000008        Norm:                  0.000049
+    y       -0.000044
+    z       -0.000020        Norm / debye:          0.000125
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000003        Norm:                  0.000031
+    y        0.000027
+    z        0.000014        Norm / debye:          0.000078
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000000        Norm:                  0.002666
+    y       -0.000000
+    z       -0.002666        Norm / Bohr mag.:      0.730580
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.001089
+   yy        0.001085        1/3*trace:            -0.000021
+   zz       -0.000059
+   xy        0.000008
+   xz       -0.000047        Anisotropy:            0.001886
+   yz       -0.000021
+
+
+
+
+                            42 a excitation
+
+
+ Total energy:                           -4206.602887730392    
+
+ Excitation energy:                      0.9371332760843509E-01
+
+ Excitation energy / eV:                  2.550070483962126    
+
+ Excitation energy / nm:                  486.1992826717089    
+
+ Excitation energy / cm^(-1):             20567.69796852941    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.3179795129631278E-02
+
+    length representation:               0.1508128757769779E-02
+
+    mixed representation:                0.2189872215564550E-02
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.6827271919783219E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.4410746489331408E-01
+
+    length representation:               0.4734884128798489E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.3058963198458934E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      152 a   alpha           -5.00    153 a   alpha           -2.05       88.5
+      152 a   alpha           -5.00    155 a   alpha           -1.87        7.8
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.159963        Norm:                  0.225603
+    y        0.159086
+    z        0.000021        Norm / debye:          0.573429
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.110168        Norm:                  0.155369
+    y       -0.109556
+    z        0.000013        Norm / debye:          0.394911
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000388        Norm:                  0.000547
+    y        0.000386
+    z       -0.000000        Norm / Bohr mag.:      0.150010
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000006
+   yy        0.000024        1/3*trace:             0.000016
+   zz        0.000029
+   xy        0.000027
+   xz       -0.187154        Anisotropy:            0.459912
+   yz       -0.188360
+
+
+
+
+                            43 a excitation
+
+
+ Total energy:                           -4206.602871039239    
+
+ Excitation energy:                      0.9373001876057231E-01
+
+ Excitation energy / eV:                  2.550524673515465    
+
+ Excitation energy / nm:                  486.1127018056919    
+
+ Excitation energy / cm^(-1):             20571.36125298068    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.3159860144878946E-02
+
+    length representation:               0.1503054599003358E-02
+
+    mixed representation:                0.2179321466783503E-02
+
+
+ Rotatory strength:
+
+    velocity representation:             0.6983186649161826E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.4511474913996759E-01
+
+    length representation:              -0.4810397717259017E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.3107748613645629E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      151 a   alpha           -5.00    153 a   alpha           -2.05       88.6
+      151 a   alpha           -5.00    155 a   alpha           -1.87        7.7
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x        0.158550        Norm:                  0.224874
+    y       -0.159469
+    z       -0.000026        Norm / debye:          0.571578
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.109351        Norm:                  0.155094
+    y        0.109983
+    z       -0.000019        Norm / debye:          0.394211
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000386        Norm:                  0.000548
+    y       -0.000388
+    z        0.000000        Norm / Bohr mag.:      0.150098
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000037
+   yy        0.000011        1/3*trace:             0.000030
+   zz        0.000042
+   xy       -0.000075
+   xz        0.189167        Anisotropy:            0.462070
+   yz       -0.188110
+
+
+
+
+                            44 a excitation
+
+
+ Total energy:                           -4206.602620007431    
+
+ Excitation energy:                      0.9398105056852321E-01
+
+ Excitation energy / eV:                  2.557355599492889    
+
+ Excitation energy / nm:                  484.8142512173661    
+
+ Excitation energy / cm^(-1):             20626.45636632466    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2003661120005621E-05
+
+    length representation:               0.1258409192033575E-07
+
+    mixed representation:                0.1587766809644982E-06
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1914367240059500E-09
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.1236773440781835E-04
+
+    length representation:              -0.1526418158846586E-10
+
+    length rep. / 10^(-40)erg*cm^3:     -0.9861396491144982E-06
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    144 a   beta            -2.40       82.9
+      139 a   beta            -5.31    149 a   beta            -1.42        6.9
+      134 a   beta            -5.44    146 a   beta            -1.56        2.9
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000047        Norm:                  0.005655
+    y        0.000016
+    z       -0.005655        Norm / debye:          0.014374
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.000001        Norm:                  0.000448
+    y        0.000004
+    z       -0.000448        Norm / debye:          0.001139
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.000000
+    y       -0.000000
+    z        0.000000        Norm / Bohr mag.:      0.000010
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.106245
+   yy        0.106245        1/3*trace:             0.456282
+   zz        1.156357
+   xy        0.001152
+   xz        0.000005        Anisotropy:            1.050114
+   yz        0.000007
+
+
+
+
+                            45 a excitation
+
+
+ Total energy:                           -4206.599749878445    
+
+ Excitation energy:                      0.9685117955578043E-01
+
+ Excitation energy / eV:                  2.635455816424146    
+
+ Excitation energy / nm:                  470.4470597981542    
+
+ Excitation energy / cm^(-1):             21256.37686586430    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2846338239146871E-10
+
+    length representation:               0.6779818502867431E-10
+
+    mixed representation:                0.2732992923912220E-10
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1478810455441876E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.9553827797346538E-03
+
+    length representation:               0.3348321199862299E-07
+
+    length rep. / 10^(-40)erg*cm^3:      0.2163176763862586E-02
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      139 a   beta            -5.31    145 a   beta            -2.27       87.3
+      143 a   beta            -3.68    156 a   beta            -0.29        9.1
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000015        Norm:                  0.000021
+    y       -0.000003
+    z       -0.000014        Norm / debye:          0.000053
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000003        Norm:                  0.000032
+    y        0.000003
+    z        0.000032        Norm / debye:          0.000082
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000000        Norm:                  0.001043
+    y        0.000000
+    z        0.001043        Norm / Bohr mag.:      0.285724
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.001786
+   yy        0.001770        1/3*trace:            -0.000050
+   zz       -0.000134
+   xy       -0.000001
+   xz       -0.000054        Anisotropy:            0.003084
+   yz       -0.000030
+
+
+
+
+                            46 a excitation
+
+
+ Total energy:                           -4206.599686790346    
+
+ Excitation energy:                      0.9691426765408728E-01
+
+ Excitation energy / eV:                  2.637172531660786    
+
+ Excitation energy / nm:                  470.1408137615783    
+
+ Excitation energy / cm^(-1):             21270.22310294176    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1586952696387489E-02
+
+    length representation:               0.3283287011031221E-03
+
+    mixed representation:                0.7218322923330491E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.4710505065806829E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.3043213149571607    
+
+    length representation:               0.2122580034973578E-05
+
+    length rep. / 10^(-40)erg*cm^3:      0.1371288934670397    
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      138 a   beta            -5.39    144 a   beta            -2.40       56.8
+      135 a   beta            -5.44    144 a   beta            -2.40       21.9
+      151 a   alpha           -5.00    154 a   alpha           -1.94        4.8
+      142 a   beta            -5.00    146 a   beta            -1.56        3.6
+      142 a   beta            -5.00    149 a   beta            -1.42        3.2
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.114677        Norm:                  0.156723
+    y       -0.106824
+    z        0.000017        Norm / debye:          0.398354
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.052127        Norm:                  0.071286
+    y       -0.048626
+    z        0.000005        Norm / debye:          0.181193
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000294        Norm:                  0.000400
+    y        0.000271
+    z        0.000000        Norm / Bohr mag.:      0.109603
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000102
+   yy       -0.000128        1/3*trace:             0.000000
+   zz        0.000026
+   xy        0.000014
+   xz       -0.202622        Anisotropy:            0.514065
+   yz       -0.216869
+
+
+
+
+                            47 a excitation
+
+
+ Total energy:                           -4206.599672664727    
+
+ Excitation energy:                      0.9692839327229989E-01
+
+ Excitation energy / eV:                  2.637556909454115    
+
+ Excitation energy / nm:                  470.0722989599071    
+
+ Excitation energy / cm^(-1):             21273.32331778239    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1550949529540891E-02
+
+    length representation:               0.3036561662916765E-03
+
+    mixed representation:                0.6862614993118290E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.4779161303024048E-05
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.3087568385577231    
+
+    length representation:              -0.2147064929743860E-05
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1387107355984001    
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      137 a   beta            -5.39    144 a   beta            -2.40       56.1
+      136 a   beta            -5.44    144 a   beta            -2.40       22.0
+      152 a   alpha           -5.00    154 a   alpha           -1.94        5.6
+      141 a   beta            -5.00    146 a   beta            -1.56        3.5
+      141 a   beta            -5.00    149 a   beta            -1.42        3.0
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.105532        Norm:                  0.154924
+    y        0.113422
+    z       -0.000035        Norm / debye:          0.393781
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.046642        Norm:                  0.068551
+    y        0.050237
+    z       -0.000014        Norm / debye:          0.174240
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000301        Norm:                  0.000441
+    y       -0.000322
+    z       -0.000000        Norm / Bohr mag.:      0.120957
+
+
+ Electric quadrupole transition moment:
+
+   xx        0.000060
+   yy       -0.000080        1/3*trace:            -0.000021
+   zz       -0.000043
+   xy       -0.000007
+   xz        0.207432        Anisotropy:            0.490098
+   yz       -0.192452
+
+
+
+
+                            48 a excitation
+
+
+ Total energy:                           -4206.599083239369    
+
+ Excitation energy:                      0.9751781863125086E-01
+
+ Excitation energy / eV:                  2.653595996409174    
+
+ Excitation energy / nm:                  467.2310486383114    
+
+ Excitation energy / cm^(-1):             21402.68723076336    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1940390321303394E-03
+
+    length representation:               0.7470213028670281E-03
+
+    mixed representation:                0.3807245780545149E-03
+
+
+ Rotatory strength:
+
+    velocity representation:             0.1640355953883763E-06
+
+    velocity rep. / 10^(-40)erg*cm^3:    0.1059748952415596E-01
+
+    length representation:              -0.2058995662995923E-06
+
+    length rep. / 10^(-40)erg*cm^3:     -0.1330210367891166E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      152 a   alpha           -5.00    154 a   alpha           -1.94       60.3
+      138 a   beta            -5.39    145 a   beta            -2.27       17.9
+      137 a   beta            -5.39    144 a   beta            -2.40        5.7
+      142 a   beta            -5.00    145 a   beta            -2.27        4.9
+      128 a   beta            -5.99    145 a   beta            -2.27        2.5
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.038691        Norm:                  0.054632
+    y        0.038570
+    z       -0.000000        Norm / debye:          0.138862
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.075858        Norm:                  0.107194
+    y       -0.075737
+    z       -0.000005        Norm / debye:          0.272462
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.000995        Norm:                  0.001406
+    y       -0.000994
+    z        0.000000        Norm / Bohr mag.:      0.385424
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000112
+   yy        0.000112        1/3*trace:            -0.000029
+   zz       -0.000088
+   xy        0.000007
+   xz       -0.126440        Anisotropy:            0.309968
+   yz        0.126648
+
+
+
+
+                            49 a excitation
+
+
+ Total energy:                           -4206.599054662861    
+
+ Excitation energy:                      0.9754639513892785E-01
+
+ Excitation energy / eV:                  2.654373603080728    
+
+ Excitation energy / nm:                  467.0941719077123    
+
+ Excitation energy / cm^(-1):             21408.95904923246    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.1975887081083890E-03
+
+    length representation:               0.7300889925709007E-03
+
+    mixed representation:                0.3798121641745599E-03
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.5296193255711752E-07
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.3421595929372772E-02
+
+    length representation:               0.1983222567677692E-06
+
+    length rep. / 10^(-40)erg*cm^3:      0.1281257298775490E-01
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      151 a   alpha           -5.00    154 a   alpha           -1.94       61.1
+      137 a   beta            -5.39    145 a   beta            -2.27       18.0
+      138 a   beta            -5.39    144 a   beta            -2.40        5.0
+      141 a   beta            -5.00    145 a   beta            -2.27        5.0
+      129 a   beta            -5.99    145 a   beta            -2.27        2.5
+ 
+
+ Change of electron number:
+
+            -0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.038970        Norm:                  0.055122
+    y       -0.038984
+    z        0.000001        Norm / debye:          0.140106
+
+
+ Electric transition dipole moment (length rep.):
+
+    x        0.074861        Norm:                  0.105957
+    y        0.074984
+    z        0.000011        Norm / debye:          0.269317
+
+
+ Magnetic transition dipole moment / i:
+
+    x       -0.001008        Norm:                  0.001426
+    y        0.001009
+    z       -0.000000        Norm / Bohr mag.:      0.390956
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.000147
+   yy        0.000136        1/3*trace:            -0.000012
+   zz       -0.000026
+   xy        0.000003
+   xz        0.127794        Anisotropy:            0.312687
+   yz        0.127514
+
+
+
+
+                            50 a excitation
+
+
+ Total energy:                           -4206.598868671980    
+
+ Excitation energy:                      0.9773238601993550E-01
+
+ Excitation energy / eV:                  2.659434674627835    
+
+ Excitation energy / nm:                  466.2052623037973    
+
+ Excitation energy / cm^(-1):             21449.77932915519    
+
+
+ Oscillator strength:
+
+    velocity representation:             0.2755017034147711E-08
+
+    length representation:               0.4171081787841289E-09
+
+    mixed representation:                0.5800695347610520E-09
+
+
+ Rotatory strength:
+
+    velocity representation:            -0.1385136129262402E-09
+
+    velocity rep. / 10^(-40)erg*cm^3:   -0.8948646532866125E-05
+
+    length representation:               0.1901768791930587E-09
+
+    length rep. / 10^(-40)erg*cm^3:      0.1228634236498114E-04
+
+
+ Dominant contributions:
+
+      occ. orbital   energy / eV   virt. orbital     energy / eV   |coeff.|^2*100
+      150 a   alpha           -5.01    155 a   alpha           -1.87       95.7
+ 
+
+ Change of electron number:
+
+             0.000000
+
+
+ Electric transition dipole moment (velocity rep.):
+
+    x       -0.000201        Norm:                  0.000206
+    y       -0.000040
+    z       -0.000018        Norm / debye:          0.000523
+
+
+ Electric transition dipole moment (length rep.):
+
+    x       -0.000037        Norm:                  0.000080
+    y       -0.000006
+    z       -0.000071        Norm / debye:          0.000203
+
+
+ Magnetic transition dipole moment / i:
+
+    x        0.000001        Norm:                  0.000003
+    y       -0.000000
+    z       -0.000003        Norm / Bohr mag.:      0.000919
+
+
+ Electric quadrupole transition moment:
+
+   xx       -0.748672
+   yy        0.748700        1/3*trace:             0.000011
+   zz        0.000007
+   xy        0.000005
+   xz       -0.000154        Anisotropy:            1.296763
+   yz       -0.000760
+
+ SUMMARY OF EXCITATION ENERGIES AND DIPOLE OSCILLATOR STRENGTHS (velocity/length):
+
+ -----------------------------------------------------------------------------------------------
+ |    Exc.   | energy (Eh) | energy (eV) | energy (cm-1) | energy (nm) | Osc.(vel) | Osc.(len) |
+ -----------------------------------------------------------------------------------------------
+ |     1 a   |    0.014538 |     0.39561 |      3190.771 |    3134.039 |   0.00646 |   0.00000 |
+ |     2 a   |    0.014550 |     0.39593 |      3193.416 |    3131.443 |   0.00650 |   0.00000 |
+ |     3 a   |    0.015499 |     0.42176 |      3401.729 |    2939.681 |   0.00125 |   0.00000 |
+ |     4 a   |    0.015517 |     0.42225 |      3405.673 |    2936.277 |   0.00125 |   0.00000 |
+ |     5 a   |    0.018338 |     0.49899 |      4024.654 |    2484.685 |   0.00065 |   0.00000 |
+ |     6 a   |    0.018345 |     0.49918 |      4026.155 |    2483.759 |   0.00064 |   0.00000 |
+ |     7 a   |    0.022678 |     0.61709 |      4977.147 |    2009.183 |   0.00312 |   0.00001 |
+ |     8 a   |    0.022683 |     0.61723 |      4978.331 |    2008.705 |   0.00314 |   0.00001 |
+ |     9 a   |    0.023006 |     0.62603 |      5049.244 |    1980.494 |   0.00000 |   0.00000 |
+ |    10 a   |    0.023709 |     0.64516 |      5203.589 |    1921.750 |   0.00000 |   0.00000 |
+ |    11 a   |    0.023838 |     0.64867 |      5231.844 |    1911.372 |   0.00000 |   0.00000 |
+ |    12 a   |    0.027065 |     0.73646 |      5939.972 |    1683.510 |   0.00540 |   0.00000 |
+ |    13 a   |    0.027081 |     0.73692 |      5943.635 |    1682.472 |   0.00540 |   0.00000 |
+ |    14 a   |    0.027231 |     0.74100 |      5976.550 |    1673.206 |   0.00611 |   0.00039 |
+ |    15 a   |    0.027320 |     0.74342 |      5996.077 |    1667.757 |   0.00006 |   0.00000 |
+ |    16 a   |    0.027698 |     0.75371 |      6079.051 |    1644.994 |   0.00000 |   0.00000 |
+ |    17 a   |    0.028581 |     0.77774 |      6272.885 |    1594.163 |   0.00000 |   0.00000 |
+ |    18 a   |    0.033369 |     0.90802 |      7323.668 |    1365.436 |   0.02493 |   0.05084 |
+ |    19 a   |    0.055737 |     1.51669 |     12232.940 |     817.465 |   0.00006 |   0.00004 |
+ |    20 a   |    0.055741 |     1.51678 |     12233.660 |     817.417 |   0.00006 |   0.00004 |
+ |    21 a   |    0.057599 |     1.56736 |     12641.574 |     791.041 |   0.00003 |   0.00000 |
+ |    22 a   |    0.057753 |     1.57153 |     12675.275 |     788.937 |   0.00811 |   0.00055 |
+ |    23 a   |    0.064161 |     1.74592 |     14081.783 |     710.137 |   0.00000 |   0.00000 |
+ |    24 a   |    0.064319 |     1.75021 |     14116.422 |     708.395 |   0.00000 |   0.00000 |
+ |    25 a   |    0.066562 |     1.81124 |     14608.658 |     684.526 |   0.00001 |   0.00117 |
+ |    26 a   |    0.066569 |     1.81143 |     14610.132 |     684.457 |   0.00001 |   0.00117 |
+ |    27 a   |    0.067323 |     1.83194 |     14775.611 |     676.791 |   0.00001 |   0.00009 |
+ |    28 a   |    0.067850 |     1.84631 |     14891.463 |     671.526 |   0.00511 |   0.05068 |
+ |    29 a   |    0.070095 |     1.90739 |     15384.119 |     650.021 |   0.00496 |   0.00001 |
+ |    30 a   |    0.070110 |     1.90779 |     15387.363 |     649.884 |   0.00517 |   0.00001 |
+ |    31 a   |    0.070536 |     1.91938 |     15480.826 |     645.960 |   0.00691 |   0.00030 |
+ |    32 a   |    0.070544 |     1.91960 |     15482.585 |     645.887 |   0.00671 |   0.00030 |
+ |    33 a   |    0.078977 |     2.14906 |     17333.347 |     576.923 |   0.00615 |   0.00483 |
+ |    34 a   |    0.079354 |     2.15933 |     17416.180 |     574.179 |   0.00000 |   0.00000 |
+ |    35 a   |    0.079869 |     2.17334 |     17529.178 |     570.477 |   0.00000 |   0.00000 |
+ |    36 a   |    0.080407 |     2.18798 |     17647.246 |     566.661 |   0.00001 |   0.01921 |
+ |    37 a   |    0.082932 |     2.25670 |     18201.506 |     549.405 |   0.00452 |   0.00003 |
+ |    38 a   |    0.082962 |     2.25752 |     18208.126 |     549.205 |   0.00448 |   0.00003 |
+ |    39 a   |    0.086223 |     2.34624 |     18923.670 |     528.439 |   0.00153 |   0.00032 |
+ |    40 a   |    0.086260 |     2.34726 |     18931.906 |     528.209 |   0.00151 |   0.00032 |
+ |    41 a   |    0.089982 |     2.44855 |     19748.853 |     506.359 |   0.00000 |   0.00000 |
+ |    42 a   |    0.093713 |     2.55007 |     20567.698 |     486.199 |   0.00318 |   0.00151 |
+ |    43 a   |    0.093730 |     2.55052 |     20571.361 |     486.113 |   0.00316 |   0.00150 |
+ |    44 a   |    0.093981 |     2.55735 |     20626.456 |     484.814 |   0.00000 |   0.00000 |
+ |    45 a   |    0.096851 |     2.63545 |     21256.377 |     470.447 |   0.00000 |   0.00000 |
+ |    46 a   |    0.096914 |     2.63717 |     21270.223 |     470.141 |   0.00159 |   0.00033 |
+ |    47 a   |    0.096928 |     2.63756 |     21273.323 |     470.072 |   0.00155 |   0.00030 |
+ |    48 a   |    0.097518 |     2.65360 |     21402.687 |     467.231 |   0.00019 |   0.00075 |
+ |    49 a   |    0.097546 |     2.65437 |     21408.959 |     467.094 |   0.00020 |   0.00073 |
+ |    50 a   |    0.097732 |     2.65943 |     21449.779 |     466.205 |   0.00000 |   0.00000 |
+ -----------------------------------------------------------------------------------------------
+
+
+
+
+    ------------------------------------------------------------------------
+         total  cpu-time :   8 days  7 hours 36 minutes and 20 seconds
+         total wall-time : 10 hours 11 minutes and 51 seconds
+    ------------------------------------------------------------------------
+
+   ****  escf : all done  ****
+
+
+    2020-07-30 22:45:29.907 
+

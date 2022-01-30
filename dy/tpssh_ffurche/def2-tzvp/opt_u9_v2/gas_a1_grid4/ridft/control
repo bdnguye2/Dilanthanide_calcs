@@ -1,0 +1,111 @@
+#$pointval mo 222,223 fmt=cub
+$pop nbo
+ lall
+$title
+$symmetry d2d
+$redundant    file=coord
+$user-defined bonds    file=coord
+$coord    file=coord
+$optimize
+ internal   off
+ redundant  off
+ cartesian  on
+ global     off
+ basis      off
+$atoms
+mo 1                                                                           \
+   basis =mo def2-TZVP                                                         \
+   ecp   =mo def2-ecp                                                          \
+   jbas  =mo def2-TZVP
+dy 2-3                                                                         \
+   basis =dy def2-TZVP                                                         \
+   ecp   =dy def2-ecp                                                          \
+   jbas  =dy def2-TZVP
+s  4-7                                                                         \
+   basis =s  def2-TZVP                                                         \
+   jbas  =s def2-TZVP
+c  8-27                                                                        \
+   basis =c  def2-TZVP                                                         \
+   jbas  =c def2-TZVP
+h  28-47                                                                       \
+   basis =h  def2-TZVP                                                         \
+   jbas  =h def2-TZVP
+$basis    file=basis
+$ecp    file=basis
+$uhfmo_alpha   file=alpha
+$uhfmo_beta   file=beta
+$uhf
+$scfiterlimit       1000
+$thize     0.10000000E-04
+$thime        5
+$scfdamp   start=1.000  step=0.050  min=0.050
+$scfdump
+$scfintunit
+ unit=30       size=0        file=twoint
+$scfdiis
+$drvopt
+   cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$interconversion  off
+   qconv=1.d-7
+   maxiter=25
+$coordinateupdate
+   dqmax=0.3
+   interpolate  on
+   statistics    5
+$forceupdate
+   ahlrichs numgeo=0  mingeo=3 maxgeo=4 modus=<g|dq> dynamic fail=0.3
+   threig=0.005  reseig=0.005  thrbig=3.0  scale=1.00  damping=0.0
+$forceinit on
+   diag=default
+$dft
+   functional tpssh
+   gridsize   4
+   weight derivatives
+$disp3 bj
+$rundimensions
+   natoms=47
+   nbf(CAO)=1286
+   nbf(AO)=1114
+$last SCF energy change = -.43318460E-05
+$ssquare from ridft
+         26.755 (not to be modified here)
+$charge from ridft
+         -1.000 (not to be modified here)
+$optinfo       file=optinfo
+$hessapprox   file=hessapprox
+$newecp
+$maxcor   3500 MiB  per_core
+$forceapprox    file=forceapprox
+$scfconv   6
+$scforbitalshift  closedshell=.1
+#$marij
+$energy    file=energy
+$grad    file=gradient
+$dipole from ridft
+  x    -0.00000000000032    y     0.00000000000025    z     0.00000000000120    a.u.
+   | dipole | =    0.0000000000  debye
+$jbas    file=auxbasis
+$alpha shells
+ a1      1-27                                   ( 1 )
+ a2      1-11                                   ( 1 )
+ b1      1-11                                   ( 1 )
+ b2      1-27                                   ( 1 )
+ e       1-38                                   ( 1 )
+$beta shells
+ a1      1-27                                   ( 1 )
+ a2      1-10                                   ( 1 )
+ b1      1-10                                   ( 1 )
+ b2      1-26                                   ( 1 )
+ e       1-35                                   ( 1 )
+$ricore    70000
+$rij
+$last step     ridft
+$orbital_max_rnorm 0.21230510553257E-03
+$subenergy  Etot         E1                  Ej                Ex                 Ec                 En                 Disp
+-4206.640381022    -16656.27461727     7688.477077121    -289.8631702321    -11.83634224385     5062.964841813    -.1081702099231
+$end
