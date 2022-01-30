@@ -1,0 +1,461 @@
+
+   OpenMP run-time library returned nthreads = 16
+
+ escf (hpc3-15-00) : TURBOMOLE rev. V7-5-tag-28-gbe0a187fad compiled 7 Apr 2020 at 04:41:40
+ Copyright (C) 2020 TURBOMOLE GmbH, Karlsruhe
+
+
+    2020-07-15 20:11:26.751 
+
+
+
+
+                                e s c f
+
+                             TURBOMOLE GmbH
+
+
+          integral direct evaluation of 
+
+                    * excitation energies and transition moments 
+                    * dynamic response properties 
+                    * stabilities
+
+
+
+          OpenMP Shared-Memory Parallelization: 16 CPUs.
+
+            By: Erik P. Almaraz and Filipp Furche
+            Copyright 2009-2011 by UCI and TURBOMOLE GmbH.
+
+            Revised by: Christof Holzer and Yannick J. Franzke
+
+
+
+          references (see also programs dscf and ridft) 
+
+          implementation and benchmarks (review) 
+          F. Furche and D. Rappoport,  
+          "Density functional methods for excited states: 
+          equilibrium structure and electronic spectra",
+          ch. III of "Computational Photochemistry", ed. by 
+          M. Olivucci, vol. 16 of "Theoretical and Computational 
+          Chemistry", Elsevier, Amsterdam, 2005.
+
+          Bethe-Salpeter equation
+          K. Krause and W. Klopper,
+          J. Comput. Chem. 38 (2017) 383.
+
+          2c BSE, GW and hybrid TD-DFT
+          C. Holzer and W. Klopper
+          J. Chem. Phys. 150, 204116 (2019)
+
+          nonorthonormal Krylov space methods 
+          F. Furche, B. T. Krull, B. D. Nguyen, and J. Kwon, 
+          J. Chem. Phys. 144 (2016), 174105.
+
+          two-component GW quasi particle energies 
+          M. Kuehn and F. Weigend, 
+          J. Chem. Theory Comput. 11 (2015), 969.
+
+          two-component TDDFT with spin-orbit coupling 
+          M. Kuehn and F. Weigend, 
+          J. Chem. Theory Comput. 9 (2013), 5341.
+          M. Kuehn and F. Weigend, 
+          J. Chem. Phys. 142 (2015), 034116.
+
+          GW quasi particle energies
+          M. J. van Setten, F. Weigend, and F. Evers,
+          J. Chem. Theory Comput. 9 (2013), 232.
+
+          Fast GW methods: RIGW, contour deformation
+          J. Chem. Phys. 150, 204116 (2019)
+
+          current-density dependent meta-GGA Linear Response
+          J. E. Bates and F. Furche, 
+          J. Chem. Phys. 137 (2012), 164105.
+
+          spin-flip method 
+          M. Kuehn and F. Weigend, 
+          Chem. Phys. Chem. 12 (2011), 3331.
+
+          RI-J method 
+          R. Bauernschmitt, M. Haeser, O. Treutler, and R. Ahlrichs,
+          Chem. Phys. Lett. 264 (1997), 573.
+
+          density functional implementation               
+          R. Bauernschmitt and R. Ahlrichs,
+          Chem. Phys. Lett. 256 (1996), 454.
+          R. Bauernschmitt and R. Ahlrichs,
+          J. Chem. Phys. 104 (1996), 9047.
+
+          UHF extension (RPA and CIS)
+          C. Ochsenfeld, J. Gauss, and R. Ahlrichs, 
+          J. Chem. Phys. 103 (1995), 7401.
+
+          integral direct algorithm                 
+          H. Weiss, R. Ahlrichs, and M. Haeser, 
+          J. Chem. Phys. 99 (1993), 1262.
+
+          Seminumerical and pseudospectral algorithms
+          C. Holzer, in preparation (2020)
+
+          Two-component static/dynamic polarizabilities,
+          and relativistic damped-response approach,
+          polarizabilities and damped response at GW-BSE level
+          M. Kehry, Y. J. Franzke, C. Holzer, and W. Klopper,
+          submitted (2020)
+                                     
+
+
+
+ UHF mode switched on !
+
+
+              +--------------------------------------------------+
+              | Atomic coordinate, charge and isotop information |
+              +--------------------------------------------------+
+
+                    atomic coordinates            atom    charge  isotop
+          0.00000000    0.00000000    0.00000000    mo    42.000     0
+          0.00000000    0.00000000   -6.63647530    dy    66.000     0
+          0.00000000    0.00000000    6.63647530    dy    66.000     0
+          2.30220227    2.30220227   -2.60096623    s     16.000     0
+         -2.30220227   -2.30220227   -2.60096623    s     16.000     0
+          2.30220227   -2.30220227    2.60096623    s     16.000     0
+         -2.30220227    2.30220227    2.60096623    s     16.000     0
+          4.66039130   -1.60663029   -7.83711667    c      6.000     0
+          3.58626885   -3.58626885   -6.40276271    c      6.000     0
+          1.60663029   -4.66039130   -7.83711667    c      6.000     0
+          1.45938779   -3.35097302  -10.16354785    c      6.000     0
+          3.35097302   -1.45938779  -10.16354785    c      6.000     0
+         -1.60663029    4.66039130   -7.83711667    c      6.000     0
+         -3.58626885    3.58626885   -6.40276271    c      6.000     0
+         -4.66039130    1.60663029   -7.83711667    c      6.000     0
+         -3.35097302    1.45938779  -10.16354785    c      6.000     0
+         -1.45938779    3.35097302  -10.16354785    c      6.000     0
+          1.60663029    4.66039130    7.83711667    c      6.000     0
+          1.45938779    3.35097302   10.16354785    c      6.000     0
+          3.35097302    1.45938779   10.16354785    c      6.000     0
+          4.66039130    1.60663029    7.83711667    c      6.000     0
+          3.58626885    3.58626885    6.40276271    c      6.000     0
+         -4.66039130   -1.60663029    7.83711667    c      6.000     0
+         -3.35097302   -1.45938779   10.16354785    c      6.000     0
+         -1.45938779   -3.35097302   10.16354785    c      6.000     0
+         -1.60663029   -4.66039130    7.83711667    c      6.000     0
+         -3.58626885   -3.58626885    6.40276271    c      6.000     0
+          0.39534207   -6.19158620   -7.23676491    h      1.000     0
+          0.14166064   -3.73170657  -11.67777060    h      1.000     0
+          4.12133635   -4.12133635   -4.50679766    h      1.000     0
+          3.73170657   -0.14166064  -11.67777060    h      1.000     0
+          6.19158620   -0.39534207   -7.23676491    h      1.000     0
+         -0.14166064    3.73170657  -11.67777060    h      1.000     0
+         -0.39534207    6.19158620   -7.23676491    h      1.000     0
+         -4.12133635    4.12133635   -4.50679766    h      1.000     0
+         -6.19158620    0.39534207   -7.23676491    h      1.000     0
+         -3.73170657    0.14166064  -11.67777060    h      1.000     0
+         -0.39534207   -6.19158620    7.23676491    h      1.000     0
+         -4.12133635   -4.12133635    4.50679766    h      1.000     0
+         -6.19158620   -0.39534207    7.23676491    h      1.000     0
+         -3.73170657   -0.14166064   11.67777060    h      1.000     0
+         -0.14166064   -3.73170657   11.67777060    h      1.000     0
+          0.14166064    3.73170657   11.67777060    h      1.000     0
+          0.39534207    6.19158620    7.23676491    h      1.000     0
+          4.12133635    4.12133635    4.50679766    h      1.000     0
+          3.73170657    0.14166064   11.67777060    h      1.000     0
+          6.19158620    0.39534207    7.23676491    h      1.000     0
+ 
+       center of nuclear mass  :   -0.00000000    0.00000000   -0.00000000
+       center of nuclear charge:    0.00000000    0.00000000   -0.00000000
+
+              +--------------------------------------------------+
+              |               basis set information              |
+              +--------------------------------------------------+
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1     60     40   def2-TZVPD   [6s4p3d1f|7s7p5d1f]
+    dy       2    171     93   def2-TZVP   [10s7p5d4f1g|14s14p10d8f1g]
+    s        4     72     46   def2-TZVPD   [6s6p3d1f|15s10p4d1f]
+    c       20     52     37   def2-TZVPD   [6s3p3d1f|12s6p3d1f]
+    h       20     11      9   def2-TZVPD   [3s2p|5s2p]
+   ---------------------------------------------------------------------------
+   total:   47   1950   1330
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  126
+   total number of contracted shells         :  492
+   total number of cartesian basis functions : 1526
+   total number of SCF-basis functions       : 1330
+
+ number of unique ecp types :                     2
+
+ residuum convergence criterium   :  0.10E-04
+
+
+ integral neglect threshold       :  0.22E-11
+ integral storage threshold THIZE :  0.10E-04
+ integral storage threshold THIME :         5
+
+ 
+             FOUND RI-J FLAG !
+ 
+  
+ AUXILIARY BASIS SET information:
+
+              we will work with the 1s 3p 5d 7f 9g ... basis set
+              ...i.e. with spherical basis functions...
+
+   type   atoms  prim   cont   basis
+   ---------------------------------------------------------------------------
+    mo       1    131    131   x2c-universal   [25s5p5d3f5g|25s5p5d3f5g]
+    dy       2    263    200   def2-TZVP   [14s7p6d6f5g2h2i|18s7p6d6f6g3h5i]
+    s        4     77     51   universal   [8s4p3d1f1g|14s5p5d2f1g]
+    c       20     70     49   universal   [6s4p3d1f1g|12s5p4d2f1g]
+    h       20     16     11   universal   [3s1p1d|5s2p1d]
+   ---------------------------------------------------------------------------
+   total:   47   2685   1935
+   ---------------------------------------------------------------------------
+
+   total number of primitive shells          :  153
+   total number of contracted shells         :  595
+   total number of cartesian basis functions : 2495
+   total number of SCF-basis functions       : 1935
+
+ RPA UHF-EXCITATION-CALCULATION (spin-conserved)
+ 
+             FOUND DFT-FLAG !
+ 
+
+ symmetry group of the molecule :   d2d
+
+ the group has the following generators :
+   s4(z)
+   c2(x)
+
+    8 symmetry operations found
+
+ there are 5 real representations :   a1   a2   b1   b2   e   
+
+ maximum number of shells which are related by symmetry :  8
+
+ IRREPs of excited states :   a1   a2   b1   b2   e   
+
+    mo occupation :
+   irrep   mo's   occupied
+    a1     203       28
+    a2     133       11
+    b1     135       11
+    b2     201       28
+    e      329       38
+ 
+ number of basis functions   :  1330
+ number of occupied orbitals :   154
+ 
+ ALPHA-Occupation:                   154
+ BETA-Occupation :                   140
+  
+           ------------------
+           density functional
+           ------------------
+ TPSS global hybrid functional
+ exchange:    9/10 (LDA+TPSS) + 1/10 HF
+ correlation: LDA (PW) + TPSS
+
+ spherical integration : Lebedev's spherical grid
+ spherical gridsize    :                     4
+    i.e. gridpoints    :                   434
+ value for diffuse not defined
+ radial integration    : Chebyshev 2nd kind (scaling 3)
+ radial gridsize       :                     6
+ integration cells     :                     9
+ partition function    : becke
+ partition sharpness   :                     3
+  
+ 
+ Derivatives of quadrature weights will be included
+ 
+
+ The current-density response will be included
+ for meta-GGA functionals in TDDFT.
+
+  
+           ----------------------
+               RI - INFORMATION
+           ----------------------
+
+ biggest AO integral is expected to be    25.238462089
+
+ Threshold for integral neglect (rithr2):   0.22E-11
+ Threshold for integral neglect (rithr1):   0.22E-11
+
+ Contributions to RI integral batches: 
+  neglected integral batches:                108802
+  direct contribution:                         8393
+  memory contribution:                  4083
+ Core memory available (ricore)            500 MiB
+ Core memory needed for (P|Q) and Cholesky 4 MiB
+ Core memory used for integrals            364 MiB
+  
+ ****************************************
+ Memory allocated for RIDFT 368 MiB
+ ****************************************
+                                            
+  MOs are in ASCII format !
+
+
+ reading orbital data $uhfmo_alpha  from file alpha
+ orbital characterization : scfconv=7
+
+ reading orbital data $uhfmo_beta  from file beta
+ orbital characterization : scfconv=7
+ preparing DFT   numerical integration ....
+          Overall gridpoints after grid construction =         63064
+ Ordering of quadrature gridpoints disabled.
+
+ Calculating ground state density on molecular grid
+
+ Integral of ground state total density: Na =   295.0013087845471    
+
+ Integral of ground state spin density:  Nb =   13.00002517334199    
+
+
+ all orbitals will be included in the transformation
+
+ number of non-frozen orbitals          :  1330
+ number of non-frozen occupied orbitals :   154
+ all orbitals will be included in the transformation
+
+ number of non-frozen orbitals          :  1330
+ number of non-frozen occupied orbitals :   140
+
+ dimension of super-tensorspace: 2
+
+          IRREP   tensor space dimension   number of roots
+
+           a1            45128                  25
+           a2            41804                  25
+           b1            41804                  25
+           b2            45128                  25
+           e             86920                  25
+
+ maximum number of Davidson iterations set to   35
+
+
+ machine precision: 2.22D-16
+
+
+ logfile unrs_a1   will be constructed
+
+ logfile unrs_a2   will be constructed
+
+ logfile unrs_b1   will be constructed
+
+ logfile unrs_b2   will be constructed
+
+ logfile unrs_e    will be constructed
+
+
+                       Nonorthonormal Krylov Space Iteration
+
+
+ total number of roots to be determined: 125
+
+
+ maximum core memory set to        12096 MB,
+ corresponding to      170 vectors in CAO basis
+
+
+ maximum number of simultaneously treated vectors (including degeneracy):      198
+
+
+ Recommendation for optimum performance: Increase the maximum amount of
+ allocatable core memory (e.g. $rpacor, $maxcor) to    14256 MB or to the
+ maximum amount of core memory available on your machine.
+
+
+ Iteration IRREP Converged      Max. Euclidean
+                 roots          residual norm
+
+ ritz2: A-B has negative eigenvalue:  -0.34674785D-01
+ switching algorithm...
+    1       a1       0        2.272996251091834D-01
+            a2       0        1.576963032736829D-01
+            b1       0        1.577632412018136D-01
+            b2       0        2.184028625813221D-01
+            e        0        1.626066841265745D-01
+ 
+    2       a1       0        3.560271780719285D-02
+            a2       0        6.261829179305925D-02
+            b1       0        6.127381629397857D-02
+            b2       0        4.044136455852024D-02
+            e        0        8.290772270472432D-02
+ 
+    3       a1       0        1.165524676654714D-02
+            a2       0        4.938472525694052D-03
+            b1       0        4.922069240161355D-03
+            b2       0        1.108187241788641D-02
+            e        0        5.006958723382444D-02
+ 
+    4       a1       0        1.909036945243996D-03
+            a2       0        4.776829200303134D-04
+            b1       0        5.045707821371573D-04
+            b2       0        1.498771700737989D-03
+            e        0        1.992699523697265D-02
+ 
+    5       a1       0        3.539672590270263D-04
+            a2       9        6.674331063696372D-05
+            b1       6        7.330731132875761D-05
+            b2       0        2.091067033256657D-04
+            e        1        1.804285120769501D-02
+ 
+    6       a1       8        5.691402831321865D-05
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      13        2.844381972380078D-05
+            e        1        1.791087620778556D-02
+ 
+    7       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+            e        1        1.790586277545683D-02
+ 
+    8       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+            e        1        1.790578115695243D-02
+ 
+    9       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+            e        1        1.790576930427455D-02
+ 
+   10       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+            e        1        1.790576888744588D-02
+ 
+   11       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+            e        1        1.790576875543531D-02
+ 
+   12       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+            e        1        1.790576877638429D-02
+ 
+   13       a1      25        9.358854617824656D-06
+            a2      25        9.080152177943779D-06
+            b1      25        9.522174874179014D-06
+            b2      25        9.925439095405083D-06
+ Orthogonal subspace update failed - check your input  !
